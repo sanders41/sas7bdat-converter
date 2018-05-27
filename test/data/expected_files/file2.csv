@@ -1,0 +1,9 @@
+"date_row","text_row","integer_row"
+"2018-01-02","Some text",6.0
+"2018-02-05","Some more text",7.0
+"2017-11-21","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lobortis, risus nec euismod condimentum, lectus ligula porttitor massa, vel ornare mauris arcu vel augue. Maecenas rhoncus consectetur nisl, ac convallis enim pellentesque efficitur. Praesent tristique .  End of textlectus a dolor sodales, in porttitor felis auctor. Etiam dui mauris, commodo at venenatis eu, lacinia nec tellus. Curabitur dictum tincidunt convallis. Duis vestibulum mauris quis felis euismod bibendum. Nulla eget nunc arcu. Nam quis est urna. In eleifend ultricies ultrices. In lacinia auctor ex, sed commodo nisl fringilla sed. Fusce iaculis viverra eros, nec elementum velit aliquam non. Aenean sollicitudin consequat libero, eget mattis.",8.0
+"2016-05-19","Text",9.0
+"1999-10-25","Test",10.0
+"2016-06-15","more",11.0
+"1973-07-14","again",12.0
+"2001-04-03","one more",13.0

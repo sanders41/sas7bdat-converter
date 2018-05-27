@@ -1,0 +1,8 @@
+numpy==1.14.3
+pandas==0.23.0
+pkg-resources==0.0.0
+python-dateutil==2.7.3
+pytz==2018.4
+six==1.11.0
+xlrd==1.1.0
+XlsxWriter==1.0.5

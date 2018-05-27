@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <item>
+    <integer_row>1.0</integer_row>
+    <text_row>Some text</text_row>
+    <float_row>2.5</float_row>
+    <date_row>2018-01-02 00:00:00</date_row>
+  </item>
+  <item>
+    <integer_row>2.0</integer_row>
+    <text_row>Some more text</text_row>
+    <float_row>17.23</float_row>
+    <date_row>2018-02-05 00:00:00</date_row>
+  </item>
+  <item>
+    <integer_row>3.0</integer_row>
+    <text_row>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lobortis, risus nec euismod condimentum, lectus ligula porttitor massa, vel ornare mauris arcu vel augue. Maecenas rhoncus consectetur nisl, ac convallis enim pellentesque efficitur. Praesent tristique .  End of textlectus a dolor sodales, in porttitor felis auctor. Etiam dui mauris, commodo at venenatis eu, lacinia nec tellus. Curabitur dictum tincidunt convallis. Duis vestibulum mauris quis felis euismod bibendum. Nulla eget nunc arcu. Nam quis est urna. In eleifend ultricies ultrices. In lacinia auctor ex, sed commodo nisl fringilla sed. Fusce iaculis viverra eros, nec elementum velit aliquam non. Aenean sollicitudin consequat libero, eget mattis.</text_row>
+    <float_row>3.21</float_row>
+    <date_row>2017-11-21 00:00:00</date_row>
+  </item>
+  <item>
+    <integer_row>4.0</integer_row>
+    <text_row>Text</text_row>
+    <float_row>100.9</float_row>
+    <date_row>2016-05-19 00:00:00</date_row>
+  </item>
+  <item>
+    <integer_row>5.0</integer_row>
+    <text_row>Test</text_row>
+    <float_row>98.6</float_row>
+    <date_row>1999-10-25 00:00:00</date_row>
+  </item>
+</root>
