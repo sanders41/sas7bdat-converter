@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='sas7bdat_converter',
-    version='0.0.1',
+    version='0.1.0',
     author='Paul Sanders',
     author_email='psanders1@gmail.com'
     deeacription='Convert sas7bdat files into other formats',
