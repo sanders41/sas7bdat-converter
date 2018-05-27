@@ -8,7 +8,7 @@ setup(
     name='sas7bdat_converter',
     version='0.1.0',
     author='Paul Sanders',
-    author_email='psanders1@gmail.com'
+    author_email='psanders1@gmail.com',
     description='Convert sas7bdat files into other formats',
     long_description=long_description,
     long_description_content_type='text/markdown',
