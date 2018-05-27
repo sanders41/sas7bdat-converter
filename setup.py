@@ -9,7 +9,7 @@ setup(
     version='0.1.0',
     author='Paul Sanders',
     author_email='psanders1@gmail.com'
-    deeacription='Convert sas7bdat files into other formats',
+    description='Convert sas7bdat files into other formats',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/sanders41/sas7bdat_converter',
