@@ -1,6 +1,7 @@
 import filecmp
 import os
 import pandas as pd
+import shutil
 import unittest
 import xlrd
 from sas7bdat_converter.converter import SASConverter
@@ -8,13 +9,16 @@ from sas7bdat_converter.converter import SASConverter
 class ConverterTestCase(unittest.TestCase):
     def setUp(self):
         current_dir = os.path.dirname(__file__)
+
+        if not os.path.isdir(os.path.join(current_dir, 'data/converted_files')):
+            os.mkdir(os.path.join(current_dir, 'data/converted_files'))
+
         self.converted_dir = os.path.join(current_dir, 'data/converted_files')
         self.expected_dir = os.path.join(current_dir, 'data/expected_files')
         self.sas7bdat_dir = os.path.join(current_dir, 'data/sas7bdat_files/')
 
     def tearDown(self):
-        for file_name in os.listdir(self.converted_dir):
-            os.remove(os.path.join(self.converted_dir, file_name))
+        shutil.rmtree(self.converted_dir)
 
     def test_batch_to_csv(self):
         sas_file1 = os.path.join(self.sas7bdat_dir, 'file1.sas7bdat')
@@ -166,6 +170,7 @@ class ConverterTestCase(unittest.TestCase):
         d = {'integer_row': [1.0, 2.0, 3.0, 4.0, 5.0], 'text_row': ['Some text', 'Some more text', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lobortis, risus nec euismod condimentum, lectus ligula porttitor massa, vel ornare mauris arcu vel augue. Maecenas rhoncus consectetur nisl, ac convallis enim pellentesque efficitur. Praesent tristique .  End of textlectus a dolor sodales, in porttitor felis auctor. Etiam dui mauris, commodo at venenatis eu, lacinia nec tellus. Curabitur dictum tincidunt convallis. Duis vestibulum mauris quis felis euismod bibendum. Nulla eget nunc arcu. Nam quis est urna. In eleifend ultricies ultrices. In lacinia auctor ex, sed commodo nisl fringilla sed. Fusce iaculis viverra eros, nec elementum velit aliquam non. Aenean sollicitudin consequat libero, eget mattis.', 'Text', 'Test'], 'float_row': [2.5, 17.23, 3.21, 100.9, 98.6], 'date_row': ['2018-01-02', '2018-02-05', '2017-11-21', '2016-05-19', '1999-10-25']}
         df = pd.DataFrame(data=d)
         df['date_row'] = pd.to_datetime(df['date_row'])
+        df = df[['integer_row', 'text_row', 'float_row', 'date_row']]
         sas_converter = SASConverter()
         sas_file = os.path.join(self.sas7bdat_dir, 'file1.sas7bdat')
         df_file = sas_converter.to_dataframe(sas_file)
