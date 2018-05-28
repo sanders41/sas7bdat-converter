@@ -87,7 +87,7 @@ class SASConverter:
     def dir_to_excel(self, dir_path, export_path=None):
         for file_name in os.listdir(dir_path):
             if file_name.endswith('.sas7bdat'):
-                export_file = file_name[:-9] + ' .xlsx'
+                export_file = file_name[:-9] + '.xlsx'
                 if export_path:
                     export_file = os.path.join(export_path, export_file)
                 else:
@@ -99,7 +99,7 @@ class SASConverter:
     def dir_to_json(self, dir_path, export_path=None):
         for file_name in os.listdir(dir_path):
             if file_name.endswith('.sas7bdat'):
-                export_file = file_name[:-9] + ' .json'
+                export_file = file_name[:-9] + '.json'
                 if export_path:
                     export_file = os.path.join(export_path, export_file)
                 else:
