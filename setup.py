@@ -9,14 +9,14 @@ Conversions can be done on a single file, a batch of files, or a whole directory
 
 setup(
     name='sas7bdat_converter',
-    version='0.2.2',
+    version='0.2.3',
     author='Paul Sanders',
     author_email='psanders1@gmail.com',
     license='Apache 2.0',
     description='Convert sas7bdat files into other formats',
     long_description=long_description,
     url='https://github.com/sanders41/sas7bdat_converter',
-    download_url='https://github.com/sanders41/sas7bdat_converter/archive/v0.2.2.tar.gz',
+    download_url='https://github.com/sanders41/sas7bdat_converter/archive/v0.2.3.tar.gz',
     install_requires=['pandas>=0.23.0',
                       'XlsxWriter>=1.0.5'],
     extras_require={

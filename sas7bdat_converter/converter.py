@@ -111,7 +111,7 @@ class SASConverter:
     def dir_to_xml(self, dir_path, export_path=None):
         for file_name in os.listdir(dir_path):
             if file_name.endswith('.sas7bdat'):
-                export_file = file_name[:-9] + ' .xml'
+                export_file = file_name[:-9] + '.xml'
                 if export_path:
                     export_file = os.path.join(export_path, export_file)
                 else:
