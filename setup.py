@@ -1,8 +1,6 @@
 from setuptools import setup
 from setuptools import find_packages
 
-#with open("README.md", "r") as fh:
-#    long_description = fh.read()
 long_description = '''
 Converts proprietary sas7bdat files from SAS into formats such as csv and XML useable by other programs. Currently supported conversiaions are csv, Excel (xlsx format), json, Pandas DataFrame, and XML.
 
