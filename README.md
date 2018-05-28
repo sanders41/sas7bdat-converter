@@ -3,6 +3,9 @@ Converts proprietary sas7bdat files from SAS into formats such as csv and XML us
 
 Conversions can be done on either a single file or a batch of files.
 
+## Install
+`pip install sas7bdat_converter`
+
 ## Usage
 * **batch_to_csv(file_dicts)** - Convert multiple sas7bdat files into csv files at once.
   * file_dicts = A list containing a dictionary for each file to convert. The dictionary is required to contain 'sas7bdat_file' containing the path and name for the sas7bdat file, and 'export_file' containing the path and name for the csv files. The csv file extension should be .csv.
