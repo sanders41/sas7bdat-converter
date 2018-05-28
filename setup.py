@@ -6,20 +6,19 @@ from setuptools import find_packages
 long_description = '''
 Converts proprietary sas7bdat files from SAS into formats such as csv and XML useable by other programs. Currently supported conversiaions are csv, Excel (xlsx format), json, Pandas DataFrame, and XML.
 
-Conversions can be done on either a single file or a batch of files.
+Conversions can be done on a single file, a batch of files, or a whole directory.
 '''
 
 setup(
     name='sas7bdat_converter',
-    version='0.1.0',
+    version='0.2.0',
     author='Paul Sanders',
     author_email='psanders1@gmail.com',
     license='Apache 2.0',
-    #long_description_content_type='text/markdown',
     description='Convert sas7bdat files into other formats',
     long_description=long_description,
     url='https://github.com/sanders41/sas7bdat_converter',
-    download_url='https://github.com/sanders41/sas7bdat_converter/archive/v0.1.0.tar.gz',
+    download_url='https://github.com/sanders41/sas7bdat_converter/archive/v0.2.0.tar.gz',
     install_requires=['pandas>=0.23.0',
                       'XlsxWriter>=1.0.5'],
     extras_require={

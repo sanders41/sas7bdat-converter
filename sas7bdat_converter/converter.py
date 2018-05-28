@@ -1,6 +1,7 @@
 import csv
 import json
 import numpy as np
+import os
 import pandas as pd
 from xml.sax.saxutils import escape
 
@@ -69,6 +70,55 @@ class SASConverter:
                 self.to_xml(sas7bdat_file=sas7bdat, export_file=export, first_node=first_node)
             else:
                 self.to_xml(sas7bdat_file=sas7bdat, export_file=export)
+
+    def dir_to_csv(self, dir_path, export_path=None):
+        for file_name in os.listdir(dir_path):
+            if file_name.endswith('.sas7bdat'):
+                # file_name[:-9] removes .sas7bdat from the end of the file
+                export_file = file_name[:-9] + '.csv'
+                if export_path:
+                    export_file = os.path.join(export_path, export_file)
+                else:
+                    export_file = os.path.join(dir_path, export_file)
+                
+                sas7bdat_file = os.path.join(dir_path, file_name)
+                self.to_csv(sas7bdat_file, export_file)
+
+    def dir_to_excel(self, dir_path, export_path=None):
+        for file_name in os.listdir(dir_path):
+            if file_name.endswith('.sas7bdat'):
+                export_file = file_name[:-9] + ' .xlsx'
+                if export_path:
+                    export_file = os.path.join(export_path, export_file)
+                else:
+                    export_file = os.path.join(dir_path, export_file)
+                
+                sas7bdat_file = os.path.join(dir_path, file_name)
+                self.to_excel(sas7bdat_file, export_file)
+
+    def dir_to_json(self, dir_path, export_path=None):
+        for file_name in os.listdir(dir_path):
+            if file_name.endswith('.sas7bdat'):
+                export_file = file_name[:-9] + ' .json'
+                if export_path:
+                    export_file = os.path.join(export_path, export_file)
+                else:
+                    export_file = os.path.join(dir_path, export_file)
+                
+                sas7bdat_file = os.path.join(dir_path, file_name)
+                self.to_json(sas7bdat_file, export_file)
+
+    def dir_to_xml(self, dir_path, export_path=None):
+        for file_name in os.listdir(dir_path):
+            if file_name.endswith('.sas7bdat'):
+                export_file = file_name[:-9] + ' .xml'
+                if export_path:
+                    export_file = os.path.join(export_path, export_file)
+                else:
+                    export_file = os.path.join(dir_path, export_file)
+                
+                sas7bdat_file = os.path.join(dir_path, file_name)
+                self.to_xml(sas7bdat_file, export_file)
 
     def file_extension_exception_message(self, conversion_type, valid_extensions):
         if len(valid_extensions) == 1:

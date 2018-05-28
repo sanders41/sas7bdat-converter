@@ -64,6 +64,82 @@ Conversions can be done on either a single file or a batch of files.
   
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example_1.sas7bdat`.
 
+* **dir_to_csv(dir_path, export_path=None)** - Convert all sas7bdat files in a directory into csv files at once.
+  * dir_path = The dictionary that contains the sas7bdat file to convert.
+  * export_path = Optional path for the converted files. If no path is supplied the new files will be put into the dir_path directory with the sas7bdat files.
+
+  #### Example
+  ```
+  from sas7bdat_converter.converter import SASConverter
+
+  sas_converter = SASConverter()
+
+  # Option 1: put the converted files in the same directory as the sas7bdat files
+  sas_converter.dir_to_csv('/path/to/sas7bdat/files')
+
+  # Option 2: put the converted fiels in a diffferent directory
+  sas_converter.dir_to_csv('/path/to/sas7bdat/files', 'path/for/new/files')
+  ```
+  
+  **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files`.
+
+* **dir_to_excel(dir_path, export_path=None)** - Convert all sas7bdat files in a directory into Excel files at once.
+  * dir_path = The dictionary that contains the sas7bdat file to convert.
+  * export_path = Optional path for the converted files. If no path is supplied the new files will be put into the dir_path directory with the sas7bdat files.
+
+  #### Example
+  ```
+  from sas7bdat_converter.converter import SASConverter
+
+  sas_converter = SASConverter()
+
+  # Option 1: put the converted files in the same directory as the sas7bdat files
+  sas_converter.dir_to_excel('/path/to/sas7bdat/files')
+
+  # Option 2: put the converted fiels in a diffferent directory
+  sas_converter.dir_to_excel('/path/to/sas7bdat/files', 'path/for/new/files')
+  ```
+  
+  **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files`.
+
+* **dir_to_json(dir_path, export_path=None)** - Convert all sas7bdat files in a directory into json files at once.
+  * dir_path = The dictionary that contains the sas7bdat file to convert.
+  * export_path = Optional path for the converted files. If no path is supplied the new files will be put into the dir_path directory with the sas7bdat files.
+
+  #### Example
+  ```
+  from sas7bdat_converter.converter import SASConverter
+
+  sas_converter = SASConverter()
+
+  # Option 1: put the converted files in the same directory as the sas7bdat files
+  sas_converter.dir_to_json('/path/to/sas7bdat/files')
+
+  # Option 2: put the converted fiels in a diffferent directory
+  sas_converter.dir_to_json('/path/to/sas7bdat/files', 'path/for/new/files')
+  ```
+  
+  **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files`.
+
+* **dir_to_xml(dir_path, export_path=None)** - Convert all sas7bdat files in a directory into XML files at once.
+  * dir_path = The dictionary that contains the sas7bdat file to convert.
+  * export_path = Optional path for the converted files. If no path is supplied the new files will be put into the dir_path directory with the sas7bdat files.
+
+  #### Example
+  ```
+  from sas7bdat_converter.converter import SASConverter
+
+  sas_converter = SASConverter()
+
+  # Option 1: put the converted files in the same directory as the sas7bdat files
+  sas_converter.dir_to_xml('/path/to/sas7bdat/files')
+
+  # Option 2: put the converted fiels in a diffferent directory
+  sas_converter.dir_to_xml('/path/to/sas7bdat/files', 'path/for/new/files')
+  ```
+  
+  **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files`.
+
 * **to_csv(sas7bdat_file, export_file)** - convert a sas7bdat file into a csv file.
   * sas7bdat_file = the path and name for sas7bdat file to convert.
   * export_file = the path and name for the csv file. The csv file extension should be .csv.

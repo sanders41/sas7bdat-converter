@@ -4,6 +4,7 @@ import pandas as pd
 import shutil
 import unittest
 import xlrd
+from glob import glob
 from sas7bdat_converter.converter import SASConverter
 
 class ConverterTestCase(unittest.TestCase):
@@ -12,13 +13,19 @@ class ConverterTestCase(unittest.TestCase):
 
         if not os.path.isdir(os.path.join(current_dir, 'data/converted_files')):
             os.mkdir(os.path.join(current_dir, 'data/converted_files'))
+            os.mkdir(os.path.join(current_dir, 'data/converted_files/dir_test'))
 
         self.converted_dir = os.path.join(current_dir, 'data/converted_files')
+        self.directory_dir = os.path.join(self.converted_dir, 'dir_test')
         self.expected_dir = os.path.join(current_dir, 'data/expected_files')
         self.sas7bdat_dir = os.path.join(current_dir, 'data/sas7bdat_files/')
 
     def tearDown(self):
         shutil.rmtree(self.converted_dir)
+
+        for file_name in os.listdir(self.sas7bdat_dir):
+            if not file_name.endswith('.sas7bdat'):
+                os.remove(os.path.join(self.sas7bdat_dir, file_name))
 
     def test_batch_to_csv(self):
         sas_file1 = os.path.join(self.sas7bdat_dir, 'file1.sas7bdat')
@@ -99,6 +106,70 @@ class ConverterTestCase(unittest.TestCase):
             files_created = True
 
         self.assertTrue(files_created, msg='All expected xml files were not created')
+
+    def test_dir_to_csv_same_dir(self):
+        sas_converter = SASConverter()
+        sas_converter.dir_to_csv(self.sas7bdat_dir)
+        sas_counter = len([name for name in os.listdir(self.sas7bdat_dir) if name.endswith('.sas7bdat')])
+        convert_counter = len([name for name in os.listdir(self.sas7bdat_dir) if name.endswith('.csv')])
+
+        self.assertEqual(sas_counter, convert_counter)
+
+    def test_dir_to_csv_different_dir(self):
+        sas_converter = SASConverter()
+        sas_converter.dir_to_csv(self.sas7bdat_dir, self.directory_dir)
+        sas_counter = len([name for name in os.listdir(self.sas7bdat_dir) if name.endswith('.sas7bdat')])
+        convert_counter = len([name for name in os.listdir(self.directory_dir) if name.endswith('.csv')])
+
+        self.assertEqual(sas_counter, convert_counter)
+
+    def test_dir_to_excel_same_dir(self):
+        sas_converter = SASConverter()
+        sas_converter.dir_to_excel(self.sas7bdat_dir)
+        sas_counter = len([name for name in os.listdir(self.sas7bdat_dir) if name.endswith('.sas7bdat')])
+        convert_counter = len([name for name in os.listdir(self.sas7bdat_dir) if name.endswith('.xlsx')])
+
+        self.assertEqual(sas_counter, convert_counter)
+
+    def test_dir_to_excel_different_dir(self):
+        sas_converter = SASConverter()
+        sas_converter.dir_to_excel(self.sas7bdat_dir, self.directory_dir)
+        sas_counter = len([name for name in os.listdir(self.sas7bdat_dir) if name.endswith('.sas7bdat')])
+        convert_counter = len([name for name in os.listdir(self.directory_dir) if name.endswith('.xlsx')])
+
+        self.assertEqual(sas_counter, convert_counter)
+
+    def test_dir_to_json_same_dir(self):
+        sas_converter = SASConverter()
+        sas_converter.dir_to_json(self.sas7bdat_dir)
+        sas_counter = len([name for name in os.listdir(self.sas7bdat_dir) if name.endswith('.sas7bdat')])
+        convert_counter = len([name for name in os.listdir(self.sas7bdat_dir) if name.endswith('.json')])
+
+        self.assertEqual(sas_counter, convert_counter)
+
+    def test_dir_to_json_different_dir(self):
+        sas_converter = SASConverter()
+        sas_converter.dir_to_json(self.sas7bdat_dir, self.directory_dir)
+        sas_counter = len([name for name in os.listdir(self.sas7bdat_dir) if name.endswith('.sas7bdat')])
+        convert_counter = len([name for name in os.listdir(self.directory_dir) if name.endswith('.json')])
+
+        self.assertEqual(sas_counter, convert_counter)
+
+    def test_dir_to_xml_same_dir(self):
+        sas_converter = SASConverter()
+        sas_converter.dir_to_xml(self.sas7bdat_dir)
+        sas_counter = len([name for name in os.listdir(self.sas7bdat_dir) if name.endswith('.sas7bdat')])
+        convert_counter = len([name for name in os.listdir(self.sas7bdat_dir) if name.endswith('.xml')])
+
+        self.assertEqual(sas_counter, convert_counter)
+
+    def test_dir_to_json_different_dir(self):
+        sas_converter = SASConverter()
+        sas_converter.dir_to_xml(self.sas7bdat_dir, self.directory_dir)
+        sas_counter = len([name for name in os.listdir(self.sas7bdat_dir) if name.endswith('.sas7bdat')])
+        convert_counter = len([name for name in os.listdir(self.directory_dir) if name.endswith('.xml')])
+
+        self.assertEqual(sas_counter, convert_counter)
 
     def test_file_extension_exception_message_is(self):
         valid_message = 'sas7bdat conversion error - Valid extension for to_csv conversion is: .csv'
