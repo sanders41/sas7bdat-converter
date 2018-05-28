@@ -18,7 +18,7 @@ setup(
     description='Convert sas7bdat files into other formats',
     long_description=long_description,
     url='https://github.com/sanders41/sas7bdat_converter',
-    download_url='https://github.com/sanders41/sas7bdat_converter/archive/v0.2.0.tar.gz',
+    download_url='https://github.com/sanders41/sas7bdat_converter/archive/v0.2.1.tar.gz',
     install_requires=['pandas>=0.23.0',
                       'XlsxWriter>=1.0.5'],
     extras_require={
