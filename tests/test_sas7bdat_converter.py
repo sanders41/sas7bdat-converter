@@ -175,7 +175,7 @@ class ConverterTestCase(unittest.TestCase):
         valid_message = 'sas7bdat conversion error - Valid extension for to_csv conversion is: .csv'
         valid_extensions = ['.csv']
         sas_converter = SASConverter()
-        test_message = sas_converter.file_extension_exception_message('to_csv', valid_extensions)
+        test_message = sas_converter._SASConverter__file_extension_exception_message('to_csv', valid_extensions)
 
         self.assertEqual(valid_message, test_message)
 
@@ -183,7 +183,7 @@ class ConverterTestCase(unittest.TestCase):
         valid_message = 'sas7bdat conversion error - Valid extensions for to_csv conversion are: .csv, .txt'
         valid_extensions = ['.csv', '.txt']
         sas_converter = SASConverter()
-        test_message = sas_converter.file_extension_exception_message('to_csv', valid_extensions)
+        test_message = sas_converter._SASConverter__file_extension_exception_message('to_csv', valid_extensions)
 
         self.assertEqual(valid_message, test_message)
 
@@ -191,7 +191,7 @@ class ConverterTestCase(unittest.TestCase):
         valid_message = 'Invalid key provided, expected keys are: sas7bdat_file, export_file'
         required_keys = ['sas7bdat_file', 'export_file']
         sas_converter = SASConverter()
-        test_message = sas_converter.invalid_key_exception_message(required_keys=required_keys)
+        test_message = sas_converter._SASConverter__invalid_key_exception_message(required_keys=required_keys)
 
         self.assertEqual(valid_message, test_message)
 
@@ -200,33 +200,33 @@ class ConverterTestCase(unittest.TestCase):
         required_keys = ['sas7bdat_file', 'export_file']
         optional_keys = ['root_node', 'first_node']
         sas_converter = SASConverter()
-        test_message = sas_converter.invalid_key_exception_message(required_keys=required_keys, optional_keys=optional_keys)
+        test_message = sas_converter._SASConverter__invalid_key_exception_message(required_keys=required_keys, optional_keys=optional_keys)
 
         self.assertEqual(valid_message, test_message)
 
     def test_is_valid_extension_multiple_false(self):
         sas_converter = SASConverter()
-        valid_extensions = ['.txt', '.csv']
+        valid_extensions = ('.txt', '.csv',)
         file_extension = '.xml'
-        self.assertFalse(sas_converter.is_valid_extension(valid_extensions, file_extension))
+        self.assertFalse(sas_converter._SASConverter__is_valid_extension(valid_extensions, file_extension))
 
     def test_is_valid_extension_multiple_true(self):
         sas_converter = SASConverter()
-        valid_extensions = ['.txt', '.csv']
+        valid_extensions = ('.txt', '.csv',)
         file_extension = '.csv'
-        self.assertTrue(sas_converter.is_valid_extension(valid_extensions, file_extension))
+        self.assertTrue(sas_converter._SASConverter__is_valid_extension(valid_extensions, file_extension))
 
     def test_is_valid_extenstion_single_false(self):
         sas_converter = SASConverter()
         valid_extensions = ['.sas7bdat']
         file_extension = '.json'
-        self.assertFalse(sas_converter.is_valid_extension(valid_extensions, file_extension))
+        self.assertFalse(sas_converter._SASConverter__is_valid_extension(valid_extensions, file_extension))
 
     def test_is_valid_extenstion_single_true(self):
         sas_converter = SASConverter()
         valid_extensions = ['.sas7bdat']
         file_extension = '.sas7bdat'
-        self.assertTrue(sas_converter.is_valid_extension(valid_extensions, file_extension))
+        self.assertTrue(sas_converter._SASConverter__is_valid_extension(valid_extensions, file_extension))
 
     def test_to_csv(self):
         sas_converter = SASConverter()

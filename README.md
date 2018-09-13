@@ -1,7 +1,7 @@
 # sas7bdat_converter: Convert sas7bdat files into other formats
 Converts proprietary sas7bdat files from SAS into formats such as csv and XML useable by other programs. Currently supported conversiaions are csv, Excel (xlsx format), json, Pandas DataFrame, and XML.
 
-Conversions can be done on either a single file or a batch of files.
+Conversions can be done on either a single file, and entire directory, or a batch of specified files.
 
 ## Install
 `pip install sas7bdat_converter`
