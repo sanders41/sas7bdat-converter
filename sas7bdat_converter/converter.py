@@ -1,8 +1,8 @@
 import csv
 import json
 import numpy as np
-import os
 import pandas as pd
+from pathlib import Path
 from typing import Dict, List, Optional
 from xml.sax.saxutils import escape
 
@@ -25,7 +25,7 @@ class SASConverter:
         """
         for file_dict in file_dicts:
             if len(set(file_dict).intersection(self.file_dict_required_keys)) != len(self.file_dict_required_keys):
-                message = self.__invalid_key_exception_message(required_keys=self.file_dict_required_keys)
+                message = self._invalid_key_exception_message(required_keys=self.file_dict_required_keys)
                 raise KeyError(message)
     
             sas7bdat = file_dict['sas7bdat_file']
@@ -45,7 +45,7 @@ class SASConverter:
         """
         for file_dict in file_dicts:
             if len(set(file_dict).intersection(self.file_dict_required_keys)) != len(self.file_dict_required_keys):
-                message = self.__invalid_key_exception_message(required_keys=self.file_dict_required_keys)
+                message = self._invalid_key_exception_message(required_keys=self.file_dict_required_keys)
                 raise KeyError(message)
     
             sas7bdat = file_dict['sas7bdat_file']
@@ -65,7 +65,7 @@ class SASConverter:
         """
         for file_dict in file_dicts:
             if len(set(file_dict).intersection(self.file_dict_required_keys)) != len(self.file_dict_required_keys):
-                message = self.__invalid_key_exception_message(required_keys=self.file_dict_required_keys)
+                message = self._invalid_key_exception_message(required_keys=self.file_dict_required_keys)
                 raise KeyError(message)
     
             sas7bdat = file_dict['sas7bdat_file']
@@ -107,7 +107,7 @@ class SASConverter:
                 error = True
     
             if error:
-                message = self.__invalid_key_exception_message(required_keys=self.file_dict_required_keys, optional_keys=optional_keys)
+                message = self._invalid_key_exception_message(required_keys=self.file_dict_required_keys, optional_keys=optional_keys)
                 raise KeyError(message)
     
             sas7bdat = file_dict['sas7bdat_file']
@@ -139,16 +139,15 @@ class SASConverter:
                     the converted files into. If not supplied then the files will be
                     created into the same directory as dir_path.
         """
-        for file_name in os.listdir(dir_path):
-            if file_name.endswith('.sas7bdat'):
-                # file_name[:-9] removes .sas7bdat from the end of the file
-                export_file = file_name[:-9] + '.csv'
+        for file_name in Path(dir_path).iterdir():
+            if file_name.suffix == 'sas7bdat':
+                export_file = f'{file_name.stem}.csv'
                 if export_path:
-                    export_file = os.path.join(export_path, export_file)
+                    export_file = Path(export_path) / export_file
                 else:
-                    export_file = os.path.join(dir_path, export_file)
+                    export_file = Path(dir_path) / export_file
                 
-                sas7bdat_file = os.path.join(dir_path, file_name)
+                sas7bdat_file = Path(dir_path) / file_name
                 self.to_csv(sas7bdat_file, export_file)
     
     def dir_to_excel(self, dir_path: str, export_path: Optional[str]=None) -> None:
@@ -162,15 +161,15 @@ class SASConverter:
                     the converted files into. If not supplied then the files will be
                     created into the same directory as dir_path.
         """
-        for file_name in os.listdir(dir_path):
-            if file_name.endswith('.sas7bdat'):
-                export_file = file_name[:-9] + '.xlsx'
+        for file_name in Path(dir_path).iterdir():
+            if file_name.suffix == 'sas7bdat':
+                export_file = f'{file_name.stem}.xlsx'
                 if export_path:
-                    export_file = os.path.join(export_path, export_file)
+                    export_file = Path(export_path) / export_file
                 else:
-                    export_file = os.path.join(dir_path, export_file)
+                    export_file = Path(dir_path) / export_file
                 
-                sas7bdat_file = os.path.join(dir_path, file_name)
+                sas7bdat_file = Path(dir_path) / file_name
                 self.to_excel(sas7bdat_file, export_file)
     
     def dir_to_json(self, dir_path: str, export_path: Optional[str]=None) -> None:
@@ -184,15 +183,15 @@ class SASConverter:
                     the converted files into. If not supplied then the files will be
                     created into the same directory as dir_path.
         """
-        for file_name in os.listdir(dir_path):
-            if file_name.endswith('.sas7bdat'):
-                export_file = file_name[:-9] + '.json'
+        for file_name in Path(dir_path).iterdir():
+            if file_name.suffix == 'sas7bdat':
+                export_file = f'{file_name.stem}.json'
                 if export_path:
-                    export_file = os.path.join(export_path, export_file)
+                    export_file = Path(export_path) / export_file
                 else:
-                    export_file = os.path.join(dir_path, export_file)
+                    export_file = Path(dir_path) / export_file
                 
-                sas7bdat_file = os.path.join(dir_path, file_name)
+                sas7bdat_file = Path(dir_path) / file_name
                 self.to_json(sas7bdat_file, export_file)
     
     def dir_to_xml(self, dir_path: str, export_path: Optional[str]=None) -> None:
@@ -206,18 +205,18 @@ class SASConverter:
                     the converted files into. If not supplied then the files will be
                     created into the same directory as dir_path.
         """
-        for file_name in os.listdir(dir_path):
-            if file_name.endswith('.sas7bdat'):
-                export_file = file_name[:-9] + '.xml'
+        for file_name in Path(dir_path).iterdir():
+            if file_name.suffix == 'sas7bdat':
+                export_file = f'{file_name.stem}.xml'
                 if export_path:
-                    export_file = os.path.join(export_path, export_file)
+                    export_file = Path(export_path) / export_file
                 else:
-                    export_file = os.path.join(dir_path, export_file)
+                    export_file = Path(dir_path) / export_file
                 
-                sas7bdat_file = os.path.join(dir_path, file_name)
+                sas7bdat_file = Path(dir_path) / file_name
                 self.to_xml(sas7bdat_file, export_file)
     
-    def __file_extension_exception_message(self, conversion_type, valid_extensions):
+    def _file_extension_exception_message(self, conversion_type, valid_extensions):
         if len(valid_extensions) == 1:
             is_are = ('extension', 'is')
         else:
@@ -226,7 +225,7 @@ class SASConverter:
         extensions = ', '.join(valid_extensions)
         return 'sas7bdat conversion error - Valid {} for {} conversion {}: {}'.format(is_are[0], conversion_type, is_are[1], extensions)
     
-    def __invalid_key_exception_message(self, required_keys, optional_keys=None):
+    def _invalid_key_exception_message(self, required_keys, optional_keys=None):
         required_keys = ', '.join(required_keys)
         if optional_keys:
             optional_keys = ', '.join(optional_keys)
@@ -236,7 +235,7 @@ class SASConverter:
     
         return message
     
-    def __is_valid_extension(self, valid_extensions, file_extension):
+    def _is_valid_extension(self, valid_extensions, file_extension):
         if file_extension in valid_extensions:
             return True
         else:
@@ -251,10 +250,10 @@ class SASConverter:
             export_file: The name, including the path, for the export file.
         """
         valid_extensions = ('.csv',)
-        file_extension = export_file[-4:].lower()
+        file_extension = export_file.suffix
     
-        if not self.__is_valid_extension(valid_extensions, file_extension):
-            error_message = self.__file_extension_exception_message('to_csv', valid_extensions)
+        if not self._is_valid_extension(valid_extensions, file_extension):
+            error_message = self._file_extension_exception_message('to_csv', valid_extensions)
             raise AttributeError(error_message)
     
         df = self.to_dataframe(sas7bdat_file)
@@ -292,10 +291,10 @@ class SASConverter:
             export_file: The name, including the path, for the export file.
         """
         valid_extensions = ('.xlsx',)
-        file_extension = export_file[-5:].lower()
+        file_extension = export_file.suffix
     
-        if not self.__is_valid_extension(valid_extensions, file_extension):
-            error_message = self.__file_extension_exception_message('to_excel', valid_extensions)
+        if not self._is_valid_extension(valid_extensions, file_extension):
+            error_message = self._file_extension_exception_message('to_excel', valid_extensions)
             raise AttributeError(error_message)
     
         df = self.to_dataframe(sas7bdat_file)
@@ -310,10 +309,10 @@ class SASConverter:
             export_file: The name, including the path, for the export file.
         """
         valid_extensions = ('.json',)
-        file_extension = export_file[-5:].lower()
+        file_extension = export_file.suffix
     
-        if not self.__is_valid_extension(valid_extensions, file_extension):
-            error_message = self.__file_extension_exception_message('to_json', valid_extensions)
+        if not self._is_valid_extension(valid_extensions, file_extension):
+            error_message = self._file_extension_exception_message('to_json', valid_extensions)
             raise AttributeError(error_message)
     
         df = self.to_dataframe(sas7bdat_file)
@@ -330,10 +329,10 @@ class SASConverter:
             first_node: The name to use for the fist node in the xml file.
         """
         valid_extensions = ('.xml',)
-        file_extension = export_file[-4:].lower()
+        file_extension = export_file.suffix
         
-        if not self.__is_valid_extension(valid_extensions, file_extension):
-            error_message = self.__file_extension_exception_message('to_xml', valid_extensions)
+        if not self._is_valid_extension(valid_extensions, file_extension):
+            error_message = self._file_extension_exception_message('to_xml', valid_extensions)
             raise AttributeError(error_message)
     
         df = self.to_dataframe(sas7bdat_file) 
