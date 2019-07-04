@@ -18,7 +18,7 @@ setup(
     url='https://github.com/sanders41/sas7bdat_converter',
     download_url='https://github.com/sanders41/sas7bdat_converter/archive/v0.2.7.tar.gz',
     install_requires=['pandas>=0.24.2',
-                      'XlsxWriter>=1.2.0'],
+                      'XlsxWriter>=1.1.8'],
     extras_require={
         'test': ['xlrd>=1.2.0'],
     },
