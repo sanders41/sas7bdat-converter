@@ -38,3 +38,6 @@ coverage.xml
 venv/
 env/
 ENV/
+
+# mypy
+.mypy_cache
