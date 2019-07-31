@@ -1,6 +1,8 @@
 *.pyc
 *.swp
 *.DS_Store
+
+# Editor
 .vscode
 
 # Byte-compiled / optimized / DLL files
