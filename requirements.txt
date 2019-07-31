@@ -3,5 +3,6 @@ pandas==0.25.0
 pylint==2.3.1
 pytest==5.0.1
 pytest-cov==2.7.1
+twine==1.13.0
 xlrd==1.2.0
 XlsxWriter==1.1.8
