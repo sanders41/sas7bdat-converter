@@ -4,7 +4,7 @@ Converts proprietary sas7bdat files from SAS into formats such as csv and XML us
 Conversions can be done on either a single file, an entire directory, or a batch of specified files.
 
 #### Note: 
-Version 0.3.0 contains breaking changes from previous versions. The api has been changed from a class based aproach to a function based approach allowing the import of only what is needed. If you are using the previous class based approach and don't want to update your code stick with a version prior to 0.3.0.
+Version 0.3.0 added breaking changes from previous versions. The api has been changed from a class based aproach to a function based approach allowing the import of only what is needed. If you are using the previous class based approach and don't want to update your code stick with a version prior to 0.3.0.
 
 ## Install
 `pip install sas7bdat_converter`
