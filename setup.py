@@ -10,7 +10,7 @@ Conversions can be done on a single file, a batch of files, or a whole directory
 
 setup(
     name='sas7bdat_converter',
-    version='0.3.1',
+    version='0.3.2',
     author='Paul Sanders',
     author_email='psanders1@gmail.com',
     license='Apache 2.0',
