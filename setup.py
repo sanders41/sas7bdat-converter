@@ -27,4 +27,5 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: OS Independent'
     ],
+    keywords=['sas', 'sas7bdat', 'converter']
 )
