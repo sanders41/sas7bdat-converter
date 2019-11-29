@@ -1,5 +1,4 @@
-from setuptools import setup
-from setuptools import find_packages
+from setuptools import find_packages, setup
 
 long_description = '''
 Converts proprietary sas7bdat files from SAS into formats such as csv and XML useable by other programs. 
@@ -20,6 +19,7 @@ setup(
     download_url='https://github.com/sanders41/sas7bdat_converter/archive/v0.3.1.tar.gz',
     install_requires=['pandas>=0.17.0',
                       'XlsxWriter'],
+    package_dir={'sas7bdat_converter': 'sas7bdat_converter'},
     packages=find_packages(where='sas7bdat_converter'),
     classifiers=[
         'Programming Language :: Python :: 3.6',
