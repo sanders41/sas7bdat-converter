@@ -21,7 +21,7 @@ setup(
     install_requires=[
         'pandas>=0.25.3',
         'XlsxWriter>=1.2.6',
-    ]
+    ],
     classifiers=[
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
