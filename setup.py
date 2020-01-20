@@ -9,7 +9,7 @@ Conversions can be done on a single file, a batch of files, or a whole directory
 
 setup(
     name='sas7bdat_converter',
-    version='0.3.3',
+    version='0.3.4',
     author='Paul Sanders',
     author_email='psanders1@gmail.com',
     license='Apache 2.0',
@@ -18,6 +18,10 @@ setup(
     url='https://github.com/sanders41/sas7bdat_converter',
     download_url='https://github.com/sanders41/sas7bdat_converter/archive/v0.3.1.tar.gz',
     packages=['sas7bdat_converter'],
+    install_requires=[
+        'pandas>=0.25.3',
+        'XlsxWriter>=1.2.6',
+    ]
     classifiers=[
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
