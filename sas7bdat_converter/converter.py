@@ -123,9 +123,9 @@ def batch_to_xml(file_dicts: List[Dict[str, str]]) -> None:
 
         if root_node and first_node:
             to_xml(sas7bdat_file=sas7bdat, export_file=export, root_node=root_node, first_node=first_node)
-        elif root_node and not first_node:
+        elif root_node:
             to_xml(sas7bdat_file=sas7bdat, export_file=export, root_node=root_node)
-        elif not root_node and first_node:
+        elif first_node:
             to_xml(sas7bdat_file=sas7bdat, export_file=export, first_node=first_node)
         else:
             to_xml(sas7bdat_file=sas7bdat, export_file=export)
@@ -245,10 +245,7 @@ def _invalid_key_exception_message(required_keys: List[str], optional_keys: Opti
 
 
 def _is_valid_extension(valid_extensions: Tuple[str], file_extension: str) -> bool:
-    if file_extension in valid_extensions:
-        return True
-    else:
-        return False
+    return file_extension in valid_extensions
 
 
 def to_csv(sas7bdat_file: str, export_file: str) -> None:
