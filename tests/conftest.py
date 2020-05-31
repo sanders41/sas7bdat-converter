@@ -8,8 +8,7 @@ SAS7BDAT_DIR = Path().absolute().joinpath('tests/assets/sas7bdat_files')
 
 @pytest.fixture(scope='session')
 def expected_dir():
-    expected = Path().absolute().joinpath('tests/assets/expected_files')
-    return expected
+    return Path().absolute().joinpath('tests/assets/expected_files')
 
 @pytest.fixture(scope='session')
 def sas_file_1():
