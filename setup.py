@@ -6,7 +6,7 @@ README = (HERE.joinpath('README.md').read_text())
 
 setup(
     name='sas7bdat_converter',
-    version='0.3.5',
+    version='0.3.6',
     author='Paul Sanders',
     author_email='psanders1@gmail.com',
     license='Apache 2.0',
