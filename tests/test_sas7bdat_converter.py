@@ -4,10 +4,8 @@ import pandas as pd
 import pytest
 import sas7bdat_converter.converter as converter
 import shutil
-import xlrd
 
 from pathlib import Path
-from glob import glob
 
 
 current_dir = Path().absolute()
@@ -395,8 +393,8 @@ def test_to_excel(tmpdir, request, expected_dir):
     expected_file = expected_dir.joinpath('file1.xlsx')
     converter.to_excel(sas_file, converted_file)
 
-    df_expected = pd.read_excel(expected_file)
-    df_converted = pd.read_excel(converted_file)
+    df_expected = pd.read_excel(expected_file, engine='openpyxl')
+    df_converted = pd.read_excel(converted_file, engine='openpyxl')
 
     pd.testing.assert_frame_equal(df_expected, df_converted)
 
