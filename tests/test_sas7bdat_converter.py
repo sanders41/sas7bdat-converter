@@ -438,3 +438,37 @@ def test_to_xml_invalid_extension():
         converter.to_xml('test.sas7bdat', 'test.bad')
 
     assert 'sas7bdat conversion error - Valid extension' in str(execinfo.value)
+
+
+def test_raise_on_invalid_file_dict_valid():
+    file_dict = {
+        'sas7bdat_file': 'test.sas7bdat',
+        'export_file': 'test.csv',
+    }
+
+    result = converter._rise_on_invalid_file_dict(file_dict)
+
+    assert not result
+
+
+@pytest.mark.parametrize('file_dict', [
+    {
+        'sas7bdat_fil': 'test.sas7bdat',
+        'export_file': 'test.csv',
+    },
+    {
+        'sas7bdat_file': 'test.sas7bdat',
+        'export_fil': 'test.csv',
+    },
+    {
+        'sas7bdat_file': 'test.sas7bdat',
+    },
+    {
+        'export_file': 'test.csv',
+    },
+])
+def test_raise_on_invalid_file_dict_error(file_dict):
+    with pytest.raises(KeyError) as execinfo:
+        converter._rise_on_invalid_file_dict(file_dict)
+
+    assert 'Invalid key' in str(execinfo.value)

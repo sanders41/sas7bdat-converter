@@ -23,9 +23,7 @@ def batch_to_csv(file_dicts: List[Dict[str, str]]) -> None:
                                           {'sas7bdat_file': 'sas_file2.sas7bdat', 'export_file': 'converted_file2.csv'}]
     """
     for file_dict in file_dicts:
-        if len(set(file_dict).intersection(__file_dict_required_keys)) != len(__file_dict_required_keys):
-            message = _invalid_key_exception_message(required_keys=__file_dict_required_keys)
-            raise KeyError(message)
+        _rise_on_invalid_file_dict(file_dict)
 
         sas7bdat = file_dict['sas7bdat_file']
         export = file_dict['export_file']
@@ -44,9 +42,7 @@ def batch_to_excel(file_dicts: List[Dict[str, str]]) -> None:
                                           {'sas7bdat_file': 'sas_file2.sas7bdat', 'export_file': 'converted_file2.xlxs'}]
     """
     for file_dict in file_dicts:
-        if len(set(file_dict).intersection(__file_dict_required_keys)) != len(__file_dict_required_keys):
-            message = _invalid_key_exception_message(required_keys=__file_dict_required_keys)
-            raise KeyError(message)
+        _rise_on_invalid_file_dict(file_dict)
 
         sas7bdat = file_dict['sas7bdat_file']
         export = file_dict['export_file']
@@ -65,9 +61,7 @@ def batch_to_json(file_dicts: List[Dict[str, str]]) -> None:
                                           {'sas7bdat_file': 'sas_file2.sas7bdat', 'export_file': 'converted_file2.json'}]
     """
     for file_dict in file_dicts:
-        if len(set(file_dict).intersection(__file_dict_required_keys)) != len(__file_dict_required_keys):
-            message = _invalid_key_exception_message(required_keys=__file_dict_required_keys)
-            raise KeyError(message)
+        _rise_on_invalid_file_dict(file_dict)
 
         sas7bdat = file_dict['sas7bdat_file']
         export = file_dict['export_file']
@@ -102,8 +96,10 @@ def batch_to_xml(file_dicts: List[Dict[str, str]]) -> None:
     optional_keys = ['root_node', 'first_node',]
     for file_dict in file_dicts:
         error = False
-        if (len(set(file_dict).intersection(__file_dict_required_keys)) != len(__file_dict_required_keys) or
-                len(set(file_dict).intersection(__file_dict_required_keys)) > len(__file_dict_required_keys) + len(optional_keys)):
+        if (
+            len(set(file_dict).intersection(__file_dict_required_keys)) != len(__file_dict_required_keys) or
+            len(set(file_dict).intersection(__file_dict_required_keys)) > len(__file_dict_required_keys) + len(optional_keys)
+        ):
             error = True
         elif len(set(file_dict).intersection(optional_keys)) != len(file_dict) - len(__file_dict_required_keys):
             error = True
@@ -122,7 +118,12 @@ def batch_to_xml(file_dicts: List[Dict[str, str]]) -> None:
             first_node = file_dict['first_node']
 
         if root_node and first_node:
-            to_xml(sas7bdat_file=sas7bdat, export_file=export, root_node=root_node, first_node=first_node)
+            to_xml(
+                sas7bdat_file=sas7bdat,
+                export_file=export,
+                root_node=root_node,
+                first_node=first_node,
+            )
         elif root_node:
             to_xml(sas7bdat_file=sas7bdat, export_file=export, root_node=root_node)
         elif first_node:
@@ -221,31 +222,6 @@ def dir_to_xml(dir_path: str, export_path: Optional[str]=None) -> None:
             
             sas7bdat_file = Path(dir_path).joinpath(file_name)
             to_xml(str(sas7bdat_file), str(export_file))
-
-
-def _file_extension_exception_message(conversion_type: str, valid_extensions: Tuple[str]) -> str:
-    if len(valid_extensions) == 1:
-        is_are = ('extension', 'is')
-    else:
-        is_are = ('extensions', 'are')
-
-    extensions = ', '.join(valid_extensions)
-    return f'sas7bdat conversion error - Valid {is_are[0]} for {conversion_type} conversion {is_are[1]}: {extensions}'
-
-
-def _invalid_key_exception_message(required_keys: List[str], optional_keys: Optional[List[str]]=None) -> str:
-    required_keys_joined: str = ', '.join(required_keys)
-    if optional_keys:
-        optional_keys_joined: str = ', '.join(optional_keys)
-        message = f'Invalid key provided, expected keys are: {required_keys_joined} and optional keys are: {optional_keys_joined}'
-    else:
-        message = f'Invalid key provided, expected keys are: {required_keys_joined}'
-
-    return message
-
-
-def _is_valid_extension(valid_extensions: Tuple[str], file_extension: str) -> bool:
-    return file_extension in valid_extensions
 
 
 def to_csv(sas7bdat_file: str, export_file: str) -> None:
@@ -363,3 +339,34 @@ def to_xml(sas7bdat_file: str, export_file: str, root_node: str='root', first_no
 
     with open(export_file, 'w') as f:
         f.write(res)
+
+
+def _file_extension_exception_message(conversion_type: str, valid_extensions: Tuple[str]) -> str:
+    if len(valid_extensions) == 1:
+        is_are = ('extension', 'is')
+    else:
+        is_are = ('extensions', 'are')
+
+    extensions = ', '.join(valid_extensions)
+    return f'sas7bdat conversion error - Valid {is_are[0]} for {conversion_type} conversion {is_are[1]}: {extensions}'
+
+
+def _invalid_key_exception_message(required_keys: List[str], optional_keys: Optional[List[str]]=None) -> str:
+    required_keys_joined: str = ', '.join(required_keys)
+    if optional_keys:
+        optional_keys_joined: str = ', '.join(optional_keys)
+        message = f'Invalid key provided, expected keys are: {required_keys_joined} and optional keys are: {optional_keys_joined}'
+    else:
+        message = f'Invalid key provided, expected keys are: {required_keys_joined}'
+
+    return message
+
+
+def _is_valid_extension(valid_extensions: Tuple[str], file_extension: str) -> bool:
+    return file_extension in valid_extensions
+
+
+def _rise_on_invalid_file_dict(file_dict: Dict[str, str]) -> None:
+    if len(set(file_dict).intersection(__file_dict_required_keys)) != len(__file_dict_required_keys):
+        message = _invalid_key_exception_message(required_keys=__file_dict_required_keys)
+        raise KeyError(message)
