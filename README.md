@@ -17,8 +17,16 @@ Version 0.3.0 added breaking changes from previous versions. The api has been ch
   ```
   from sas7bdat_converter.converter import batch_to_csv
 
-  file_dicts = [{'sas7bdat_file': '/path/to/sas7bdat/files/example_1.sas7bdat', 'export_file': '/path/to/new/files/example_1.csv'},
-                {'sas7bdat_file': '/path/to/sas7bdat/files/example_2.sas7bdat', 'export_file': '/path/to/new/files/example_2.csv'},]
+  file_dicts = [
+    {
+      'sas7bdat_file': '/path/to/sas7bdat/files/example_1.sas7bdat',
+      'export_file': '/path/to/new/files/example_1.csv',
+    },
+    {
+      'sas7bdat_file': '/path/to/sas7bdat/files/example_2.sas7bdat',
+      'export_file': '/path/to/new/files/example_2.csv',
+    },
+  ]
   batch_to_csv(file_dicts)
   ```
   
@@ -31,8 +39,16 @@ Version 0.3.0 added breaking changes from previous versions. The api has been ch
   ```
   from sas7bdat_converter.converter import batch_to_excel
 
-  file_dicts = [{'sas7bdat_file': '/path/to/sas7bdat/files/example_1.sas7bdat', 'export_file': '/path/to/new/files/example_1.xlsx'},
-                {'sas7bdat_file': '/path/to/sas7bdat/files/example_2.sas7bdat', 'export_file': '/path/to/new/files/example_2.xlsx'},]
+  file_dicts = [
+    {
+      'sas7bdat_file': '/path/to/sas7bdat/files/example_1.sas7bdat',
+      'export_file': '/path/to/new/files/example_1.xlsx',
+    },
+    {
+      'sas7bdat_file': '/path/to/sas7bdat/files/example_2.sas7bdat',
+      'export_file': '/path/to/new/files/example_2.xlsx',
+    },
+  ]
   batch_to_excel(file_dicts)
   ```
   
@@ -45,8 +61,16 @@ Version 0.3.0 added breaking changes from previous versions. The api has been ch
   ```
   from sas7bdat_converter.converter import batch_to_json
 
-  file_dicts = [{'sas7bdat_file': '/path/to/sas7bdat/files/example_1.sas7bdat', 'export_file': '/path/to/new/files/example_1.json'
-                {'sas7bdat_file': '/path/to/sas7bdat/files/example_2.sas7bdat', 'export_file': '/path/to/new/files/example_2.json']
+  file_dicts = [
+    {
+      'sas7bdat_file': '/path/to/sas7bdat/files/example_1.sas7bdat',
+      'export_file': '/path/to/new/files/example_1.json',
+    },
+    {
+      'sas7bdat_file': '/path/to/sas7bdat/files/example_2.sas7bdat',
+      'export_file': '/path/to/new/files/example_2.json',
+    },
+  ]
   batch_to_json(file_dicts)
   ```
   
@@ -59,8 +83,16 @@ Version 0.3.0 added breaking changes from previous versions. The api has been ch
   ```
   from sas7bdat_converter.converter import batch_to_xml
 
-  file_dicts = [{'sas7bdat_file': '/path/to/sas7bdat/files/example_1.sas7bdat', 'export_file': '/path/to/new/files/example_1.xml'},
-                {'sas7bdat_file': '/path/to/sas7bdat/files/example_2.sas7bdat', 'export_file': '/path/to/new/files/example_2.xml'},]
+  file_dicts = [
+    {
+      'sas7bdat_file': '/path/to/sas7bdat/files/example_1.sas7bdat',
+      'export_file': '/path/to/new/files/example_1.xml',
+    },
+    {
+      'sas7bdat_file': '/path/to/sas7bdat/files/example_2.sas7bdat',
+      'export_file': '/path/to/new/files/example_2.xml',
+    },
+  ]
   batch_to_xml(file_dicts)
   ```
   
