@@ -18,7 +18,6 @@ setup(
     packages=['sas7bdat_converter'],
     install_requires=[
         'pandas>=0.25.3',
-        'openpyxl>=3.0.4',
         'XlsxWriter>=1.2.6',
     ],
     classifiers=[
