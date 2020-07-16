@@ -1,4 +1,9 @@
 # sas7bdat_converter: Convert sas7bdat files into other formats
+
+[![Travis Build Status](https://travis-ci.org/sanders41/sas7bdat_converter.svg?branch=master)](https://travis-ci.org/sanders41/sas7bdat_converter)
+[![Coverage](https://codecov.io/github/sanders41/sas7bdat_converter/coverage.svg?branch=master)](https://codecov.io/gh/sanders41/sas7bdat_converter)
+
+
 Converts proprietary sas7bdat files from SAS into formats such as csv and XML useable by other programs. Currently supported conversiaions are csv, Excel (xlsx format), json, Pandas DataFrame, and XML.
 
 Conversions can be done on either a single file, an entire directory, or a batch of specified files.

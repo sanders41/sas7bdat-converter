@@ -1,6 +1,9 @@
+black==19.10b0
+isort==5.1.1
 mypy==0.782
 openpyxl==3.0.4
 pandas==1.0.5
+pre-commit==2.6.0
 pytest==5.4.3
 pytest-cov==2.10.0
 twine==3.2.0
