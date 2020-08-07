@@ -1,7 +1,6 @@
 import csv
-import json
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Union
 from xml.sax.saxutils import escape
 
 import numpy as np
@@ -13,7 +12,7 @@ __file_dict_required_keys = [
 ]
 
 
-def batch_to_csv(file_dicts: List[Dict[str, str]]) -> None:
+def batch_to_csv(file_dicts: List[Dict[str, Union[str, Path]]]) -> None:
     """
     Converts a batch of sas7bdat files to csv files.
 
@@ -27,12 +26,12 @@ def batch_to_csv(file_dicts: List[Dict[str, str]]) -> None:
     for file_dict in file_dicts:
         _rise_on_invalid_file_dict(file_dict)
 
-        sas7bdat = file_dict["sas7bdat_file"]
-        export = file_dict["export_file"]
+        sas7bdat = _format_path(file_dict["sas7bdat_file"])
+        export = _format_path(file_dict["export_file"])
         to_csv(sas7bdat_file=sas7bdat, export_file=export)
 
 
-def batch_to_excel(file_dicts: List[Dict[str, str]]) -> None:
+def batch_to_excel(file_dicts: List[Dict[str, Union[str, Path]]]) -> None:
     """
     Converts a batch of sas7bdat files to xlsx files.
 
@@ -46,12 +45,12 @@ def batch_to_excel(file_dicts: List[Dict[str, str]]) -> None:
     for file_dict in file_dicts:
         _rise_on_invalid_file_dict(file_dict)
 
-        sas7bdat = file_dict["sas7bdat_file"]
-        export = file_dict["export_file"]
+        sas7bdat = _format_path(file_dict["sas7bdat_file"])
+        export = _format_path(file_dict["export_file"])
         to_excel(sas7bdat_file=sas7bdat, export_file=export)
 
 
-def batch_to_json(file_dicts: List[Dict[str, str]]) -> None:
+def batch_to_json(file_dicts: List[Dict[str, Union[str, Path]]]) -> None:
     """
     Converts a batch of sas7bdat files to json files.
 
@@ -65,12 +64,12 @@ def batch_to_json(file_dicts: List[Dict[str, str]]) -> None:
     for file_dict in file_dicts:
         _rise_on_invalid_file_dict(file_dict)
 
-        sas7bdat = file_dict["sas7bdat_file"]
-        export = file_dict["export_file"]
+        sas7bdat = _format_path(file_dict["sas7bdat_file"])
+        export = _format_path(file_dict["export_file"])
         to_json(sas7bdat_file=sas7bdat, export_file=export)
 
 
-def batch_to_xml(file_dicts: List[Dict[str, str]]) -> None:
+def batch_to_xml(file_dicts: List[Dict[str, Union[str, Path]]]) -> None:
     """
     Converts a batch of sas7bdat files to xml files.
 
@@ -120,8 +119,8 @@ def batch_to_xml(file_dicts: List[Dict[str, str]]) -> None:
             )
             raise KeyError(message)
 
-        sas7bdat = file_dict["sas7bdat_file"]
-        export = file_dict["export_file"]
+        sas7bdat = _format_path(file_dict["sas7bdat_file"])
+        export = _format_path(file_dict["export_file"])
         root_node = None
         first_node = None
         if "root_node" in file_dict:
@@ -133,41 +132,34 @@ def batch_to_xml(file_dicts: List[Dict[str, str]]) -> None:
             to_xml(
                 sas7bdat_file=sas7bdat,
                 export_file=export,
-                root_node=root_node,
-                first_node=first_node,
+                root_node=str(root_node),
+                first_node=str(first_node),
             )
         elif root_node:
-            to_xml(sas7bdat_file=sas7bdat, export_file=export, root_node=root_node)
+            to_xml(sas7bdat_file=sas7bdat, export_file=export, root_node=str(root_node))
         elif first_node:
-            to_xml(sas7bdat_file=sas7bdat, export_file=export, first_node=first_node)
+            to_xml(sas7bdat_file=sas7bdat, export_file=export, first_node=str(first_node))
         else:
             to_xml(sas7bdat_file=sas7bdat, export_file=export)
 
 
-def dir_to_csv(dir_path: str, export_path: Optional[str] = None) -> None:
+def dir_to_csv(dir_path: Union[str, Path], export_path: Optional[Union[str, Path]] = None) -> None:
     """
     Converts all sas7bdat files in a directory into csv files.
 
     args:
-        dir_path: The pah to the directory that contains the sas7bdat files
+        dir_path: The path to the directory that contains the sas7bdat files
                 for conversion.
         export_path (optional): If used this can specify a new directory to create
                 the converted files into. If not supplied then the files will be
                 created into the same directory as dir_path.
     """
-    for file_name in Path(dir_path).iterdir():
-        if file_name.suffix == ".sas7bdat":
-            export_file = Path(f"{file_name.stem}.csv")
-            if export_path:
-                export_file = Path(export_path).joinpath(export_file)
-            else:
-                export_file = Path(dir_path).joinpath(export_file)
-
-            sas7bdat_file = Path(dir_path).joinpath(file_name)
-            to_csv(str(sas7bdat_file), str(export_file))
+    _walk_dir("csv", dir_path, export_path)
 
 
-def dir_to_excel(dir_path: str, export_path: Optional[str] = None) -> None:
+def dir_to_excel(
+    dir_path: Union[str, Path], export_path: Optional[Union[str, Path]] = None
+) -> None:
     """
     Converts all sas7bdat files in a directory into xlsx files.
 
@@ -178,19 +170,10 @@ def dir_to_excel(dir_path: str, export_path: Optional[str] = None) -> None:
                 the converted files into. If not supplied then the files will be
                 created into the same directory as dir_path.
     """
-    for file_name in Path(dir_path).iterdir():
-        if file_name.suffix == ".sas7bdat":
-            export_file = Path(f"{file_name.stem}.xlsx")
-            if export_path:
-                export_file = Path(export_path).joinpath(export_file)
-            else:
-                export_file = Path(dir_path).joinpath(export_file)
-
-            sas7bdat_file = Path(dir_path).joinpath(file_name)
-            to_excel(str(sas7bdat_file), str(export_file))
+    _walk_dir("xlsx", dir_path, export_path)
 
 
-def dir_to_json(dir_path: str, export_path: Optional[str] = None) -> None:
+def dir_to_json(dir_path: Union[str, Path], export_path: Optional[Union[str, Path]] = None) -> None:
     """
     Converts all sas7bdat files in a directory into json files.
 
@@ -201,19 +184,10 @@ def dir_to_json(dir_path: str, export_path: Optional[str] = None) -> None:
                 the converted files into. If not supplied then the files will be
                 created into the same directory as dir_path.
     """
-    for file_name in Path(dir_path).iterdir():
-        if file_name.suffix == ".sas7bdat":
-            export_file = Path(f"{file_name.stem}.json")
-            if export_path:
-                export_file = Path(export_path).joinpath(export_file)
-            else:
-                export_file = Path(dir_path).joinpath(export_file)
-
-            sas7bdat_file = Path(dir_path).joinpath(file_name)
-            to_json(str(sas7bdat_file), str(export_file))
+    _walk_dir("json", dir_path, export_path)
 
 
-def dir_to_xml(dir_path: str, export_path: Optional[str] = None) -> None:
+def dir_to_xml(dir_path: Union[str, Path], export_path: Optional[Union[str, Path]] = None) -> None:
     """
     Converts all sas7bdat files in a directory into xml files.
 
@@ -224,19 +198,10 @@ def dir_to_xml(dir_path: str, export_path: Optional[str] = None) -> None:
                 the converted files into. If not supplied then the files will be
                 created into the same directory as dir_path.
     """
-    for file_name in Path(dir_path).iterdir():
-        if file_name.suffix == ".sas7bdat":
-            export_file = Path(f"{file_name.stem}.xml")
-            if export_path:
-                export_file = Path(export_path).joinpath(export_file)
-            else:
-                export_file = Path(dir_path).joinpath(export_file)
-
-            sas7bdat_file = Path(dir_path).joinpath(file_name)
-            to_xml(str(sas7bdat_file), str(export_file))
+    _walk_dir("xml", dir_path, export_path)
 
 
-def to_csv(sas7bdat_file: str, export_file: str) -> None:
+def to_csv(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> None:
     """
     Converts a sas7bdat file into a csv file.
 
@@ -255,7 +220,7 @@ def to_csv(sas7bdat_file: str, export_file: str) -> None:
     df.to_csv(export_file, quoting=csv.QUOTE_NONNUMERIC, index=False)
 
 
-def to_dataframe(sas7bdat_file: str) -> pd.DataFrame:
+def to_dataframe(sas7bdat_file: Union[str, Path]) -> pd.DataFrame:
     """
     Converts a sas7bdat file into a pandas dataframe.
 
@@ -279,7 +244,7 @@ def to_dataframe(sas7bdat_file: str) -> pd.DataFrame:
     return df
 
 
-def to_excel(sas7bdat_file: str, export_file: str) -> None:
+def to_excel(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> None:
     """
    Converts a sas7bdat file into a xlsx file.
 
@@ -298,7 +263,7 @@ def to_excel(sas7bdat_file: str, export_file: str) -> None:
     df.to_excel(export_file, index=False)
 
 
-def to_json(sas7bdat_file: str, export_file: str) -> None:
+def to_json(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> None:
     """
     Converts a sas7bdat file into a json file.
 
@@ -318,7 +283,10 @@ def to_json(sas7bdat_file: str, export_file: str) -> None:
 
 
 def to_xml(
-    sas7bdat_file: str, export_file: str, root_node: str = "root", first_node: str = "item"
+    sas7bdat_file: Union[str, Path],
+    export_file: Union[str, Path],
+    root_node: str = "root",
+    first_node: str = "item",
 ) -> None:
     """
     Converts a sas7bdat file into a xml file.
@@ -383,9 +351,37 @@ def _is_valid_extension(valid_extensions: Tuple[str], file_extension: str) -> bo
     return file_extension in valid_extensions
 
 
-def _rise_on_invalid_file_dict(file_dict: Dict[str, str]) -> None:
+def _format_path(path: Union[str, Path]) -> str:
+    return str(path) if isinstance(path, Path) else path
+
+
+def _rise_on_invalid_file_dict(file_dict: Dict[str, Union[str, Path]]) -> None:
     if len(set(file_dict).intersection(__file_dict_required_keys)) != len(
         __file_dict_required_keys
     ):
         message = _invalid_key_exception_message(required_keys=__file_dict_required_keys)
         raise KeyError(message)
+
+
+def _walk_dir(
+    file_type: str, dir_path: Union[str, Path], export_path: Optional[Union[str, Path]] = None,
+) -> None:
+    path = dir_path if isinstance(dir_path, Path) else Path(dir_path)
+    for file_name in path.iterdir():
+        if file_name.suffix == ".sas7bdat":
+            export_file = Path(f"{file_name.stem}.{file_type}")
+            if export_path:
+                export_file = Path(export_path).joinpath(export_file)
+            else:
+                export_file = path.joinpath(export_file)
+
+            sas7bdat_file = path.joinpath(file_name)
+
+            if file_type == "csv":
+                to_csv(str(sas7bdat_file), str(export_file))
+            elif file_type == "xlsx":
+                to_excel(str(sas7bdat_file), str(export_file))
+            elif file_type == "json":
+                to_json(str(sas7bdat_file), str(export_file))
+            elif file_type == "xml":
+                to_xml(str(sas7bdat_file), str(export_file))
