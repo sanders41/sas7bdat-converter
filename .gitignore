@@ -41,5 +41,8 @@ venv/
 env/
 ENV/
 
+# pyenv
+.python-version
+
 # mypy
 .mypy_cache
