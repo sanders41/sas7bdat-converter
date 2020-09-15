@@ -18,7 +18,8 @@ __file_dict_required_keys = [
 
 
 def batch_to_csv(
-    file_dicts: List[Dict[str, Union[str, Path]]], continue_on_error: bool = False,
+    file_dicts: List[Dict[str, Union[str, Path]]],
+    continue_on_error: bool = False,
 ) -> None:
     """
     Converts a batch of sas7bdat files to csv files.
@@ -26,10 +27,10 @@ def batch_to_csv(
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
                     contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat file)
-                    and 'export_file' containing the path and name of the export csv). 
+                    and 'export_file' containing the path and name of the export csv).
                     Example: file_dict = [{'sas7bdat_file': 'sas_file1.sas7bdat', 'export_file': 'converted_file1.csv'},
                                           {'sas7bdat_file': 'sas_file2.sas7bdat', 'export_file': 'converted_file2.csv'}]
-        continue_on_error: If set to true processing of files in a batch will continue if there is 
+        continue_on_error: If set to true processing of files in a batch will continue if there is
                     a file conversion error instead of raising an exception. Default = False
     """
     for file_dict in file_dicts:
@@ -47,7 +48,8 @@ def batch_to_csv(
 
 
 def batch_to_excel(
-    file_dicts: List[Dict[str, Union[str, Path]]], continue_on_error: bool = False,
+    file_dicts: List[Dict[str, Union[str, Path]]],
+    continue_on_error: bool = False,
 ) -> None:
     """
     Converts a batch of sas7bdat files to xlsx files.
@@ -55,10 +57,10 @@ def batch_to_excel(
     Args:
         file_dicts: A list of dictionaries containing the files to convert. The dictionary should
                     contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat file)
-                    and 'export_file' containing the path and name of the export xlsx). 
+                    and 'export_file' containing the path and name of the export xlsx).
                     Example: file_dict = [{'sas7bdat_file': 'sas_file1.sas7bdat', 'export_file': 'converted_file1.xlsx'},
                                           {'sas7bdat_file': 'sas_file2.sas7bdat', 'export_file': 'converted_file2.xlxs'}]
-        continue_on_error: If set to true processing of files in a batch will continue if there is 
+        continue_on_error: If set to true processing of files in a batch will continue if there is
                     a file conversion error instead of raising an exception. Default = False
     """
     for file_dict in file_dicts:
@@ -76,7 +78,8 @@ def batch_to_excel(
 
 
 def batch_to_json(
-    file_dicts: List[Dict[str, Union[str, Path]]], continue_on_error: bool = False,
+    file_dicts: List[Dict[str, Union[str, Path]]],
+    continue_on_error: bool = False,
 ) -> None:
     """
     Converts a batch of sas7bdat files to json files.
@@ -84,10 +87,10 @@ def batch_to_json(
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
                     contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat file)
-                    and 'export_file' containing the path and name of the export json). 
+                    and 'export_file' containing the path and name of the export json).
                     Example: file_dict = [{'sas7bdat_file': 'sas_file1.sas7bdat', 'export_file': 'converted_file1.json'},
                                           {'sas7bdat_file': 'sas_file2.sas7bdat', 'export_file': 'converted_file2.json'}]
-        continue_on_error: If set to true processing of files in a batch will continue if there is 
+        continue_on_error: If set to true processing of files in a batch will continue if there is
                     a file conversion error instead of raising an exception. Default = False
     """
     for file_dict in file_dicts:
@@ -105,7 +108,8 @@ def batch_to_json(
 
 
 def batch_to_xml(
-    file_dicts: List[Dict[str, Union[str, Path]]], continue_on_error: bool = False,
+    file_dicts: List[Dict[str, Union[str, Path]]],
+    continue_on_error: bool = False,
 ) -> None:
     """
     Converts a batch of sas7bdat files to xml files.
@@ -113,16 +117,16 @@ def batch_to_xml(
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
                     contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat file)
-                    and 'export_file' containing the path and name of the export xml). Optinallly 
+                    and 'export_file' containing the path and name of the export xml). Optinallly
                     the dictionary can also contain 'root_node' (containing the name for the root
                     node in the xml file, and 'first_node' (containing the name for the first node
                     in the xml file).
-                    Examples: file_dict = [{'sas7bdat_file': 'sas_file1.sas7bdat', 
+                    Examples: file_dict = [{'sas7bdat_file': 'sas_file1.sas7bdat',
                                             'export_file': 'converted_file1.xlsx'},
-                                           {'sas7bdat_file': 'sas_file2.sas7bdat', 
+                                           {'sas7bdat_file': 'sas_file2.sas7bdat',
                                             'export_file': 'converted_file2.xlxs'}]
 
-                              file_dict = [{'sas7bdat_file': 'sas_file1.sas7bdat', 
+                              file_dict = [{'sas7bdat_file': 'sas_file1.sas7bdat',
                                             'export_file': 'converted_file1.xml',
                                             'root_node': 'my_root',
                                             'first_node': 'my_first'},
@@ -130,7 +134,7 @@ def batch_to_xml(
                                             'export_file': 'converted_file2.xml',
                                             'root_node': 'another_root',
                                             'first_node': 'another_first'}]
-        continue_on_error: If set to true processing of files in a batch will continue if there is 
+        continue_on_error: If set to true processing of files in a batch will continue if there is
                     a file conversion error instead of raising an exception. Default = False
     """
     optional_keys = [
@@ -202,7 +206,7 @@ def dir_to_csv(
         export_path (optional): If used this can specify a new directory to create
                 the converted files into. If not supplied then the files will be
                 created into the same directory as dir_path. Default = None
-        continue_on_error: If set to true processing of files in a batch will continue if there is 
+        continue_on_error: If set to true processing of files in a batch will continue if there is
                 a file conversion error instead of raising an exception. Default = False
     """
     _walk_dir("csv", dir_path, continue_on_error, export_path)
@@ -222,7 +226,7 @@ def dir_to_excel(
         export_path (optional): If used this can specify a new directory to create
                 the converted files into. If not supplied then the files will be
                 created into the same directory as dir_path. Default = None
-        continue_on_error: If set to true processing of files in a batch will continue if there is 
+        continue_on_error: If set to true processing of files in a batch will continue if there is
                 a file conversion error instead of raising an exception. Default = False
     """
     _walk_dir("xlsx", dir_path, continue_on_error, export_path)
@@ -242,7 +246,7 @@ def dir_to_json(
         export_path (optional): If used this can specify a new directory to create
                 the converted files into. If not supplied then the files will be
                 created into the same directory as dir_path. Default = None
-        continue_on_error: If set to true processing of files in a batch will continue if there is 
+        continue_on_error: If set to true processing of files in a batch will continue if there is
                 a file conversion error instead of raising an exception. Default = False
     """
     _walk_dir("json", dir_path, continue_on_error, export_path)
@@ -262,7 +266,7 @@ def dir_to_xml(
         export_path (optional): If used this can specify a new directory to create
                 the converted files into. If not supplied then the files will be
                 created into the same directory as dir_path. Default = None
-        continue_on_error: If set to true processing of files in a batch will continue if there is 
+        continue_on_error: If set to true processing of files in a batch will continue if there is
                 a file conversion error instead of raising an exception. Default = False
     """
     _walk_dir("xml", dir_path, continue_on_error, export_path)
@@ -313,12 +317,12 @@ def to_dataframe(sas7bdat_file: Union[str, Path]) -> pd.DataFrame:
 
 def to_excel(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> None:
     """
-   Converts a sas7bdat file into a xlsx file.
+    Converts a sas7bdat file into a xlsx file.
 
-   args:
-       sas7bdat_file: The name, including the path, for the sas7bdat file.
-       export_file: The name, including the path, for the export file.
-   """
+    args:
+        sas7bdat_file: The name, including the path, for the sas7bdat file.
+        export_file: The name, including the path, for the export file.
+    """
     valid_extensions = (".xlsx",)
     file_extension = Path(export_file).suffix
 
