@@ -28,3 +28,8 @@ def sas_file_3():
 @pytest.fixture(scope="session")
 def sas7bdat_dir():
     return SAS7BDAT_DIR
+
+
+@pytest.fixture(scope="session")
+def bad_sas_file():
+    return Path().absolute().joinpath("tests/assets/bad_sas_files/bad_sas_file.sas7bdat")

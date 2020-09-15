@@ -14,6 +14,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
 ## Usage
 * **batch_to_csv(file_dicts)** - Convert multiple sas7bdat files into csv files at once.
   * file_dicts = A list containing a dictionary for each file to convert. The dictionary is required to contain 'sas7bdat_file' containing the path and name for the sas7bdat file, and 'export_file' containing the path and name for the csv files. The csv file extension should be .csv. File paths can be sent as either strings or Path objects.
+  * continue_on_error = If set to true processing of files in a batch will continue if there is a file conversion error instead of raising an exception. Default = False
 
   #### Example
   ```
@@ -36,6 +37,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
 * **batch_to_excel(file_dicts)** - Convert multiple sas7bdat files into Excel files at once.
   * file_dicts = A list containing a dictionary for each file to convert. The dictionary is required to contain 'sas7bdat_file' containing the path and name for the sas7bdat file, and 'export_file' containing the path and name for the excel files. The Excel file extension should be .xlsx. File paths can be sent as either strings or Path objects.
+  * continue_on_error = If set to true processing of files in a batch will continue if there is a file conversion error instead of raising an exception. Default = False
 
   #### Example
   ```
@@ -58,6 +60,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
 * **batch_to_json(file_dicts)** - Convert multiple sas7bdat files into json files at once.
   * file_dicts = A list containing a dictionary for each file to convert. The dictionary is required to contain 'sas7bdat_file' containing the path and name for the sas7bdat file, and 'export_file' containing the path and name for the json files. The json file extension should be .json. File paths can be sent as either strings or Path objects.
+  * continue_on_error = If set to true processing of files in a batch will continue if there is a file conversion error instead of raising an exception. Default = False
 
   #### Example
   ```
@@ -80,6 +83,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
 * **batch_to_xml(file_dicts)** - Convert multiple sas7bdat files into XML files at once.
   * file_dicts = A list containing a dictionary for each file to convert. The dictionary is required to contain 'sas7bdat_file' containing the path and name for the sas7bdat file, and 'export_file' containing the path and name for the xml files. The XML file extension should be .xml. File paths can be sent as either strings or Path objects.
+  * continue_on_error = If set to true processing of files in a batch will continue if there is a file conversion error instead of raising an exception. Default = False
 
   #### Example
   ```
@@ -102,7 +106,8 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
 * **dir_to_csv(dir_path, export_path=None)** - Convert all sas7bdat files in a directory into csv files at once. File paths can be sent as either strings or Path objects.
   * dir_path = The dictionary that contains the sas7bdat file to convert.
-  * export_path = Optional path for the converted files. If no path is supplied the new files will be put into the dir_path directory with the sas7bdat files. File paths can be sent as either strings or Path objects.
+  * export_path = Optional path for the converted files. If no path is supplied the new files will be put into the dir_path directory with the sas7bdat files. File paths can be sent as either strings or Path objects. Default = None
+  * continue_on_error = If set to true processing of files in a batch will continue if there is a file conversion error instead of raising an exception. Default = False
 
   #### Example
   ```
@@ -119,7 +124,8 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
 * **dir_to_excel(dir_path, export_path=None)** - Convert all sas7bdat files in a directory into Excel files at once. File paths can be sent as either strings or Path objects.
   * dir_path = The dictionary that contains the sas7bdat file to convert.
-  * export_path = Optional path for the converted files. If no path is supplied the new files will be put into the dir_path directory with the sas7bdat files.
+  * export_path = Optional path for the converted files. If no path is supplied the new files will be put into the dir_path directory with the sas7bdat files Default = None
+  * continue_on_error = If set to true processing of files in a batch will continue if there is a file conversion error instead of raising an exception. Default = False
 
   #### Example
   ```
@@ -136,7 +142,8 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
 * **dir_to_json(dir_path, export_path=None)** - Convert all sas7bdat files in a directory into json files at once. File paths can be sent as either strings or Path objects.
   * dir_path = The dictionary that contains the sas7bdat file to convert.
-  * export_path = Optional path for the converted files. If no path is supplied the new files will be put into the dir_path directory with the sas7bdat files.
+  * export_path = Optional path for the converted files. If no path is supplied the new files will be put into the dir_path directory with the sas7bdat files. Default = None
+  * continue_on_error = If set to true processing of files in a batch will continue if there is a file conversion error instead of raising an exception. Default = False
 
   #### Example
   ```
@@ -153,7 +160,8 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
 * **dir_to_xml(dir_path, export_path=None)** - Convert all sas7bdat files in a directory into XML files at once. File paths can be sent as either strings or Path objects.
   * dir_path = The dictionary that contains the sas7bdat file to convert.
-  * export_path = Optional path for the converted files. If no path is supplied the new files will be put into the dir_path directory with the sas7bdat files.
+  * export_path = Optional path for the converted files. If no path is supplied the new files will be put into the dir_path directory with the sas7bdat files. Default = None
+  * continue_on_error = If set to true processing of files in a batch will continue if there is a file conversion error instead of raising an exception. Default = False
 
   #### Example
   ```
