@@ -348,9 +348,18 @@ def test_batch_to_xml_path(tmp_path, sas_file_1, sas_file_2, sas_file_3, optiona
         ]
     else:
         file_dict = [
-            {"sas7bdat_file": sas_file_1, "export_file": converted_file_1,},
-            {"sas7bdat_file": sas_file_2, "export_file": converted_file_2,},
-            {"sas7bdat_file": sas_file_3, "export_file": converted_file_3,},
+            {
+                "sas7bdat_file": sas_file_1,
+                "export_file": converted_file_1,
+            },
+            {
+                "sas7bdat_file": sas_file_2,
+                "export_file": converted_file_2,
+            },
+            {
+                "sas7bdat_file": sas_file_3,
+                "export_file": converted_file_3,
+            },
         ]
 
     converter.batch_to_xml(file_dict)
@@ -427,9 +436,18 @@ def test_batch_to_xml_str(tmp_path, sas_file_1, sas_file_2, sas_file_3, optional
         ]
     else:
         file_dict = [
-            {"sas7bdat_file": str(sas_file_1), "export_file": str(converted_file_1),},
-            {"sas7bdat_file": str(sas_file_2), "export_file": str(converted_file_2),},
-            {"sas7bdat_file": str(sas_file_3), "export_file": str(converted_file_3),},
+            {
+                "sas7bdat_file": str(sas_file_1),
+                "export_file": str(converted_file_1),
+            },
+            {
+                "sas7bdat_file": str(sas_file_2),
+                "export_file": str(converted_file_2),
+            },
+            {
+                "sas7bdat_file": str(sas_file_3),
+                "export_file": str(converted_file_3),
+            },
         ]
 
     converter.batch_to_xml(file_dict)
@@ -814,14 +832,38 @@ def test_invalid_key_exception_message_optional():
     assert valid_message == test_message
 
 
-@pytest.mark.parametrize("data", [((".txt", ".csv",), ".xml"), ((".sas7bdat",), ".json"),])
+@pytest.mark.parametrize(
+    "data",
+    [
+        (
+            (
+                ".txt",
+                ".csv",
+            ),
+            ".xml",
+        ),
+        ((".sas7bdat",), ".json"),
+    ],
+)
 def test_is_valid_extension_false(data):
     valid_extensions = data[0]
     file_extension = data[1]
     assert not converter._is_valid_extension(valid_extensions, file_extension)
 
 
-@pytest.mark.parametrize("data", [((".txt", ".csv",), ".csv"), ((".sas7bdat",), ".sas7bdat"),])
+@pytest.mark.parametrize(
+    "data",
+    [
+        (
+            (
+                ".txt",
+                ".csv",
+            ),
+            ".csv",
+        ),
+        ((".sas7bdat",), ".sas7bdat"),
+    ],
+)
 def test_is_valid_extension_true(data):
     valid_extensions = data[0]
     file_extension = data[1]
@@ -857,7 +899,13 @@ def test_to_csv_invalid_extension():
 
 def test_to_dataframe(sas_file_1):
     d = {
-        "integer_row": [1.0, 2.0, 3.0, 4.0, 5.0,],
+        "integer_row": [
+            1.0,
+            2.0,
+            3.0,
+            4.0,
+            5.0,
+        ],
         "text_row": [
             "Some text",
             "Some more text",
@@ -865,8 +913,20 @@ def test_to_dataframe(sas_file_1):
             "Text",
             "Test",
         ],
-        "float_row": [2.5, 17.23, 3.21, 100.9, 98.6,],
-        "date_row": ["2018-01-02", "2018-02-05", "2017-11-21", "2016-05-19", "1999-10-25",],
+        "float_row": [
+            2.5,
+            17.23,
+            3.21,
+            100.9,
+            98.6,
+        ],
+        "date_row": [
+            "2018-01-02",
+            "2018-02-05",
+            "2017-11-21",
+            "2016-05-19",
+            "1999-10-25",
+        ],
     }
 
     df = pd.DataFrame(data=d)
@@ -977,10 +1037,20 @@ def test_raise_on_invalid_file_dict_valid():
 @pytest.mark.parametrize(
     "file_dict",
     [
-        {"sas7bdat_fil": "test.sas7bdat", "export_file": "test.csv",},
-        {"sas7bdat_file": "test.sas7bdat", "export_fil": "test.csv",},
-        {"sas7bdat_file": "test.sas7bdat",},
-        {"export_file": "test.csv",},
+        {
+            "sas7bdat_fil": "test.sas7bdat",
+            "export_file": "test.csv",
+        },
+        {
+            "sas7bdat_file": "test.sas7bdat",
+            "export_fil": "test.csv",
+        },
+        {
+            "sas7bdat_file": "test.sas7bdat",
+        },
+        {
+            "export_file": "test.csv",
+        },
     ],
 )
 def test_raise_on_invalid_file_dict_error(file_dict):
