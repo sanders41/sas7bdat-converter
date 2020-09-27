@@ -32,7 +32,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
   ]
   batch_to_csv(file_dicts)
   ```
-  
+
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example_1.sas7bdat`.
 
 * **batch_to_excel(file_dicts)** - Convert multiple sas7bdat files into Excel files at once.
@@ -55,7 +55,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
   ]
   batch_to_excel(file_dicts)
   ```
-  
+
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example_1.sas7bdat`.
 
 * **batch_to_json(file_dicts)** - Convert multiple sas7bdat files into json files at once.
@@ -78,7 +78,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
   ]
   batch_to_json(file_dicts)
   ```
-  
+
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example_1.sas7bdat`.
 
 * **batch_to_xml(file_dicts)** - Convert multiple sas7bdat files into XML files at once.
@@ -101,7 +101,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
   ]
   batch_to_xml(file_dicts)
   ```
-  
+
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example_1.sas7bdat`.
 
 * **dir_to_csv(dir_path, export_path=None)** - Convert all sas7bdat files in a directory into csv files at once. File paths can be sent as either strings or Path objects.
@@ -119,7 +119,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
   # Option 2: put the converted fiels in a diffferent directory
   dir_to_csv('/path/to/sas7bdat/files', 'path/for/new/files')
   ```
-  
+
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files`.
 
 * **dir_to_excel(dir_path, export_path=None)** - Convert all sas7bdat files in a directory into Excel files at once. File paths can be sent as either strings or Path objects.
@@ -137,7 +137,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
   # Option 2: put the converted fiels in a diffferent directory
   dir_to_excel('/path/to/sas7bdat/files', 'path/for/new/files')
   ```
-  
+
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files`.
 
 * **dir_to_json(dir_path, export_path=None)** - Convert all sas7bdat files in a directory into json files at once. File paths can be sent as either strings or Path objects.
@@ -155,7 +155,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
   # Option 2: put the converted fiels in a diffferent directory
   dir_to_json('/path/to/sas7bdat/files', 'path/for/new/files')
   ```
-  
+
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files`.
 
 * **dir_to_xml(dir_path, export_path=None)** - Convert all sas7bdat files in a directory into XML files at once. File paths can be sent as either strings or Path objects.
@@ -173,7 +173,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
   # Option 2: put the converted fiels in a diffferent directory
   dir_to_xml('/path/to/sas7bdat/files', 'path/for/new/files')
   ```
-  
+
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files`.
 
 * **to_csv(sas7bdat_file, export_file)** - convert a sas7bdat file into a csv file. File path can be sent as either a string or Path objects.
@@ -199,7 +199,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
   to_dataframe('/path/to/sas7bdat/file/example.sas7bdat')
   ```
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example_1.sas7bdat`.
-  
+
 * **to_excel(sas7bdat_file, export_file)** - convert a sas7bdat file into a Excel file. File path can be sent as either a string or Path objects.
   * sas7bdat_file = the path and name for sas7bdat file to convert.
   * export_file = the path and name for the Excel file. The Excel file extension should be .xlsx.
