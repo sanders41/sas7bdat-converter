@@ -17,7 +17,10 @@ setup(
     url="https://github.com/sanders41/sas7bdat_converter",
     download_url="https://github.com/sanders41/sas7bdat_converter/archive/v0.5.0.tar.gz",
     packages=["sas7bdat_converter"],
-    install_requires=["pandas>=0.25.3", "XlsxWriter>=1.2.6",],
+    install_requires=[
+        "pandas>=0.25.3",
+        "XlsxWriter>=1.2.6",
+    ],
     classifiers=[
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
