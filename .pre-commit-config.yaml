@@ -20,3 +20,9 @@ repos:
     hooks:
     - id: mypy
       files: sas7bdat_converter/
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.7.9
+    hooks:
+      - id: flake8
+        language_version: python3
+        additional_dependencies: [flake8-print]
