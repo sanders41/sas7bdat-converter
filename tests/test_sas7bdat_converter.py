@@ -6,8 +6,8 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
+import sas7bdat_converter
 import sas7bdat_converter.converter as converter
-from tests.conftest import bad_sas_file
 
 current_dir = Path().absolute()
 
@@ -23,7 +23,7 @@ def test_batch_to_csv_path(tmp_path, sas_file_1, sas_file_2, sas_file_3):
         {"sas7bdat_file": sas_file_3, "export_file": converted_file_3},
     ]
 
-    converter.batch_to_csv(file_dict)
+    sas7bdat_converter.batch_to_csv(file_dict)
 
     files_created = False
 
@@ -44,7 +44,7 @@ def test_batch_to_csv_str(tmp_path, sas_file_1, sas_file_2, sas_file_3):
         {"sas7bdat_file": str(sas_file_3), "export_file": str(converted_file_3)},
     ]
 
-    converter.batch_to_csv(file_dict)
+    sas7bdat_converter.batch_to_csv(file_dict)
 
     files_created = False
 
@@ -64,7 +64,7 @@ def test_batch_to_csv_continue(tmp_path, caplog, sas_file_1):
         {"sas7bdat_file": sas_file_1, "export_file": converted_file},
     ]
 
-    converter.batch_to_csv(file_dict, continue_on_error=True)
+    sas7bdat_converter.batch_to_csv(file_dict, continue_on_error=True)
 
     assert converted_file.is_file()
     assert "Error converting" in caplog.text
@@ -81,7 +81,7 @@ def test_batch_to_csv_no_continue(tmp_path, caplog, sas_file_1):
     ]
 
     with pytest.raises(Exception) as execinfo:
-        converter.batch_to_csv(file_dict, continue_on_error=False)
+        sas7bdat_converter.batch_to_csv(file_dict, continue_on_error=False)
 
     assert execinfo.value
 
@@ -96,7 +96,7 @@ file_dicts = [
 @pytest.mark.parametrize("file_dict", file_dicts)
 def test_batch_to_csv_invalid_key(file_dict):
     with pytest.raises(KeyError) as execinfo:
-        converter.batch_to_csv(file_dict)
+        sas7bdat_converter.batch_to_csv(file_dict)
 
     assert "Invalid key provided" in str(execinfo.value)
 
@@ -112,7 +112,7 @@ def test_batch_to_excel_path(tmp_path, sas_file_1, sas_file_2, sas_file_3):
         {"sas7bdat_file": sas_file_3, "export_file": converted_file_3},
     ]
 
-    converter.batch_to_excel(file_dict)
+    sas7bdat_converter.batch_to_excel(file_dict)
     files_created = False
 
     if converted_file_1.is_file() and converted_file_2.is_file() and converted_file_3.is_file():
@@ -132,7 +132,7 @@ def test_batch_to_excel_str(tmp_path, sas_file_1, sas_file_2, sas_file_3):
         {"sas7bdat_file": str(sas_file_3), "export_file": str(converted_file_3)},
     ]
 
-    converter.batch_to_excel(file_dict)
+    sas7bdat_converter.batch_to_excel(file_dict)
     files_created = False
 
     if converted_file_1.is_file() and converted_file_2.is_file() and converted_file_3.is_file():
@@ -151,7 +151,7 @@ def test_batch_to_excel_continue(tmp_path, caplog, sas_file_1):
         {"sas7bdat_file": sas_file_1, "export_file": converted_file},
     ]
 
-    converter.batch_to_excel(file_dict, continue_on_error=True)
+    sas7bdat_converter.batch_to_excel(file_dict, continue_on_error=True)
 
     assert converted_file.is_file()
     assert "Error converting" in caplog.text
@@ -168,7 +168,7 @@ def test_batch_to_excel_no_continue(tmp_path, caplog, sas_file_1):
     ]
 
     with pytest.raises(FileNotFoundError) as execinfo:
-        converter.batch_to_excel(file_dict, continue_on_error=False)
+        sas7bdat_converter.batch_to_excel(file_dict, continue_on_error=False)
 
     assert execinfo.value
 
@@ -183,7 +183,7 @@ file_dicts = [
 @pytest.mark.parametrize("file_dict", file_dicts)
 def test_batch_to_excel_invalid_key(file_dict):
     with pytest.raises(KeyError) as execinfo:
-        converter.batch_to_excel(file_dict)
+        sas7bdat_converter.batch_to_excel(file_dict)
 
     assert "Invalid key provided" in str(execinfo.value)
 
@@ -199,7 +199,7 @@ def test_batch_to_json_path(tmp_path, sas_file_1, sas_file_2, sas_file_3):
         {"sas7bdat_file": sas_file_3, "export_file": converted_file_3},
     ]
 
-    converter.batch_to_json(file_dict)
+    sas7bdat_converter.batch_to_json(file_dict)
     files_created = False
 
     if converted_file_1.is_file() and converted_file_2.is_file() and converted_file_3.is_file():
@@ -219,7 +219,7 @@ def test_batch_to_json_path_str(tmp_path, sas_file_1, sas_file_2, sas_file_3):
         {"sas7bdat_file": str(sas_file_3), "export_file": str(converted_file_3)},
     ]
 
-    converter.batch_to_json(file_dict)
+    sas7bdat_converter.batch_to_json(file_dict)
     files_created = False
 
     if converted_file_1.is_file() and converted_file_2.is_file() and converted_file_3.is_file():
@@ -238,7 +238,7 @@ def test_batch_to_json_continue(tmp_path, caplog, sas_file_1):
         {"sas7bdat_file": sas_file_1, "export_file": converted_file},
     ]
 
-    converter.batch_to_json(file_dict, continue_on_error=True)
+    sas7bdat_converter.batch_to_json(file_dict, continue_on_error=True)
 
     assert converted_file.is_file()
     assert "Error converting" in caplog.text
@@ -255,7 +255,7 @@ def test_batch_to_json_no_continue(tmp_path, caplog, sas_file_1):
     ]
 
     with pytest.raises(Exception) as execinfo:
-        converter.batch_to_json(file_dict, continue_on_error=False)
+        sas7bdat_converter.batch_to_json(file_dict, continue_on_error=False)
 
     assert execinfo.value
 
@@ -270,7 +270,7 @@ file_dicts = [
 @pytest.mark.parametrize("file_dict", file_dicts)
 def test_batch_to_json_invalid_key(file_dict):
     with pytest.raises(KeyError) as execinfo:
-        converter.batch_to_json(file_dict)
+        sas7bdat_converter.batch_to_json(file_dict)
 
     assert "Invalid key provided" in str(execinfo.value)
 
@@ -362,7 +362,7 @@ def test_batch_to_xml_path(tmp_path, sas_file_1, sas_file_2, sas_file_3, optiona
             },
         ]
 
-    converter.batch_to_xml(file_dict)
+    sas7bdat_converter.batch_to_xml(file_dict)
     files_created = False
 
     if converted_file_1.is_file() and converted_file_2.is_file() and converted_file_3.is_file():
@@ -450,7 +450,7 @@ def test_batch_to_xml_str(tmp_path, sas_file_1, sas_file_2, sas_file_3, optional
             },
         ]
 
-    converter.batch_to_xml(file_dict)
+    sas7bdat_converter.batch_to_xml(file_dict)
     files_created = False
 
     if converted_file_1.is_file() and converted_file_2.is_file() and converted_file_3.is_file():
@@ -469,7 +469,7 @@ def test_batch_to_xml_continue(tmp_path, caplog, sas_file_1):
         {"sas7bdat_file": sas_file_1, "export_file": converted_file},
     ]
 
-    converter.batch_to_xml(file_dict, continue_on_error=True)
+    sas7bdat_converter.batch_to_xml(file_dict, continue_on_error=True)
 
     assert converted_file.is_file()
     assert "Error converting" in caplog.text
@@ -486,7 +486,7 @@ def test_batch_to_xml_no_continue(tmp_path, caplog, sas_file_1):
     ]
 
     with pytest.raises(Exception) as execinfo:
-        converter.batch_to_xml(file_dict, continue_on_error=False)
+        sas7bdat_converter.batch_to_xml(file_dict, continue_on_error=False)
 
     assert execinfo.value
 
@@ -517,7 +517,7 @@ file_dicts = [
 @pytest.mark.parametrize("file_dict", file_dicts)
 def test_batch_to_xml_invalid_key(file_dict):
     with pytest.raises(KeyError) as execinfo:
-        converter.batch_to_xml(file_dict)
+        sas7bdat_converter.batch_to_xml(file_dict)
 
     assert "Invalid key provided" in str(execinfo.value)
 
@@ -527,7 +527,7 @@ def test_dir_to_csv_same_dir_path(tmp_path, sas7bdat_dir):
     for sas_file in sas_files:
         shutil.copy(sas_file, str(tmp_path))
 
-    converter.dir_to_csv(tmp_path)
+    sas7bdat_converter.dir_to_csv(tmp_path)
     sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".csv"])
 
@@ -539,7 +539,7 @@ def test_dir_to_csv_same_dir_str(tmpdir, sas7bdat_dir):
     for sas_file in sas_files:
         shutil.copy(sas_file, tmpdir)
 
-    converter.dir_to_csv(tmpdir)
+    sas7bdat_converter.dir_to_csv(tmpdir)
     sas_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".csv"])
 
@@ -553,7 +553,7 @@ def test_dir_to_csv_continue(tmp_path, caplog, sas7bdat_dir, bad_sas_file):
 
     shutil.copy(bad_sas_file, str(tmp_path))
 
-    converter.dir_to_csv(tmp_path, continue_on_error=True)
+    sas7bdat_converter.dir_to_csv(tmp_path, continue_on_error=True)
     sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"]) - 1
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".csv"])
 
@@ -568,13 +568,13 @@ def test_dir_to_csv_no_continue(tmp_path, sas7bdat_dir, bad_sas_file):
 
     shutil.copy(bad_sas_file, str(tmp_path))
     with pytest.raises(Exception) as execinfo:
-        converter.dir_to_csv(tmp_path, continue_on_error=False)
+        sas7bdat_converter.dir_to_csv(tmp_path, continue_on_error=False)
 
     assert execinfo.value
 
 
 def test_dir_to_csv_different_dir_path(tmp_path, sas7bdat_dir):
-    converter.dir_to_csv(dir_path=sas7bdat_dir, export_path=tmp_path)
+    sas7bdat_converter.dir_to_csv(dir_path=sas7bdat_dir, export_path=tmp_path)
     sas_counter = len([name for name in sas7bdat_dir.iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".csv"])
 
@@ -582,7 +582,7 @@ def test_dir_to_csv_different_dir_path(tmp_path, sas7bdat_dir):
 
 
 def test_dir_to_csv_different_dir_str(tmpdir, sas7bdat_dir):
-    converter.dir_to_csv(dir_path=str(sas7bdat_dir), export_path=tmpdir)
+    sas7bdat_converter.dir_to_csv(dir_path=str(sas7bdat_dir), export_path=tmpdir)
     sas_counter = len([name for name in Path(sas7bdat_dir).iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".csv"])
 
@@ -594,7 +594,7 @@ def test_dir_to_excel_same_dir_path(tmp_path, sas7bdat_dir):
     for sas_file in sas_files:
         shutil.copy(sas_file, str(tmp_path))
 
-    converter.dir_to_excel(tmp_path)
+    sas7bdat_converter.dir_to_excel(tmp_path)
     sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xlsx"])
 
@@ -606,7 +606,7 @@ def test_dir_to_excel_same_dir_str(tmpdir, sas7bdat_dir):
     for sas_file in sas_files:
         shutil.copy(sas_file, tmpdir)
 
-    converter.dir_to_excel(tmpdir)
+    sas7bdat_converter.dir_to_excel(tmpdir)
     sas_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".xlsx"])
 
@@ -614,7 +614,7 @@ def test_dir_to_excel_same_dir_str(tmpdir, sas7bdat_dir):
 
 
 def test_dir_to_excel_different_dir_path(tmp_path, sas7bdat_dir):
-    converter.dir_to_excel(dir_path=sas7bdat_dir, export_path=tmp_path)
+    sas7bdat_converter.dir_to_excel(dir_path=sas7bdat_dir, export_path=tmp_path)
     sas_counter = len([name for name in sas7bdat_dir.iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xlsx"])
 
@@ -622,7 +622,7 @@ def test_dir_to_excel_different_dir_path(tmp_path, sas7bdat_dir):
 
 
 def test_dir_to_excel_different_dir_str(tmpdir, sas7bdat_dir):
-    converter.dir_to_excel(dir_path=str(sas7bdat_dir), export_path=tmpdir)
+    sas7bdat_converter.dir_to_excel(dir_path=str(sas7bdat_dir), export_path=tmpdir)
     sas_counter = len([name for name in Path(sas7bdat_dir).iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".xlsx"])
 
@@ -636,7 +636,7 @@ def test_dir_to_excel_continue(tmp_path, caplog, sas7bdat_dir, bad_sas_file):
 
     shutil.copy(bad_sas_file, str(tmp_path))
 
-    converter.dir_to_excel(tmp_path, continue_on_error=True)
+    sas7bdat_converter.dir_to_excel(tmp_path, continue_on_error=True)
     sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"]) - 1
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xlsx"])
 
@@ -651,7 +651,7 @@ def test_dir_to_excel_no_continue(tmp_path, sas7bdat_dir, bad_sas_file):
 
     shutil.copy(bad_sas_file, str(tmp_path))
     with pytest.raises(Exception) as execinfo:
-        converter.dir_to_excel(tmp_path, continue_on_error=False)
+        sas7bdat_converter.dir_to_excel(tmp_path, continue_on_error=False)
 
     assert execinfo.value
 
@@ -661,7 +661,7 @@ def test_dir_to_json_same_dir_path(tmp_path, sas7bdat_dir):
     for sas_file in sas_files:
         shutil.copy(sas_file, tmp_path)
 
-    converter.dir_to_json(tmp_path)
+    sas7bdat_converter.dir_to_json(tmp_path)
     sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".json"])
 
@@ -673,7 +673,7 @@ def test_dir_to_json_same_dir_str(tmpdir, sas7bdat_dir):
     for sas_file in sas_files:
         shutil.copy(sas_file, tmpdir)
 
-    converter.dir_to_json(tmpdir)
+    sas7bdat_converter.dir_to_json(tmpdir)
     sas_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".json"])
 
@@ -681,7 +681,7 @@ def test_dir_to_json_same_dir_str(tmpdir, sas7bdat_dir):
 
 
 def test_dir_to_json_different_dir_path(tmp_path, sas7bdat_dir):
-    converter.dir_to_json(sas7bdat_dir, tmp_path)
+    sas7bdat_converter.dir_to_json(sas7bdat_dir, tmp_path)
     sas_counter = len([name for name in sas7bdat_dir.iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".json"])
 
@@ -689,7 +689,7 @@ def test_dir_to_json_different_dir_path(tmp_path, sas7bdat_dir):
 
 
 def test_dir_to_json_different_dir_str(tmpdir, sas7bdat_dir):
-    converter.dir_to_json(str(sas7bdat_dir), tmpdir)
+    sas7bdat_converter.dir_to_json(str(sas7bdat_dir), tmpdir)
     sas_counter = len([name for name in Path(sas7bdat_dir).iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".json"])
 
@@ -703,7 +703,7 @@ def test_dir_to_json_continue(tmp_path, caplog, sas7bdat_dir, bad_sas_file):
 
     shutil.copy(bad_sas_file, str(tmp_path))
 
-    converter.dir_to_json(tmp_path, continue_on_error=True)
+    sas7bdat_converter.dir_to_json(tmp_path, continue_on_error=True)
     sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"]) - 1
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".json"])
 
@@ -718,7 +718,7 @@ def test_dir_to_json_no_continue(tmp_path, sas7bdat_dir, bad_sas_file):
 
     shutil.copy(bad_sas_file, str(tmp_path))
     with pytest.raises(Exception) as execinfo:
-        converter.dir_to_json(tmp_path, continue_on_error=False)
+        sas7bdat_converter.dir_to_json(tmp_path, continue_on_error=False)
 
     assert execinfo.value
 
@@ -728,7 +728,7 @@ def test_dir_to_xml_same_dir_path(tmp_path, sas7bdat_dir):
     for sas_file in sas_files:
         shutil.copy(sas_file, str(tmp_path))
 
-    converter.dir_to_xml(tmp_path)
+    sas7bdat_converter.dir_to_xml(tmp_path)
     sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xml"])
 
@@ -740,7 +740,7 @@ def test_dir_to_xml_same_dir_str(tmpdir, sas7bdat_dir):
     for sas_file in sas_files:
         shutil.copy(sas_file, tmpdir)
 
-    converter.dir_to_xml(tmpdir)
+    sas7bdat_converter.dir_to_xml(tmpdir)
     sas_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".xml"])
 
@@ -748,7 +748,7 @@ def test_dir_to_xml_same_dir_str(tmpdir, sas7bdat_dir):
 
 
 def test_dir_to_xml_different_dir_path(tmp_path, sas7bdat_dir):
-    converter.dir_to_xml(sas7bdat_dir, tmp_path)
+    sas7bdat_converter.dir_to_xml(sas7bdat_dir, tmp_path)
     sas_counter = len([name for name in sas7bdat_dir.iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xml"])
 
@@ -756,7 +756,7 @@ def test_dir_to_xml_different_dir_path(tmp_path, sas7bdat_dir):
 
 
 def test_dir_to_xml_different_dir_str(tmpdir, sas7bdat_dir):
-    converter.dir_to_xml(str(sas7bdat_dir), tmpdir)
+    sas7bdat_converter.dir_to_xml(str(sas7bdat_dir), tmpdir)
     sas_counter = len([name for name in Path(sas7bdat_dir).iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".xml"])
 
@@ -770,7 +770,7 @@ def test_dir_to_xml_continue(tmp_path, caplog, sas7bdat_dir, bad_sas_file):
 
     shutil.copy(bad_sas_file, str(tmp_path))
 
-    converter.dir_to_xml(tmp_path, continue_on_error=True)
+    sas7bdat_converter.dir_to_xml(tmp_path, continue_on_error=True)
     sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"]) - 1
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xml"])
 
@@ -785,7 +785,7 @@ def test_dir_to_xml_no_continue(tmp_path, sas7bdat_dir, bad_sas_file):
 
     shutil.copy(bad_sas_file, str(tmp_path))
     with pytest.raises(Exception) as execinfo:
-        converter.dir_to_xml(tmp_path, continue_on_error=False)
+        sas7bdat_converter.dir_to_xml(tmp_path, continue_on_error=False)
 
     assert execinfo.value
 
@@ -885,14 +885,14 @@ def test_to_csv_str(tmpdir, request, expected_dir):
     sas_file = request.getfixturevalue(request.param)
     converted_file = str(Path(tmpdir).joinpath("file1.csv"))
     expected_file = expected_dir.joinpath("file1.csv")
-    converter.to_csv(sas_file, converted_file)
+    sas7bdat_converter.to_csv(sas_file, converted_file)
 
     assert filecmp.cmp(converted_file, expected_file, shallow=False)
 
 
 def test_to_csv_invalid_extension():
     with pytest.raises(AttributeError) as execinfo:
-        converter.to_csv("test.sas7bdat", "test.bad")
+        sas7bdat_converter.to_csv("test.sas7bdat", "test.bad")
 
     assert "sas7bdat conversion error - Valid extension" in str(execinfo.value)
 
@@ -941,7 +941,7 @@ def test_to_excel_path(tmp_path, request, expected_dir):
     sas_file = Path(request.getfixturevalue(request.param))
     converted_file = tmp_path.joinpath("file1.xlsx")
     expected_file = expected_dir.joinpath("file1.xlsx")
-    converter.to_excel(sas_file, converted_file)
+    sas7bdat_converter.to_excel(sas_file, converted_file)
 
     df_expected = pd.read_excel(expected_file, engine="openpyxl")
     df_converted = pd.read_excel(converted_file, engine="openpyxl")
@@ -954,7 +954,7 @@ def test_to_excel_str(tmpdir, request, expected_dir):
     sas_file = request.getfixturevalue(request.param)
     converted_file = str(Path(tmpdir).joinpath("file1.xlsx"))
     expected_file = expected_dir.joinpath("file1.xlsx")
-    converter.to_excel(sas_file, converted_file)
+    sas7bdat_converter.to_excel(sas_file, converted_file)
 
     df_expected = pd.read_excel(expected_file, engine="openpyxl")
     df_converted = pd.read_excel(converted_file, engine="openpyxl")
@@ -964,7 +964,7 @@ def test_to_excel_str(tmpdir, request, expected_dir):
 
 def test_to_excel_invalid_extension():
     with pytest.raises(AttributeError) as execinfo:
-        converter.to_excel("test.sas7bdat", "test.bad")
+        sas7bdat_converter.to_excel("test.sas7bdat", "test.bad")
 
     assert "sas7bdat conversion error - Valid extension" in str(execinfo.value)
 
@@ -974,7 +974,7 @@ def test_to_json_path(tmp_path, request, expected_dir):
     sas_file = Path(request.getfixturevalue(request.param))
     converted_file = tmp_path.joinpath("file1.json")
     expected_file = expected_dir.joinpath("file1.json")
-    converter.to_json(sas_file, converted_file)
+    sas7bdat_converter.to_json(sas_file, converted_file)
 
     assert filecmp.cmp(converted_file, expected_file, shallow=False)
 
@@ -984,14 +984,14 @@ def test_to_json_str(tmpdir, request, expected_dir):
     sas_file = request.getfixturevalue(request.param)
     converted_file = str(Path(tmpdir).joinpath("file1.json"))
     expected_file = expected_dir.joinpath("file1.json")
-    converter.to_json(sas_file, converted_file)
+    sas7bdat_converter.to_json(sas_file, converted_file)
 
     assert filecmp.cmp(converted_file, expected_file, shallow=False)
 
 
 def test_to_json_invalid_extension():
     with pytest.raises(AttributeError) as execinfo:
-        converter.to_json("test.sas7bdat", "test.bad")
+        sas7bdat_converter.to_json("test.sas7bdat", "test.bad")
 
     assert "sas7bdat conversion error - Valid extension" in str(execinfo.value)
 
@@ -1001,7 +1001,7 @@ def test_to_xml_path(tmp_path, request, expected_dir):
     sas_file = Path(request.getfixturevalue(request.param))
     converted_file = tmp_path.joinpath("file1.xml")
     expected_file = expected_dir.joinpath("file1.xml")
-    converter.to_xml(sas_file, converted_file)
+    sas7bdat_converter.to_xml(sas_file, converted_file)
 
     assert filecmp.cmp(converted_file, expected_file, shallow=False)
 
@@ -1011,14 +1011,14 @@ def test_to_xml_str(tmpdir, request, expected_dir):
     sas_file = request.getfixturevalue(request.param)
     converted_file = str(Path(tmpdir).joinpath("file1.xml"))
     expected_file = expected_dir.joinpath("file1.xml")
-    converter.to_xml(sas_file, converted_file)
+    sas7bdat_converter.to_xml(sas_file, converted_file)
 
     assert filecmp.cmp(converted_file, expected_file, shallow=False)
 
 
 def test_to_xml_invalid_extension():
     with pytest.raises(AttributeError) as execinfo:
-        converter.to_xml("test.sas7bdat", "test.bad")
+        sas7bdat_converter.to_xml("test.sas7bdat", "test.bad")
 
     assert "sas7bdat conversion error - Valid extension" in str(execinfo.value)
 

@@ -18,7 +18,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
   #### Example
   ```
-  from sas7bdat_converter.converter import batch_to_csv
+  import sas7bdat_converter
 
   file_dicts = [
     {
@@ -30,7 +30,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
       'export_file': '/path/to/new/files/example_2.csv',
     },
   ]
-  batch_to_csv(file_dicts)
+  sas7bdat_converter.batch_to_csv(file_dicts)
   ```
 
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example_1.sas7bdat`.
@@ -41,7 +41,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
   #### Example
   ```
-  from sas7bdat_converter.converter import batch_to_excel
+  import sas7bdat_converter
 
   file_dicts = [
     {
@@ -53,7 +53,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
       'export_file': '/path/to/new/files/example_2.xlsx',
     },
   ]
-  batch_to_excel(file_dicts)
+  sas7bdat_converter.batch_to_excel(file_dicts)
   ```
 
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example_1.sas7bdat`.
@@ -64,7 +64,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
   #### Example
   ```
-  from sas7bdat_converter.converter import batch_to_json
+  import sas7bdat_converter
 
   file_dicts = [
     {
@@ -76,7 +76,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
       'export_file': '/path/to/new/files/example_2.json',
     },
   ]
-  batch_to_json(file_dicts)
+  sas7bdat_converter.batch_to_json(file_dicts)
   ```
 
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example_1.sas7bdat`.
@@ -87,7 +87,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
   #### Example
   ```
-  from sas7bdat_converter.converter import batch_to_xml
+  import sas7bdat_converters
 
   file_dicts = [
     {
@@ -99,7 +99,7 @@ Conversions can be done on either a single file, an entire directory, or a batch
       'export_file': '/path/to/new/files/example_2.xml',
     },
   ]
-  batch_to_xml(file_dicts)
+  sas7bdat_converter.batch_to_xml(file_dicts)
   ```
 
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example_1.sas7bdat`.
@@ -111,13 +111,13 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
   #### Example
   ```
-  from sas7bdat_converter.converter import dir_to_csv
+  import sas7bdat_converter
 
   # Option 1: put the converted files in the same directory as the sas7bdat files
-  dir_to_csv('/path/to/sas7bdat/files')
+  sas7bdat_converter.dir_to_csv('/path/to/sas7bdat/files')
 
   # Option 2: put the converted fiels in a diffferent directory
-  dir_to_csv('/path/to/sas7bdat/files', 'path/for/new/files')
+  sas7bdat_converter.dir_to_csv('/path/to/sas7bdat/files', 'path/for/new/files')
   ```
 
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files`.
@@ -129,13 +129,13 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
   #### Example
   ```
-  from sas7bdat_converter.converter import dir_to_excel
+  import sas7bdat_converter
 
   # Option 1: put the converted files in the same directory as the sas7bdat files
-  dir_to_excel('/path/to/sas7bdat/files')
+  sas7bdat_converter.dir_to_excel('/path/to/sas7bdat/files')
 
   # Option 2: put the converted fiels in a diffferent directory
-  dir_to_excel('/path/to/sas7bdat/files', 'path/for/new/files')
+  sas7bdat_converter.dir_to_excel('/path/to/sas7bdat/files', 'path/for/new/files')
   ```
 
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files`.
@@ -147,13 +147,13 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
   #### Example
   ```
-  from sas7bdat_converter.converter import dir_to_json
+  import sas7bdat_converter
 
   # Option 1: put the converted files in the same directory as the sas7bdat files
-  dir_to_json('/path/to/sas7bdat/files')
+  sas7bdat_converter.dir_to_json('/path/to/sas7bdat/files')
 
   # Option 2: put the converted fiels in a diffferent directory
-  dir_to_json('/path/to/sas7bdat/files', 'path/for/new/files')
+  sas7bdat_converter.dir_to_json('/path/to/sas7bdat/files', 'path/for/new/files')
   ```
 
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files`.
@@ -165,13 +165,13 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
   #### Example
   ```
-  from sas7bdat_converter.converter import dir_to_xml
+  import sas7bdat_converter
 
   # Option 1: put the converted files in the same directory as the sas7bdat files
-  dir_to_xml('/path/to/sas7bdat/files')
+  sas7bdat_converter.dir_to_xml('/path/to/sas7bdat/files')
 
   # Option 2: put the converted fiels in a diffferent directory
-  dir_to_xml('/path/to/sas7bdat/files', 'path/for/new/files')
+  sas7bdat_converter.dir_to_xml('/path/to/sas7bdat/files', 'path/for/new/files')
   ```
 
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files`.
@@ -182,9 +182,9 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
   #### Example
   ```
-  from sas7bdat_converter.converter import to_csv
+  import sas7bdat_converter
 
-  to_csv('/path/to/sas7bdat/file/example.sas7bdat', 'path/to/new/file/example.csv')
+  sas7bdat_converter.to_csv('/path/to/sas7bdat/file/example.sas7bdat', 'path/to/new/file/example.csv')
   ```
 
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example.sas7bdat`.
@@ -194,9 +194,9 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
   #### Example
   ```
-  from sas7bdat_converter.converter import to_dataframe
+  import sas7bdat_converter
 
-  to_dataframe('/path/to/sas7bdat/file/example.sas7bdat')
+  sas7bdat_converter.to_dataframe('/path/to/sas7bdat/file/example.sas7bdat')
   ```
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example_1.sas7bdat`.
 
@@ -206,9 +206,9 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
   #### Example
   ```
-  from sas7bdat_converter.converter import to_excel
+  import sas7bdat_converter
 
-  to_excel('/path/to/sas7bdat/file/example.sas7bdat', 'path/to/new/file/example.xlsx')
+  sas7bdat_converter.to_excel('/path/to/sas7bdat/file/example.sas7bdat', 'path/to/new/file/example.xlsx')
   ```
 
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example.sas7bdat`.
@@ -219,9 +219,9 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
   #### Example
   ```
-  from sas7bdat_converter.converter import to_json
+  import sas7bdat_converter
 
-  to_json('/path/to/sas7bdat/file/example.sas7bdat', 'path/to/new/file/example.json')
+  sas7bdat_converter.to_json('/path/to/sas7bdat/file/example.sas7bdat', 'path/to/new/file/example.json')
   ```
 
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example.sas7bdat`.
@@ -234,9 +234,9 @@ Conversions can be done on either a single file, an entire directory, or a batch
 
   #### Example
   ```
-  from sas7bdat_converter.converter import to_xml
+  import sas7bdat_converter
 
-  to_xml('/path/to/sas7bdat/file/example.sas7bdat', 'path/to/new/file/example.xml')
+  sas7bdat_converter.to_xml('/path/to/sas7bdat/file/example.sas7bdat', 'path/to/new/file/example.xml')
   ```
 
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example.sas7bdat`.
