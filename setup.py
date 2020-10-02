@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
 HERE = Path(__file__).parent
 README = HERE.joinpath("README.md").read_text()

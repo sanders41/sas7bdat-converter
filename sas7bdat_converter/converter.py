@@ -26,10 +26,16 @@ def batch_to_csv(
 
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
-                    contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat file)
-                    and 'export_file' containing the path and name of the export csv).
-                    Example: file_dict = [{'sas7bdat_file': 'sas_file1.sas7bdat', 'export_file': 'converted_file1.csv'},
-                                          {'sas7bdat_file': 'sas_file2.sas7bdat', 'export_file': 'converted_file2.csv'}]
+                    contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat
+                    file) and 'export_file' containing the path and name of the export csv).
+                    Example: file_dict = [{
+                                              'sas7bdat_file': 'sas_file1.sas7bdat',
+                                              'export_file': 'converted_file1.csv',
+                                          },
+                                          {
+                                              'sas7bdat_file': 'sas_file2.sas7bdat',
+                                              'export_file': 'converted_file2.csv',
+                                          }]
         continue_on_error: If set to true processing of files in a batch will continue if there is
                     a file conversion error instead of raising an exception. Default = False
     """
@@ -40,7 +46,7 @@ def batch_to_csv(
         export = _format_path(file_dict["export_file"])
         try:
             to_csv(sas7bdat_file=sas7bdat, export_file=export)
-        except:
+        except:  # noqa: E722
             if continue_on_error:
                 logger.info(f"Error converting {sas7bdat}")
             else:
@@ -56,10 +62,16 @@ def batch_to_excel(
 
     Args:
         file_dicts: A list of dictionaries containing the files to convert. The dictionary should
-                    contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat file)
-                    and 'export_file' containing the path and name of the export xlsx).
-                    Example: file_dict = [{'sas7bdat_file': 'sas_file1.sas7bdat', 'export_file': 'converted_file1.xlsx'},
-                                          {'sas7bdat_file': 'sas_file2.sas7bdat', 'export_file': 'converted_file2.xlxs'}]
+                    contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat
+                    file) and 'export_file' containing the path and name of the export xlsx).
+                    Example: file_dict = [{
+                                              'sas7bdat_file': 'sas_file1.sas7bdat',
+                                              'export_file': 'converted_file1.xlsx',
+                                          },
+                                          {
+                                              'sas7bdat_file': 'sas_file2.sas7bdat',
+                                              'export_file': 'converted_file2.xlxs',
+                                          }]
         continue_on_error: If set to true processing of files in a batch will continue if there is
                     a file conversion error instead of raising an exception. Default = False
     """
@@ -70,7 +82,7 @@ def batch_to_excel(
         export = _format_path(file_dict["export_file"])
         try:
             to_excel(sas7bdat_file=sas7bdat, export_file=export)
-        except:
+        except:  # noqa: 722
             if continue_on_error:
                 logger.info(f"Error converting {sas7bdat}")
             else:
@@ -86,10 +98,16 @@ def batch_to_json(
 
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
-                    contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat file)
-                    and 'export_file' containing the path and name of the export json).
-                    Example: file_dict = [{'sas7bdat_file': 'sas_file1.sas7bdat', 'export_file': 'converted_file1.json'},
-                                          {'sas7bdat_file': 'sas_file2.sas7bdat', 'export_file': 'converted_file2.json'}]
+                    contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat
+                    file) and 'export_file' containing the path and name of the export json).
+                    Example: file_dict = [{
+                                              'sas7bdat_file': 'sas_file1.sas7bdat',
+                                              'export_file': 'converted_file1.json',
+                                          },
+                                          {
+                                              'sas7bdat_file': 'sas_file2.sas7bdat',
+                                              'export_file': 'converted_file2.json',
+                                          }]
         continue_on_error: If set to true processing of files in a batch will continue if there is
                     a file conversion error instead of raising an exception. Default = False
     """
@@ -100,7 +118,7 @@ def batch_to_json(
         export = _format_path(file_dict["export_file"])
         try:
             to_json(sas7bdat_file=sas7bdat, export_file=export)
-        except:
+        except:  # noqa: 722
             if continue_on_error:
                 logger.info(f"Error converting {sas7bdat}")
             else:
@@ -116,11 +134,11 @@ def batch_to_xml(
 
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
-                    contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat file)
-                    and 'export_file' containing the path and name of the export xml). Optinallly
-                    the dictionary can also contain 'root_node' (containing the name for the root
-                    node in the xml file, and 'first_node' (containing the name for the first node
-                    in the xml file).
+                    contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat
+                    file) and 'export_file' containing the path and name of the export xml).
+                    Optinallly the dictionary can also contain 'root_node' (containing the name for
+                    the root node in the xml file, and 'first_node' (containing the name for the
+                    first node in the xml file).
                     Examples: file_dict = [{'sas7bdat_file': 'sas_file1.sas7bdat',
                                             'export_file': 'converted_file1.xlsx'},
                                            {'sas7bdat_file': 'sas_file2.sas7bdat',
@@ -185,7 +203,7 @@ def batch_to_xml(
                 to_xml(sas7bdat_file=sas7bdat, export_file=export, first_node=str(first_node))
             else:
                 to_xml(sas7bdat_file=sas7bdat, export_file=export)
-        except:
+        except:  # noqa: 722
             if continue_on_error:
                 logger.info(f"Error converting {sas7bdat}")
             else:
@@ -389,7 +407,7 @@ def to_xml(
         return "\n".join(xml)
 
     res = f'<?xml version="1.0" encoding="UTF-8"?>\n<{root_node}>\n'
-    res = res + f"\n".join(df.apply(row_to_xml, axis=1)) + "\n</{root_node}>"
+    res = res + "\n".join(df.apply(row_to_xml, axis=1)) + f"\n</{root_node}>"
 
     with open(export_file, "w") as f:
         f.write(res)
@@ -402,7 +420,7 @@ def _file_extension_exception_message(conversion_type: str, valid_extensions: Tu
         is_are = ("extensions", "are")
 
     extensions = ", ".join(valid_extensions)
-    return f"sas7bdat conversion error - Valid {is_are[0]} for {conversion_type} conversion {is_are[1]}: {extensions}"
+    return f"sas7bdat conversion error - Valid {is_are[0]} for {conversion_type} conversion {is_are[1]}: {extensions}"  # noqa: E501
 
 
 def _invalid_key_exception_message(
@@ -411,7 +429,7 @@ def _invalid_key_exception_message(
     required_keys_joined: str = ", ".join(required_keys)
     if optional_keys:
         optional_keys_joined: str = ", ".join(optional_keys)
-        message = f"Invalid key provided, expected keys are: {required_keys_joined} and optional keys are: {optional_keys_joined}"
+        message = f"Invalid key provided, expected keys are: {required_keys_joined} and optional keys are: {optional_keys_joined}"  # noqa: E501
     else:
         message = f"Invalid key provided, expected keys are: {required_keys_joined}"
 
@@ -460,7 +478,7 @@ def _walk_dir(
                     to_json(str(sas7bdat_file), str(export_file))
                 elif file_type == "xml":
                     to_xml(str(sas7bdat_file), str(export_file))
-            except:
+            except:  # noqa: 722
                 if continue_on_error:
                     logger.info(f"Error converting {sas7bdat_file}")
                 else:

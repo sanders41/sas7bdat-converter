@@ -1,6 +1,4 @@
-name = "sas7bdat_converter"
-
-from sas7bdat_converter.converter import (
+from sas7bdat_converter.converter import (  # noqa: F401
     batch_to_csv,
     batch_to_excel,
     batch_to_json,
@@ -15,3 +13,5 @@ from sas7bdat_converter.converter import (
     to_json,
     to_xml,
 )
+
+name = "sas7bdat_converter"
