@@ -1,0 +1,5 @@
+{
+  "irow": [1, 2],
+  "trow": ["Some text", "Some more test"],
+  "frow": [1.5, 17.23]
+}
