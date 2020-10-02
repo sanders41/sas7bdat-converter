@@ -22,7 +22,7 @@ def batch_to_csv(
     continue_on_error: bool = False,
 ) -> None:
     """
-    Converts a batch of sas7bdat files to csv files.
+    Converts a batch of sas7bdat and/or xpt files to csv files.
 
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
@@ -42,13 +42,13 @@ def batch_to_csv(
     for file_dict in file_dicts:
         _rise_on_invalid_file_dict(file_dict)
 
-        sas7bdat = _format_path(file_dict["sas7bdat_file"])
+        xpt = _format_path(file_dict["sas7bdat_file"])
         export = _format_path(file_dict["export_file"])
         try:
-            to_csv(sas7bdat_file=sas7bdat, export_file=export)
+            to_csv(sas7bdat_file=xpt, export_file=export)
         except:  # noqa: E722
             if continue_on_error:
-                logger.info(f"Error converting {sas7bdat}")
+                logger.info(f"Error converting {xpt}")
             else:
                 raise
 
@@ -58,7 +58,7 @@ def batch_to_excel(
     continue_on_error: bool = False,
 ) -> None:
     """
-    Converts a batch of sas7bdat files to xlsx files.
+    Converts a batch of sas7bdat and/or xpt files to xlsx files.
 
     Args:
         file_dicts: A list of dictionaries containing the files to convert. The dictionary should
@@ -94,7 +94,7 @@ def batch_to_json(
     continue_on_error: bool = False,
 ) -> None:
     """
-    Converts a batch of sas7bdat files to json files.
+    Converts a batch of sas7bdat and/or xpt files to json files.
 
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
@@ -130,7 +130,7 @@ def batch_to_xml(
     continue_on_error: bool = False,
 ) -> None:
     """
-    Converts a batch of sas7bdat files to xml files.
+    Converts a batch of sas7bdat and/or xpt files to xml files.
 
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
@@ -216,7 +216,7 @@ def dir_to_csv(
     continue_on_error: bool = False,
 ) -> None:
     """
-    Converts all sas7bdat files in a directory into csv files.
+    Converts all sas7bdat and/or xpt files in a directory into csv files.
 
     args:
         dir_path: The path to the directory that contains the sas7bdat files
@@ -236,7 +236,7 @@ def dir_to_excel(
     continue_on_error: bool = False,
 ) -> None:
     """
-    Converts all sas7bdat files in a directory into xlsx files.
+    Converts all sas7bdat and/or xpt files in a directory into xlsx files.
 
     args:
         dir_path: The path to the directory that contains the sas7bdat files
@@ -256,7 +256,7 @@ def dir_to_json(
     continue_on_error: bool = False,
 ) -> None:
     """
-    Converts all sas7bdat files in a directory into json files.
+    Converts all sas7bdat and/or xpt files in a directory into json files.
 
     args:
         dir_path: The path to the directory that contains the sas7bdat files
@@ -276,7 +276,7 @@ def dir_to_xml(
     continue_on_error: bool = False,
 ) -> None:
     """
-    Converts all sas7bdat files in a directory into xml files.
+    Converts all sas7bdat and/or xpt files in a directory into xml files.
 
     args:
         dir_path: The path to the directory that contains the sas7bdat files
@@ -292,7 +292,7 @@ def dir_to_xml(
 
 def to_csv(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> None:
     """
-    Converts a sas7bdat file into a csv file.
+    Converts a sas7bdat and/or xpt file into a csv file.
 
     args:
         sas7bdat_file: The name, including the path, for the sas7bdat file.
@@ -311,7 +311,7 @@ def to_csv(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> No
 
 def to_dataframe(sas7bdat_file: Union[str, Path]) -> pd.DataFrame:
     """
-    Converts a sas7bdat file into a pandas dataframe.
+    Converts a sas7bdat and/or xpt file into a pandas dataframe.
 
     args:
         sas7bdat_file: The name, including the path, for the sas7bdat file.
@@ -335,7 +335,7 @@ def to_dataframe(sas7bdat_file: Union[str, Path]) -> pd.DataFrame:
 
 def to_excel(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> None:
     """
-    Converts a sas7bdat file into a xlsx file.
+    Converts a sas7bdat and/or xpt file into a xlsx file.
 
     args:
         sas7bdat_file: The name, including the path, for the sas7bdat file.
@@ -354,7 +354,7 @@ def to_excel(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> 
 
 def to_json(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> None:
     """
-    Converts a sas7bdat file into a json file.
+    Converts a sas7bdat and/or xpt file into a json file.
 
     args:
         sas7bdat_file: The name, including the path, for the sas7bdat file.
@@ -378,7 +378,7 @@ def to_xml(
     first_node: str = "item",
 ) -> None:
     """
-    Converts a sas7bdat file into a xml file.
+    Converts a sas7bdat and/or xpt file into a xml file.
 
     args:
         sas7bdat_file: The name, including the path, for the sas7bdat file.
@@ -460,7 +460,7 @@ def _walk_dir(
 ) -> None:
     path = dir_path if isinstance(dir_path, Path) else Path(dir_path)
     for file_name in path.iterdir():
-        if file_name.suffix == ".sas7bdat":
+        if file_name.suffix in [".sas7bdat", ".xpt"]:
             export_file = Path(f"{file_name.stem}.{file_type}")
             if export_path:
                 export_file = Path(export_path).joinpath(export_file)
@@ -472,10 +472,10 @@ def _walk_dir(
             try:
                 if file_type == "csv":
                     to_csv(str(sas7bdat_file), str(export_file))
-                elif file_type == "xlsx":
-                    to_excel(str(sas7bdat_file), str(export_file))
                 elif file_type == "json":
                     to_json(str(sas7bdat_file), str(export_file))
+                elif file_type == "xlsx":
+                    to_excel(str(sas7bdat_file), str(export_file))
                 elif file_type == "xml":
                     to_xml(str(sas7bdat_file), str(export_file))
             except:  # noqa: 722

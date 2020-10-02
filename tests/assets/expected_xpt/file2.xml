@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <item>
+    <irow>3</irow>
+    <trow>text 1</trow>
+    <frow>21.50</frow>
+  </item>
+  <item>
+    <irow>4</irow>
+    <trow>text 2</trow>
+    <frow>19.21</frow>
+  </item>
+  <item>
+    <irow>5</irow>
+    <trow>text 3</trow>
+    <frow>42.42</frow>
+  </item>
+</root>

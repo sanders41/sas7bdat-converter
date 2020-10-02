@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <item>
+    <irow>1</irow>
+    <trow>Some text</trow>
+    <frow>1.5</frow>
+  </item>
+  <item>
+    <irow>2</irow>
+    <trow>Some more test</trow>
+    <frow>17.23</frow>
+  </item>
+</root>
