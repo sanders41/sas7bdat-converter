@@ -1,5 +1,4 @@
 import filecmp
-import os
 import shutil
 from pathlib import Path
 
@@ -822,7 +821,7 @@ def test_invalid_key_exception_message_no_optional():
 
 
 def test_invalid_key_exception_message_optional():
-    valid_message = "Invalid key provided, expected keys are: sas7bdat_file, export_file and optional keys are: root_node, first_node"
+    valid_message = "Invalid key provided, expected keys are: sas7bdat_file, export_file and optional keys are: root_node, first_node"  # noqa: E501
     required_keys = ["sas7bdat_file", "export_file"]
     optional_keys = ["root_node", "first_node"]
     test_message = converter._invalid_key_exception_message(
@@ -909,7 +908,7 @@ def test_to_dataframe(sas_file_1):
         "text_row": [
             "Some text",
             "Some more text",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lobortis, risus nec euismod condimentum, lectus ligula porttitor massa, vel ornare mauris arcu vel augue. Maecenas rhoncus consectetur nisl, ac convallis enim pellentesque efficitur. Praesent tristique .  End of textlectus a dolor sodales, in porttitor felis auctor. Etiam dui mauris, commodo at venenatis eu, lacinia nec tellus. Curabitur dictum tincidunt convallis. Duis vestibulum mauris quis felis euismod bibendum. Nulla eget nunc arcu. Nam quis est urna. In eleifend ultricies ultrices. In lacinia auctor ex, sed commodo nisl fringilla sed. Fusce iaculis viverra eros, nec elementum velit aliquam non. Aenean sollicitudin consequat libero, eget mattis.",
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lobortis, risus nec euismod condimentum, lectus ligula porttitor massa, vel ornare mauris arcu vel augue. Maecenas rhoncus consectetur nisl, ac convallis enim pellentesque efficitur. Praesent tristique .  End of textlectus a dolor sodales, in porttitor felis auctor. Etiam dui mauris, commodo at venenatis eu, lacinia nec tellus. Curabitur dictum tincidunt convallis. Duis vestibulum mauris quis felis euismod bibendum. Nulla eget nunc arcu. Nam quis est urna. In eleifend ultricies ultrices. In lacinia auctor ex, sed commodo nisl fringilla sed. Fusce iaculis viverra eros, nec elementum velit aliquam non. Aenean sollicitudin consequat libero, eget mattis.",  # noqa: E501
             "Text",
             "Test",
         ],
