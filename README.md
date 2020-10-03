@@ -248,7 +248,3 @@ In all cases either sas7bdat or xport files can be converted. Examples below all
 # Contributing
 
 If you are interesting in contributing to this project please see our [contributing guide](CONTRIBUTING.md)
-
-# Acknowledgements
-
-This package relies heavily on the work done by the [pandas](https://pandas.pydata.org/) project.
