@@ -129,6 +129,35 @@ After this pre-commit will automatically run any time you check in code to your 
 pre-commit run --all
 ```
 
+### Type Hints
+
+At a minimum all variables/arguments that receive data should contain type hints, and all functions/methods
+should specify the return type.
+
+Accepted examples:
+
+```
+def my_function(argument: str) -> None:
+    ...
+
+
+def another_funciton(num: int) -> int:
+    return num + 1
+```
+
+Rejected examples:
+
+```
+def my_function(argument):
+    ...
+
+
+def another_function(num):
+    return num + 1
+```
+
+Type hints on files in the tests directory are optional.
+
 ### Testing
 
 This project uses [pytest](https://docs.pytest.org/en/stable/) and [tox](https://tox.readthedocs.io/en/latest/) for testing. Please ensure that any additions/changes you make to the code have tests to go along with them. Code coverage should not drop blow it's current level with any pull requests you make, if it does the pull request will not be accepted. You can view the current coverage level in the codecov badge on the [main github page](https://github.com/sanders41/sas7bdat_converter). You can run tests and see the code coverage by running. In additon to mainting the coverage percentage please ensure that all tests are passing before submitting a pull request.
