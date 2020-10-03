@@ -243,3 +243,12 @@ In all cases either sas7bdat or xport files can be converted. Examples below all
   ```
 
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like `c:\path\to\sas7bdat\files\example.sas7bdat`.
+
+
+# Contributing
+
+If you are interesting in contributing to this project please see our [contributing guide](CONTRIBUTING.md)
+
+# Acknowledgements
+
+This package relies heavily on the work done by the [pandas](https://pandas.pydata.org/) project.
