@@ -7,15 +7,15 @@ README = HERE.joinpath("README.md").read_text()
 
 setup(
     name="sas7bdat_converter",
-    version="0.6.0",
+    version="0.7.0",
     author="Paul Sanders",
     author_email="psanders1@gmail.com",
-    license="Apache 2.0",
-    description="Convert sas7bdat files into other formats",
+    license="MIT",
+    description="Convert sas7bdat and xport files into other formats",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/sanders41/sas7bdat_converter",
-    download_url="https://github.com/sanders41/sas7bdat_converter/archive/v0.6.0.tar.gz",
+    download_url="https://github.com/sanders41/sas7bdat_converter/archive/v0.7.0.tar.gz",
     packages=["sas7bdat_converter"],
     install_requires=[
         "pandas>=0.25.3",
