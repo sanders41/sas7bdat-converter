@@ -266,9 +266,8 @@ git push origin my-new-feature
 Once your feature branch is accepted into upstream, you’ll probably want to get rid of the branch. First, merge upstream master into your branch so git knows it is safe to delete your branch:
 
 ```
-git fetch upstream
 git checkout master
-git merge upstream/master
+git pull upstream master --ff-only
 ```
 
 Then you can do:
