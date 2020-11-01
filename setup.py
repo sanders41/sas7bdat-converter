@@ -29,5 +29,5 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    keywords=["sas", "sas7bdat", "converter"],
+    keywords=["sas", "sas7bdat", "converter", "xpt", "XPort"],
 )
