@@ -7,7 +7,7 @@ README = HERE.joinpath("README.md").read_text()
 
 setup(
     name="sas7bdat_converter",
-    version="0.7.1",
+    version="0.7.2",
     author="Paul Sanders",
     author_email="psanders1@gmail.com",
     license="MIT",
@@ -15,7 +15,7 @@ setup(
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/sanders41/sas7bdat_converter",
-    download_url="https://github.com/sanders41/sas7bdat_converter/archive/v0.7.1.tar.gz",
+    download_url="https://github.com/sanders41/sas7bdat_converter/archive/v0.7.2.tar.gz",
     packages=["sas7bdat_converter"],
     install_requires=[
         "pandas>=0.25.3",
@@ -25,6 +25,7 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
