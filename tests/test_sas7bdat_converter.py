@@ -1882,10 +1882,13 @@ def test_raise_on_invalid_file_dict_error(file_dict):
     assert "Invalid key" in str(execinfo.value)
 
 
-@pytest.mark.parametrize("path", [Path("test/path"), "test/path"])
-def test_format_path(path):
+@pytest.mark.parametrize(
+    "path, expected", [(Path("test/path"), str(Path("test/path"))), ("test/path", "test/path")]
+)
+def test_format_path(path, expected):
     converted = converter._format_path(path)
-    assert converted == str(Path("test/path"))
+
+    assert converted == expected
     assert isinstance(converted, str)
 
 
