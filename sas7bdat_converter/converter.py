@@ -395,7 +395,7 @@ def to_xml(
 
     df = to_dataframe(sas7bdat_file)
 
-    def row_to_xml(row):
+    def row_to_xml(row):  # type: ignore
         xml = [f"  <{first_node}>"]
         for i, col_name in enumerate(row.index):
             text = row.iloc[i]
