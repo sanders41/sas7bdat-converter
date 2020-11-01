@@ -1885,7 +1885,7 @@ def test_raise_on_invalid_file_dict_error(file_dict):
 @pytest.mark.parametrize("path", [Path("test/path"), "test/path"])
 def test_format_path(path):
     converted = converter._format_path(path)
-    assert converted == "test/path"
+    assert converted == str(Path("test/path"))
     assert isinstance(converted, str)
 
 
