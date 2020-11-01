@@ -39,3 +39,5 @@ jobs:
         pytest --cov=sas7bdat_converter
     - name: Upload coverage
       uses: codecov/codecov-action@v1
+      with:
+        fail_ci_if_error: true
