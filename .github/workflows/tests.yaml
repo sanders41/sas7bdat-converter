@@ -36,6 +36,6 @@ jobs:
         python3 -m pip install -r requirements-dev.txt
     - name: Test with pytest
       run: |
-        pytest
+        pytest --cov=sas7bdat_converter
     - name: Upload coverage
       uses: codecov/codecov-action@v1
