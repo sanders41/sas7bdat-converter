@@ -22,7 +22,7 @@ jobs:
       working-directory: ./sas7bdat_converter
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip -e .
+        python3 -m pip .
         python3 -m pip install -r requirements-dev.txt
     - name: Isort check
       working-directory: ./sas7bdat_converter
