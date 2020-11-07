@@ -1,6 +1,7 @@
 # sas7bdat_converter: Convert sas7bdat files into other formats
 
 [![Tests Status](https://github.com/sanders41/sas7bdat_converter/workflows/Tests/badge.svg?branch=master&event=push)](https://github.com/sanders41/sas7bdat_converter/actions?query=workflow%3ATests+branch%3Amaster+event%3Apush)
+[![Lint Status](https://github.com/sanders41/sas7bdat_converter/workflows/Linting/badge.svg?branch=master&event=push)](https://github.com/sanders41/sas7bdat_converter/actions?query=workflow%3ALinting+branch%3Amaster+event%3Apush)
 [![Coverage](https://codecov.io/github/sanders41/sas7bdat_converter/coverage.svg?branch=master)](https://codecov.io/gh/sanders41/sas7bdat_converter)
 
 
