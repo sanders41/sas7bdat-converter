@@ -15,4 +15,4 @@ from sas7bdat_converter.converter import (  # noqa: F401
 )
 
 name = "sas7bdat_converter"
-__version__ = "0.7.3"
+__version__ = "0.7.4"
