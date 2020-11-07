@@ -37,4 +37,4 @@ jobs:
         poetry run flake8 sas7bdat_converter tests --count --exit-zero --max-complexity=10 --max-line-length=100 --statistics
     - name: mypy check
       run: |
-        peotry run mypy sas7bdat_converter
+        poetry run mypy sas7bdat_converter
