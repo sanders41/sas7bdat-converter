@@ -22,7 +22,7 @@ jobs:
       run: |
         python3 -m pip install --upgrade pip
         python3 -m pip install poetry
-        poetry instsall
+        poetry install
     - name: Isort check
       run: |
         poetry run isort sas7bdat_converter tests --check-only
