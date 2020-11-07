@@ -1,6 +1,7 @@
 import filecmp
 import shutil
 from pathlib import Path
+from unittest.mock import patch
 
 import pandas as pd
 import pytest
@@ -1742,6 +1743,14 @@ def test_to_excel_str_xpt(tmpdir, request, xpt_expected_dir):
     df_converted = pd.read_excel(converted_file, engine="openpyxl")
 
     pd.testing.assert_frame_equal(df_expected, df_converted)
+
+
+def test_to_excel_missing_openpyxl(tmp_path, sas_file_1):
+    with patch("pandas.DataFrame.to_excel", side_effect=ModuleNotFoundError):
+        with pytest.raises(ModuleNotFoundError) as execinfo:
+            sas7bdat_converter.to_excel(sas_file_1, tmp_path / "test.xlsx")
+
+    assert "optional dependency openpyxl is required" in str(execinfo.value)
 
 
 def test_to_excel_invalid_extension():

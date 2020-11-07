@@ -349,7 +349,12 @@ def to_excel(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> 
         raise AttributeError(error_message)
 
     df = to_dataframe(sas7bdat_file)
-    df.to_excel(export_file, index=False)
+    try:
+        df.to_excel(export_file, index=False)
+    except ModuleNotFoundError:
+        raise ModuleNotFoundError(
+            "The optional dependency openpyxl is required in order to convert to an Excel file"
+        )
 
 
 def to_json(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> None:
