@@ -14,9 +14,9 @@ Conversions can be done on either a single file, an entire directory, or a batch
 ## Install
 `pip install sas7bdat_converter`
 
-If you would like to be able to convert to Excel files you will need to install with the optional openpyxl dependency
+If you would like to be able to convert to Excel files you will need to install with the extra Excel dependency.
 
-`pip install sas7bdat_converter[openpyxl]`
+`pip install sas7bdat_converter[excel]`
 
 ## Usage
 
