@@ -27,7 +27,7 @@ src_paths = ["sas7bdat_converter", "tests"]
 
 [tool.poetry]
 name = "sas7bdat_converter"
-version = "0.7.3"
+version = "0.7.4"
 description = "Convert sas7bdat and xport files into other formats"
 authors = ["Paul Sanders <psanders1@gmail.com>"]
 license = "MIT"
