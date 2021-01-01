@@ -11,9 +11,6 @@ DataFrame, and XML.
 
 Conversions can be done on either a single file, an entire directory, or a batch of specified files.
 
-### Depreciation Warning
-Support for Python 3.6 will be dropped with the next release (Python 3.7.1 will be the minimum supported version) so that Pandas 1.2.0 can be supported.
-
 ## Install
 `pip install sas7bdat_converter`
 
