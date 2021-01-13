@@ -12,11 +12,11 @@ DataFrame, and XML.
 Conversions can be done on either a single file, an entire directory, or a batch of specified files.
 
 ## Install
-`pip install sas7bdat_converter`
+`pip install sas7bdat-converter`
 
 If you would like to be able to convert to Excel files you will need to install with the extra Excel dependency.
 
-`pip install sas7bdat_converter[excel]`
+`pip install sas7bdat-converter[excel]`
 
 ## Usage
 
