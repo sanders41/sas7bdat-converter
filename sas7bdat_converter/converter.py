@@ -400,7 +400,7 @@ def to_xml(
 
     df = to_dataframe(sas7bdat_file)
 
-    def row_to_xml(row):  # type: ignore
+    def row_to_xml(row: pd.DataFrame) -> str:
         xml = [f"  <{first_node}>"]
         for i, col_name in enumerate(row.index):
             text = row.iloc[i]
@@ -408,7 +408,7 @@ def to_xml(
                 text = escape(text)
 
             xml.append(f"    <{col_name}>{text}</{col_name}>")
-        xml.append("  </{first_node}>")
+        xml.append(f"  </{first_node}>")
         return "\n".join(xml)
 
     res = f'<?xml version="1.0" encoding="UTF-8"?>\n<{root_node}>\n'
