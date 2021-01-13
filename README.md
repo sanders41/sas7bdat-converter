@@ -5,7 +5,7 @@
 [![Coverage](https://codecov.io/github/sanders41/sas7bdat_converter/coverage.svg?branch=master)](https://codecov.io/gh/sanders41/sas7bdat_converter)
 
 
-Converts proprietary sas7bdat and/or xport files from SAS into formats such as csv and XML useable
+Converts proprietary sas7bdat and/or xport files from SAS into formats such as csv, json, and Excel useable
 by other programs. Currently supported conversiaions are csv, Excel (xlsx format), json, Pandas
 DataFrame, and XML.
 
