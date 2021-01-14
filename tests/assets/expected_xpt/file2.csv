@@ -1,4 +1,4 @@
-"irow", "trow", "frow"
-3, "text 1", 21.50
-4, "text 2", 19.21
-5, "text 3", 42.42
+"irow","trow","frow"
+3.0,"text 1",21.5
+4.0,"text 2",19.21
+5.0,"text 3",42.42

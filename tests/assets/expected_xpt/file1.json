@@ -1,5 +1,5 @@
 {
-  "irow": [1, 2],
-  "trow": ["Some text", "Some more test"],
-  "frow": [1.5, 17.23]
+  "irow": {"0": 1.0, "1": 2.0},
+  "trow": {"0": "Some text", "1": "Some more test"},
+  "frow": {"0": 1.5, "1": 17.23}
 }
