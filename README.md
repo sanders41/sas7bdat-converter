@@ -4,7 +4,6 @@
 [![Lint Status](https://github.com/sanders41/sas7bdat_converter/workflows/Linting/badge.svg?branch=master&event=push)](https://github.com/sanders41/sas7bdat_converter/actions?query=workflow%3ALinting+branch%3Amaster+event%3Apush)
 [![Coverage](https://codecov.io/github/sanders41/sas7bdat_converter/coverage.svg?branch=master)](https://codecov.io/gh/sanders41/sas7bdat_converter)
 
-
 Converts proprietary sas7bdat and/or xport files from SAS into formats such as csv, json, and Excel useable
 by other programs. Currently supported conversiaions are csv, Excel (xlsx format), json, Pandas
 DataFrame, and XML.
@@ -12,6 +11,7 @@ DataFrame, and XML.
 Conversions can be done on either a single file, an entire directory, or a batch of specified files.
 
 ## Install
+
 `pip install sas7bdat-converter`
 
 If you would like to be able to convert to Excel files you will need to install with the extra Excel dependency.
@@ -31,8 +31,9 @@ extension, xport files with a .xpt extension will also work.
   * continue_on_error = If set to true processing of files in a batch will continue if there is a
   file conversion error instead of raising an exception. Default = False
 
-  #### Example
-  ```
+  **Example**
+
+  ```py
   import sas7bdat_converter
 
   file_dicts = [
@@ -59,8 +60,9 @@ extension, xport files with a .xpt extension will also work.
   * continue_on_error = If set to true processing of files in a batch will continue if there is a
   file conversion error instead of raising an exception. Default = False
 
-  #### Example
-  ```
+  **Example**
+
+  ```py
   import sas7bdat_converter
 
   file_dicts = [
@@ -87,8 +89,9 @@ extension, xport files with a .xpt extension will also work.
   * continue_on_error = If set to true processing of files in a batch will continue if there is a
   file conversion error instead of raising an exception. Default = False
 
-  #### Example
-  ```
+  **Example**
+
+  ```py
   import sas7bdat_converter
 
   file_dicts = [
@@ -115,8 +118,9 @@ extension, xport files with a .xpt extension will also work.
   * continue_on_error = If set to true processing of files in a batch will continue if there is a
   file conversion error instead of raising an exception. Default = False
 
-  #### Example
-  ```
+  **Example**
+
+  ```py
   import sas7bdat_converters
 
   file_dicts = [
@@ -144,8 +148,9 @@ files at once. File paths can be sent as either strings or Path objects.
   * continue_on_error = If set to true processing of files in a batch will continue if there is a
   file conversion error instead of raising an exception. Default = False
 
-  #### Example
-  ```
+  **Example**
+
+  ```py
   import sas7bdat_converter
 
   # Option 1: put the converted files in the same directory as the sas7bdat files
@@ -166,8 +171,9 @@ Excel files at once. File paths can be sent as either strings or Path objects.
   * continue_on_error = If set to true processing of files in a batch will continue if there is a
   file conversion error instead of raising an exception. Default = False
 
-  #### Example
-  ```
+  **Example**
+
+  ```py
   import sas7bdat_converter
 
   # Option 1: put the converted files in the same directory as the sas7bdat files
@@ -188,8 +194,9 @@ Excel files at once. File paths can be sent as either strings or Path objects.
   * continue_on_error = If set to true processing of files in a batch will continue if there is a
   file conversion error instead of raising an exception. Default = False
 
-  #### Example
-  ```
+  **Example**
+
+  ```py
   import sas7bdat_converter
 
   # Option 1: put the converted files in the same directory as the sas7bdat files
@@ -210,8 +217,9 @@ Excel files at once. File paths can be sent as either strings or Path objects.
   * continue_on_error = If set to true processing of files in a batch will continue if there is a
   file conversion error instead of raising an exception. Default = False
 
-  #### Example
-  ```
+  **Example**
+
+  ```py
   import sas7bdat_converter
 
   # Option 1: put the converted files in the same directory as the sas7bdat files
@@ -229,8 +237,9 @@ Excel files at once. File paths can be sent as either strings or Path objects.
   * sas7bdat_file = the path and name for sas7bdat file to convert.
   * export_file = the path and name for the csv file. The csv file extension should be .csv.
 
-  #### Example
-  ```
+  **Example**
+
+  ```py
   import sas7bdat_converter
 
   sas7bdat_converter.to_csv('/path/to/sas7bdat/file/example.sas7bdat', 'path/to/new/file/example.csv')
@@ -243,12 +252,14 @@ Excel files at once. File paths can be sent as either strings or Path objects.
   be sent as either a string or Path objects.
   * sas7bdat_file = The path and name for sas7bdat file to convert.
 
-  #### Example
-  ```
+  **Example**
+
+  ```py
   import sas7bdat_converter
 
   sas7bdat_converter.to_dataframe('/path/to/sas7bdat/file/example.sas7bdat')
   ```
+
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like
   `c:\path\to\sas7bdat\files\example_1.sas7bdat`.
 
@@ -257,8 +268,9 @@ Excel files at once. File paths can be sent as either strings or Path objects.
   * sas7bdat_file = the path and name for sas7bdat file to convert.
   * export_file = the path and name for the Excel file. The Excel file extension should be .xlsx.
 
-  #### Example
-  ```
+  **Example**
+
+  ```py
   import sas7bdat_converter
 
   sas7bdat_converter.to_excel('/path/to/sas7bdat/file/example.sas7bdat',
@@ -273,8 +285,9 @@ Excel files at once. File paths can be sent as either strings or Path objects.
   * sas7bdat_file = the path and name for sas7bdat file to convert.
   * export_file = the path and name for the json file. the json file extension should be .json.
 
-  #### Example
-  ```
+  **Example**
+
+  ```py
   import sas7bdat_converter
 
   sas7bdat_converter.to_json('/path/to/sas7bdat/file/example.sas7bdat', 'path/to/new/file/example.json')
@@ -290,8 +303,9 @@ Excel files at once. File paths can be sent as either strings or Path objects.
   * root_node = The name to uses for the top level node. If no name is supplied "root" will be used.
   * first_node = The name to use for the first node under root. If no name is supplied "item" will be used.
 
-  #### Example
-  ```
+  **Example**
+
+  ```py
   import sas7bdat_converter
 
   sas7bdat_converter.to_xml('/path/to/sas7bdat/file/example.sas7bdat', 'path/to/new/file/example.xml')
@@ -300,7 +314,6 @@ Excel files at once. File paths can be sent as either strings or Path objects.
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like
   `c:\path\to\sas7bdat\files\example.sas7bdat`.
 
-
-# Contributing
+## Contributing
 
 If you are interesting in contributing to this project please see our [contributing guide](CONTRIBUTING.md)

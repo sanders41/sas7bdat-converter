@@ -1,4 +1,4 @@
-import filecmp
+import json
 import shutil
 from pathlib import Path
 from unittest.mock import patch
@@ -1586,44 +1586,94 @@ def test_is_valid_extension_true(data):
     assert converter._is_valid_extension(valid_extensions, file_extension)
 
 
-@pytest.fixture(params=["sas_file_1", "sas_file_2", "sas_file_3"])
-def test_to_csv_path_sas(tmp_path, request, expected_dir):
-    sas_file = Path(request.getfixturevalue(request.param))
-    converted_file = tmp_path.joinpath("file1.csv")
-    expected_file = expected_dir.joinpath("file1.csv")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("sas_file_1", "file1.csv"),
+        ("sas_file_2", "file2.csv"),
+        ("sas_file_3", "file3.csv"),
+    ],
+)
+def test_to_csv_path_sas(tmp_path, fixture_name, expected_name, expected_dir, request):
+    sas_file = Path(request.getfixturevalue(fixture_name))
+    converted_file = tmp_path.joinpath(expected_name)
+    expected_file = expected_dir.joinpath(expected_name)
     converter.to_csv(sas_file, converted_file)
 
-    assert filecmp.cmp(converted_file, expected_file, shallow=False)
+    with open(expected_file, "r") as f:
+        expected = f.read().rstrip()
+
+    with open(converted_file, "r") as f:
+        got = f.read().rstrip()
+
+    assert got == expected
 
 
-@pytest.fixture(params=["xpt_file_1", "xpt_file_2"])
-def test_to_csv_path_xpt(tmp_path, request, xpt_expected_dir):
-    xpt_file = Path(request.getfixturevalue(request.param))
-    converted_file = tmp_path.joinpath("file1.csv")
-    expected_file = xpt_expected_dir.joinpath("file1.csv")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("xpt_file_1", "file1.csv"),
+        ("xpt_file_2", "file2.csv"),
+    ],
+)
+def test_to_csv_path_xpt(tmp_path, fixture_name, expected_name, request, xpt_expected_dir):
+    xpt_file = Path(request.getfixturevalue(fixture_name))
+    converted_file = tmp_path.joinpath(expected_name)
+    expected_file = xpt_expected_dir.joinpath(expected_name)
     converter.to_csv(xpt_file, converted_file)
 
-    assert filecmp.cmp(converted_file, expected_file, shallow=False)
+    with open(expected_file, "r") as f:
+        expected = f.read().rstrip()
+
+    with open(converted_file, "r") as f:
+        got = f.read().rstrip()
+
+    assert got == expected
 
 
-@pytest.fixture(params=["sas_file_1", "sas_file_2", "sas_file_3"])
-def test_to_csv_str_sas(tmpdir, request, expected_dir):
-    sas_file = request.getfixturevalue(request.param)
-    converted_file = str(Path(tmpdir).joinpath("file1.csv"))
-    expected_file = expected_dir.joinpath("file1.csv")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("sas_file_1", "file1.csv"),
+        ("sas_file_2", "file2.csv"),
+        ("sas_file_3", "file3.csv"),
+    ],
+)
+def test_to_csv_str_sas(tmpdir, fixture_name, expected_name, request, expected_dir):
+    sas_file = request.getfixturevalue(fixture_name)
+    converted_file = str(Path(tmpdir).joinpath(expected_name))
+    expected_file = expected_dir.joinpath(expected_name)
     sas7bdat_converter.to_csv(sas_file, converted_file)
 
-    assert filecmp.cmp(converted_file, expected_file, shallow=False)
+    with open(expected_file, "r") as f:
+        expected = f.read().rstrip()
+
+    with open(converted_file, "r") as f:
+        got = f.read().rstrip()
+
+    assert got == expected
 
 
-@pytest.fixture(params=["xpt_file_1", "xpt_file_2"])
-def test_to_csv_str_xpt(tmpdir, request, xpt_expected_dir):
-    sas_file = request.getfixturevalue(request.param)
-    converted_file = str(Path(tmpdir).joinpath("file1.csv"))
-    expected_file = xpt_expected_dir.joinpath("file1.csv")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("xpt_file_1", "file1.csv"),
+        ("xpt_file_2", "file2.csv"),
+    ],
+)
+def test_to_csv_str_xpt(tmpdir, fixture_name, expected_name, request, xpt_expected_dir):
+    sas_file = request.getfixturevalue(fixture_name)
+    converted_file = str(Path(tmpdir).joinpath(expected_name))
+    expected_file = xpt_expected_dir.joinpath(expected_name)
     sas7bdat_converter.to_csv(sas_file, converted_file)
 
-    assert filecmp.cmp(converted_file, expected_file, shallow=False)
+    with open(expected_file, "r") as f:
+        expected = f.read().rstrip()
+
+    with open(converted_file, "r") as f:
+        got = f.read().rstrip()
+
+    assert got == expected
 
 
 def test_to_csv_invalid_extension():
@@ -1693,11 +1743,18 @@ def test_to_dataframe_xpt(xpt_file_1):
     pd.testing.assert_frame_equal(df, df_file)
 
 
-@pytest.fixture(params=["sas_file_1", "sas_file_2", "sas_file_3"])
-def test_to_excel_path_sas(tmp_path, request, expected_dir):
-    sas_file = Path(request.getfixturevalue(request.param))
-    converted_file = tmp_path.joinpath("file1.xlsx")
-    expected_file = expected_dir.joinpath("file1.xlsx")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("sas_file_1", "file1.xlsx"),
+        ("sas_file_2", "file2.xlsx"),
+        ("sas_file_3", "file3.xlsx"),
+    ],
+)
+def test_to_excel_path_sas(tmp_path, fixture_name, expected_name, request, expected_dir):
+    sas_file = Path(request.getfixturevalue(fixture_name))
+    converted_file = tmp_path.joinpath(expected_name)
+    expected_file = expected_dir.joinpath(expected_name)
     sas7bdat_converter.to_excel(sas_file, converted_file)
 
     df_expected = pd.read_excel(expected_file, engine="openpyxl")
@@ -1706,11 +1763,17 @@ def test_to_excel_path_sas(tmp_path, request, expected_dir):
     pd.testing.assert_frame_equal(df_expected, df_converted)
 
 
-@pytest.fixture(params=["xpt_file_1", "xpt_file_2"])
-def test_to_excel_path_xpt(tmp_path, request, xpt_expected_dir):
-    xpt_file = Path(request.getfixturevalue(request.param))
-    converted_file = tmp_path.joinpath("file1.xlsx")
-    expected_file = xpt_expected_dir.joinpath("file1.xlsx")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("xpt_file_1", "file1.xlsx"),
+        ("xpt_file_2", "file2.xlsx"),
+    ],
+)
+def test_to_excel_path_xpt(tmp_path, fixture_name, expected_name, request, xpt_expected_dir):
+    xpt_file = Path(request.getfixturevalue(fixture_name))
+    converted_file = tmp_path.joinpath(expected_name)
+    expected_file = xpt_expected_dir.joinpath(expected_name)
     sas7bdat_converter.to_excel(xpt_file, converted_file)
 
     df_expected = pd.read_excel(expected_file, engine="openpyxl")
@@ -1719,11 +1782,18 @@ def test_to_excel_path_xpt(tmp_path, request, xpt_expected_dir):
     pd.testing.assert_frame_equal(df_expected, df_converted)
 
 
-@pytest.fixture(params=["sas_file_1", "sas_file_2", "sas_file_3"])
-def test_to_excel_str_sas(tmpdir, request, expected_dir):
-    sas_file = request.getfixturevalue(request.param)
-    converted_file = str(Path(tmpdir).joinpath("file1.xlsx"))
-    expected_file = expected_dir.joinpath("file1.xlsx")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("sas_file_1", "file1.xlsx"),
+        ("sas_file_2", "file2.xlsx"),
+        ("sas_file_3", "file3.xlsx"),
+    ],
+)
+def test_to_excel_str_sas(tmpdir, fixture_name, expected_name, request, expected_dir):
+    sas_file = request.getfixturevalue(fixture_name)
+    converted_file = str(Path(tmpdir).joinpath(expected_name))
+    expected_file = expected_dir.joinpath(expected_name)
     sas7bdat_converter.to_excel(sas_file, converted_file)
 
     df_expected = pd.read_excel(expected_file, engine="openpyxl")
@@ -1732,11 +1802,17 @@ def test_to_excel_str_sas(tmpdir, request, expected_dir):
     pd.testing.assert_frame_equal(df_expected, df_converted)
 
 
-@pytest.fixture(params=["xpt_file_1", "xpt_file_2"])
-def test_to_excel_str_xpt(tmpdir, request, xpt_expected_dir):
-    xpt_file = request.getfixturevalue(request.param)
-    converted_file = str(Path(tmpdir).joinpath("file1.xlsx"))
-    expected_file = xpt_expected_dir.joinpath("file1.xlsx")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("xpt_file_1", "file1.xlsx"),
+        ("xpt_file_2", "file2.xlsx"),
+    ],
+)
+def test_to_excel_str_xpt(tmpdir, fixture_name, expected_name, request, xpt_expected_dir):
+    xpt_file = request.getfixturevalue(fixture_name)
+    converted_file = str(Path(tmpdir).joinpath(expected_name))
+    expected_file = xpt_expected_dir.joinpath(expected_name)
     sas7bdat_converter.to_excel(xpt_file, converted_file)
 
     df_expected = pd.read_excel(expected_file, engine="openpyxl")
@@ -1760,44 +1836,94 @@ def test_to_excel_invalid_extension():
     assert "sas7bdat conversion error - Valid extension" in str(execinfo.value)
 
 
-@pytest.fixture(params=["sas_file_1", "sas_file_2", "sas_file_3"])
-def test_to_json_path_sas(tmp_path, request, expected_dir):
-    sas_file = Path(request.getfixturevalue(request.param))
-    converted_file = tmp_path.joinpath("file1.json")
-    expected_file = expected_dir.joinpath("file1.json")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("sas_file_1", "file1.json"),
+        ("sas_file_2", "file2.json"),
+        ("sas_file_3", "file3.json"),
+    ],
+)
+def test_to_json_path_sas(tmp_path, fixture_name, expected_name, request, expected_dir):
+    sas_file = Path(request.getfixturevalue(fixture_name))
+    converted_file = tmp_path.joinpath(expected_name)
+    expected_file = expected_dir.joinpath(expected_name)
     sas7bdat_converter.to_json(sas_file, converted_file)
 
-    assert filecmp.cmp(converted_file, expected_file, shallow=False)
+    with open(expected_file, "r") as f:
+        expected = json.load(f)
+
+    with open(converted_file, "r") as f:
+        got = json.load(f)
+
+    assert got == expected
 
 
-@pytest.fixture(params=["xpt_file_1", "xpt_file_2"])
-def test_to_json_path_xpt(tmp_path, request, xpt_expected_dir):
-    xpt_file = Path(request.getfixturevalue(request.param))
-    converted_file = tmp_path.joinpath("file1.json")
-    expected_file = xpt_expected_dir.joinpath("file1.json")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("xpt_file_1", "file1.json"),
+        ("xpt_file_2", "file2.json"),
+    ],
+)
+def test_to_json_path_xpt(tmp_path, fixture_name, expected_name, request, xpt_expected_dir):
+    xpt_file = Path(request.getfixturevalue(fixture_name))
+    converted_file = tmp_path.joinpath(expected_name)
+    expected_file = xpt_expected_dir.joinpath(expected_name)
     sas7bdat_converter.to_json(xpt_file, converted_file)
 
-    assert filecmp.cmp(converted_file, expected_file, shallow=False)
+    with open(expected_file, "r") as f:
+        expected = json.load(f)
+
+    with open(converted_file, "r") as f:
+        got = json.load(f)
+
+    assert got == expected
 
 
-@pytest.fixture(params=["sas_file_1", "sas_file_2", "sas_file_3"])
-def test_to_json_str_sas(tmpdir, request, expected_dir):
-    sas_file = request.getfixturevalue(request.param)
-    converted_file = str(Path(tmpdir).joinpath("file1.json"))
-    expected_file = expected_dir.joinpath("file1.json")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("sas_file_1", "file1.json"),
+        ("sas_file_2", "file2.json"),
+        ("sas_file_3", "file3.json"),
+    ],
+)
+def test_to_json_str_sas(tmpdir, fixture_name, expected_name, request, expected_dir):
+    sas_file = request.getfixturevalue(fixture_name)
+    converted_file = str(Path(tmpdir).joinpath(expected_name))
+    expected_file = expected_dir.joinpath(expected_name)
     sas7bdat_converter.to_json(sas_file, converted_file)
 
-    assert filecmp.cmp(converted_file, expected_file, shallow=False)
+    with open(expected_file, "r") as f:
+        expected = json.load(f)
+
+    with open(converted_file, "r") as f:
+        got = json.load(f)
+
+    assert got == expected
 
 
-@pytest.fixture(params=["xpt_file_1", "xpt_file_2"])
-def test_to_json_str_xpt(tmpdir, request, xpt_expected_dir):
-    xpt_file = request.getfixturevalue(request.param)
-    converted_file = str(Path(tmpdir).joinpath("file1.json"))
-    expected_file = xpt_expected_dir.joinpath("file1.json")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("xpt_file_1", "file1.json"),
+        ("xpt_file_2", "file2.json"),
+    ],
+)
+def test_to_json_str_xpt(tmpdir, fixture_name, expected_name, request, xpt_expected_dir):
+    xpt_file = request.getfixturevalue(fixture_name)
+    converted_file = str(Path(tmpdir).joinpath(expected_name))
+    expected_file = xpt_expected_dir.joinpath(expected_name)
     sas7bdat_converter.to_json(xpt_file, converted_file)
 
-    assert filecmp.cmp(converted_file, expected_file, shallow=False)
+    with open(expected_file, "r") as f:
+        expected = json.load(f)
+
+    with open(converted_file, "r") as f:
+        got = json.load(f)
+
+    assert got == expected
 
 
 def test_to_json_invalid_extension():
@@ -1807,44 +1933,94 @@ def test_to_json_invalid_extension():
     assert "sas7bdat conversion error - Valid extension" in str(execinfo.value)
 
 
-@pytest.fixture(params=["sas_file_1", "sas_file_2", "sas_file_3"])
-def test_to_xml_path_sas(tmp_path, request, expected_dir):
-    sas_file = Path(request.getfixturevalue(request.param))
-    converted_file = tmp_path.joinpath("file1.xml")
-    expected_file = expected_dir.joinpath("file1.xml")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("sas_file_1", "file1.xml"),
+        ("sas_file_2", "file2.xml"),
+        ("sas_file_3", "file3.xml"),
+    ],
+)
+def test_to_xml_path_sas(tmp_path, fixture_name, expected_name, expected_dir, request):
+    sas_file = Path(request.getfixturevalue(fixture_name))
+    converted_file = tmp_path.joinpath(expected_name)
+    expected_file = expected_dir.joinpath(expected_name)
     sas7bdat_converter.to_xml(sas_file, converted_file)
 
-    assert filecmp.cmp(converted_file, expected_file, shallow=False)
+    with open(expected_file, "r") as f:
+        expected = f.read().rstrip()
+
+    with open(converted_file, "r") as f:
+        got = f.read().rstrip()
+
+    assert got == expected
 
 
-@pytest.fixture(params=["xpt_file_1", "xpt_file_2"])
-def test_to_xml_path_xpt(tmp_path, request, xpt_expected_dir):
-    xpt_file = Path(request.getfixturevalue(request.param))
-    converted_file = tmp_path.joinpath("file1.xml")
-    expected_file = xpt_expected_dir.joinpath("file1.xml")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("xpt_file_1", "file1.xml"),
+        ("xpt_file_2", "file2.xml"),
+    ],
+)
+def test_to_xml_path_xpt(tmp_path, fixture_name, expected_name, request, xpt_expected_dir):
+    xpt_file = Path(request.getfixturevalue(fixture_name))
+    converted_file = tmp_path.joinpath(expected_name)
+    expected_file = xpt_expected_dir.joinpath(expected_name)
     sas7bdat_converter.to_xml(xpt_file, converted_file)
 
-    assert filecmp.cmp(converted_file, expected_file, shallow=False)
+    with open(expected_file, "r") as f:
+        expected = f.read().rstrip()
+
+    with open(converted_file, "r") as f:
+        got = f.read().rstrip()
+
+    assert got == expected
 
 
-@pytest.fixture(params=["sas_file_1", "sas_file_2", "sas_file_3"])
-def test_to_xml_str_sas(tmpdir, request, expected_dir):
-    sas_file = request.getfixturevalue(request.param)
-    converted_file = str(Path(tmpdir).joinpath("file1.xml"))
-    expected_file = expected_dir.joinpath("file1.xml")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("sas_file_1", "file1.xml"),
+        ("sas_file_2", "file2.xml"),
+        ("sas_file_3", "file3.xml"),
+    ],
+)
+def test_to_xml_str_sas(tmpdir, fixture_name, expected_name, request, expected_dir):
+    sas_file = request.getfixturevalue(fixture_name)
+    converted_file = str(Path(tmpdir).joinpath(expected_name))
+    expected_file = expected_dir.joinpath(expected_name)
     sas7bdat_converter.to_xml(sas_file, converted_file)
 
-    assert filecmp.cmp(converted_file, expected_file, shallow=False)
+    with open(expected_file, "r") as f:
+        expected = f.read().rstrip()
+
+    with open(converted_file, "r") as f:
+        got = f.read().rstrip()
+
+    assert got == expected
 
 
-@pytest.fixture(params=["xpt_file_1", "xpt_file_2"])
-def test_to_xml_str_xpt(tmpdir, request, xpt_expected_dir):
-    xpt_file = request.getfixturevalue(request.param)
-    converted_file = str(Path(tmpdir).joinpath("file1.xml"))
-    expected_file = xpt_expected_dir.joinpath("file1.xml")
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("xpt_file_1", "file1.xml"),
+        ("xpt_file_2", "file2.xml"),
+    ],
+)
+def test_to_xml_str_xpt(tmpdir, fixture_name, expected_name, request, xpt_expected_dir):
+    xpt_file = request.getfixturevalue(fixture_name)
+    converted_file = str(Path(tmpdir).joinpath(expected_name))
+    expected_file = xpt_expected_dir.joinpath(expected_name)
     sas7bdat_converter.to_xml(xpt_file, converted_file)
 
-    assert filecmp.cmp(converted_file, expected_file, shallow=False)
+    with open(expected_file, "r") as f:
+        expected = f.read().rstrip()
+
+    with open(converted_file, "r") as f:
+        got = f.read().rstrip()
+
+    assert got == expected
 
 
 def test_to_xml_invalid_extension():
