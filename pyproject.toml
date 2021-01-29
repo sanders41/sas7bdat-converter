@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sas7bdat_converter"
-version = "0.8.3"
+version = "0.8.4"
 description = "Convert sas7bdat and xport files into other formats"
 authors = ["Paul Sanders <psanders1@gmail.com>"]
 license = "MIT"
@@ -19,7 +19,7 @@ classifiers=[
 
 [tool.poetry.dependencies]
 python = "^3.7.1"
-pandas = "1.2.1"
+pandas = "^1.2.0"
 openpyxl = {version = "^3.0.5", optional = true}
 
 [tool.poetry.dev-dependencies]
@@ -27,7 +27,6 @@ black = "^20.8b1"
 flake8 = "^3.8.4"
 isort = "^5.6.4"
 mypy = "^0.800"
-pandas = "^1.1.4"
 pre-commit = "^2.10.0"
 pytest = "^6.1.2"
 pytest-cov = "^2.11.1"
