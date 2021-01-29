@@ -26,7 +26,7 @@ openpyxl = {version = "^3.0.5", optional = true}
 black = "^20.8b1"
 flake8 = "^3.8.4"
 isort = "^5.6.4"
-mypy = "^0.790"
+mypy = "^0.800"
 pandas = "^1.1.4"
 pre-commit = "^2.10.0"
 pytest = "^6.1.2"
