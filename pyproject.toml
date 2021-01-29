@@ -19,7 +19,7 @@ classifiers=[
 
 [tool.poetry.dependencies]
 python = "^3.7.1"
-pandas = "1.2.0"
+pandas = "1.2.1"
 openpyxl = {version = "^3.0.5", optional = true}
 
 [tool.poetry.dev-dependencies]
