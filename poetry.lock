@@ -501,7 +501,7 @@ excel = ["openpyxl"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.1"
-content-hash = "1873a0c5efaa9b8a744408b04ab8584997012964064b8d5a86c060f232ce94b8"
+content-hash = "23410c1f0ecb650ba906a479e8787bcbeb441e5eb031a4dca18b59b44c2da70c"
 
 [metadata.files]
 appdirs = [
