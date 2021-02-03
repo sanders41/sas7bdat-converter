@@ -322,7 +322,7 @@ def to_dataframe(sas7bdat_file: Union[str, Path]) -> pd.DataFrame:
     df = pd.read_sas(sas7bdat_file)
 
     # convert binary strings to utf-8
-    str_df = df.select_dtypes([np.object])
+    str_df = df.select_dtypes([np.dtype(object)])
     if len(str_df.columns) > 0:
         str_df = str_df.stack().str.decode("utf-8").unstack()
 
