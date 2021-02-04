@@ -1,0 +1,22 @@
+name: PyPi Publish
+on:
+  push:
+    tags:
+      - v*.*.*
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: "Install poetry"
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install poetry
+        poetry install
+        poetry config pypi-token.pypi "${{ secrets.PYPI_API_KEY }}"
+    - name: Publish package
+      run: poetry publish --build
