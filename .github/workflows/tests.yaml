@@ -24,7 +24,6 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
-        echo "%USERPROFILE%\.poetry\bin" >> $GITHUB_PATH
     - name: Install Poetry and add to path on Linux/Mac
       if: matrix.os != 'windows-latest'
       run: |
