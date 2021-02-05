@@ -24,11 +24,17 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
+    - name: Add Poetry to path on Windows
+      if: matrix.os == 'windows-latest'
+      run: |
         echo "%USERPROFILE%\.poetry\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-    - name: Install Poetry and add to path on Linux/Mac
+    - name: Install Poetry on Linux/Mac
       if: matrix.os != 'windows-latest'
       run: |
         curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+    - name: Add Poetry to path on Mac and Linux
+      if: matrix.os != 'windows-latest'
+      run: |
         echo "${HOME}/.poetry/bin" >> $GITHUB_PATH
     - name: Install Dependencies
       run: |
