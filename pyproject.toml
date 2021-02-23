@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "sas7bdat_converter"
-version = "0.8.6"
+version = "0.8.7"
 description = "Convert sas7bdat and xport files into other formats"
 authors = ["Paul Sanders <psanders1@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/sanders41/sas7bdat_converter"
-homepage = "https://github.com/sanders41/sas7bdat_converter"
-documentation = "https://github.com/sanders41/sas7bdat_converter"
+repository = "https://github.com/sanders41/sas7bdat-converter"
+homepage = "https://github.com/sanders41/sas7bdat-converter"
+documentation = "https://github.com/sanders41/sas7bdat-converter"
 keywords = ["sas", "sas7bdat", "converter", "xpt", "XPort"]
 classifiers=[
   "Programming Language :: Python :: 3.7",
