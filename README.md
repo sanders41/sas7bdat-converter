@@ -1,4 +1,4 @@
-# sas7bdat_converter: Convert sas7bdat files into other formats
+# sas7bdat-converter: Convert sas7bdat files into other formats
 
 [![Tests Status](https://github.com/sanders41/sas7bdat-converter/workflows/Tests/badge.svg?branch=main&event=push)](https://github.com/sanders41/sas7bdat-converter/actions?query=workflow%3ATests+branch%3Amain+event%3Apush)
 [![Lint Status](https://github.com/sanders41/sas7bdat-converter/workflows/Linting/badge.svg?branch=main&event=push)](https://github.com/sanders41/sas7bdat-converter/actions?query=workflow%3ALinting+branch%3Amain+event%3Apush)
