@@ -259,7 +259,7 @@ git merge upstream/main
 
 If there are no conflicts (or they could be fixed automatically), a file with a default commit message will open, and you can simply save and quit this file.
 
-In some cases a merge will not work and you will need to rebase instead. Do do this run:
+In some cases a merge will not work and you will need to rebase instead. To do this run:
 
 ```sh
 git checkout my-new-feature
@@ -281,7 +281,7 @@ git push origin my-new-feature --force
 
 ## Delete your merged branch (optional)
 
-Once your feature branch is accepted into upstream, you’ll probably want to get rid of the branch. First, merge upstream main into your branch so git knows it is safe to delete your branch:
+Once your feature branch is accepted into upstream, you’ll probably want to get rid of the branch. First, merge upstream main into your main branch so git knows it is safe to delete your branch:
 
 ```sh
 git fetch upstream
