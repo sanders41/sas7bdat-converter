@@ -14,12 +14,12 @@ Please include:
 1. A short, self-contained Python snippet reproducing the problem. You can format the code by using
 [GitHub markdown](https://docs.github.com/en/free-pro-team@latest/github/writing-on-github). For example:
 
-```py
-from sas7bdat_converter import to_dataframe
+    ```py
+    from sas7bdat_converter import to_dataframe
 
-df = to_dataframe('/path/to/file')
-...
-```
+    df = to_dataframe('/path/to/file')
+    ...
+    ```
 
 2. Explain what is currently happening and what you expect instead.
 
