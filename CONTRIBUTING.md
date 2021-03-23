@@ -14,14 +14,14 @@ Please include:
 1. A short, self-contained Python snippet reproducing the problem. You can format the code by using
 [GitHub markdown](https://docs.github.com/en/free-pro-team@latest/github/writing-on-github). For example:
 
-```py
-from sas7bdat_converter import to_dataframe
+    ```py
+    from sas7bdat_converter import to_dataframe
 
-df = to_dataframe('/path/to/file')
-...
-```
+    df = to_dataframe('/path/to/file')
+    ...
+    ```
 
-1. Explain what is currently happening and what you expect instead.
+2. Explain what is currently happening and what you expect instead.
 
 ## Working on the code
 
@@ -179,7 +179,7 @@ tox
 
 Running tox before submitting a pull request can save your time because these tests will be run by Continuious Integraion when a pull request is submitted and will need to pass there before being accepted.
 
-## Commiting your code
+## Committing your code
 
 Once you have made changes to the code on your branch you can see which files have changed by running:
 
