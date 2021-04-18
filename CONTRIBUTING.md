@@ -46,7 +46,7 @@ Note: This project uses Poetry to manage dependencies. If you do not already hav
 
 Once you have cloned your fork of the repository you can create a virtual environment. When using Poetry the step is optional.
 If you create a virtual environment Poetry will use the environment you have activated, or Poetry will create
-and use it's own if you don't create one. If you want to create your own, once you are in the split-schedule directory create and activate
+and use it's own if you don't create one. If you want to create your own, once you are in the sas7bdat-converter directory create and activate
 the virtual environment. This step is slightly different for Mac/Linux and Windows.
 
 Mac/Linux
@@ -111,7 +111,7 @@ isort sas7bdat_converter tests
 black sas7bdat_converter tests
 
 # Run flake8
-flake8 sas7bdat_converter test
+flake8 sas7bdat_converter tests
 
 # Run mypy
 mypy sas7bdat_converter
