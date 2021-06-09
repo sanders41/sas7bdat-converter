@@ -249,17 +249,16 @@ This will automatically update your pull request with the latest code and restar
 
 Another reason you might need to update your pull request is to solve conflicts with changes that have been merged into the main branch since you opened your pull request.
 
-To do this, you need to “merge upstream main” in your branch:
+To do this, you need to rebase your branch:
 
 ```sh
 git checkout my-new-feature
 git fetch upstream
-git merge upstream/main
+git rebase upstream/main
 ```
 
-If there are no conflicts (or they could be fixed automatically), a file with a default commit message will open, and you can simply save and quit this file.
-
-In some cases a merge will not work and you will need to rebase instead. To do this run:
+There may be some merge conficts that need to be resolved. After the feature branch has been update
+locally, you can now update your pull request by pushing to the branch on GitHub:
 
 ```sh
 git checkout my-new-feature
