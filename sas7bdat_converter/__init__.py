@@ -1,5 +1,5 @@
+from sas7bdat_converter.converter import batch_to_csv  # noqa: F401
 from sas7bdat_converter.converter import (  # noqa: F401
-    batch_to_csv,
     batch_to_excel,
     batch_to_json,
     batch_to_xml,

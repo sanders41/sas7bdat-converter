@@ -67,3 +67,11 @@ exclude = '''
 profile = "black"
 line_length = 100
 src_paths = ["sas7bdat_converter", "tests"]
+
+[tool.mypy]
+disallow_untyped_defs = true
+strict = true
+
+[[tool.mypy.overrides]]
+module = ["numpy.*", "pandas.*"]
+ignore_missing_imports = true
