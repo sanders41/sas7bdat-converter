@@ -44,32 +44,7 @@ This creates the directory sas7bdat-converter and connects your repository to th
 
 Note: This project uses Poetry to manage dependencies. If you do not already have Poetry installed you will need to install it with the instuctions [here](https://python-poetry.org/docs/#installation)
 
-Once you have cloned your fork of the repository you can create a virtual environment. When using Poetry the step is optional.
-If you create a virtual environment Poetry will use the environment you have activated, or Poetry will create
-and use it's own if you don't create one. If you want to create your own, once you are in the sas7bdat-converter directory create and activate
-the virtual environment. This step is slightly different for Mac/Linux and Windows.
-
-Mac/Linux
-
-```sh
-# Create the environment
-python3 -m venv venv
-
-# Activate the environment
-. venv/bin/activate
-```
-
-Windows
-
-```powershell
-# Create the environment
-python -m venv venv
-
-#Activate the environment. Use activate.bat for cmd.exe
-venv\Scripts\Activate.ps1
-```
-
-Next the requirements need to be installed.
+First the requirements need to be installed.
 
 ```sh
 poetry install
@@ -105,22 +80,22 @@ You can run linting on your code at any time with:
 
 ```sh
 # Run isort
-isort sas7bdat_converter tests
+poetry run isort sas7bdat_converter tests
 
 # Run black
-black sas7bdat_converter tests
+poetry run black sas7bdat_converter tests
 
 # Run flake8
-flake8 sas7bdat_converter tests
+poetry run flake8 sas7bdat_converter tests
 
 # Run mypy
-mypy sas7bdat_converter
+poetry run mypy sas7bdat_converter
 ```
 
 It is also suggested that you setup [pre-commit](https://pre-commit.com/) in order to run linting when you commit changes to you branch. To setup pre-commit for this project run:
 
 ```sh
-pre-commit install
+pre-commit install -E openpyxl
 ```
 
 After this pre-commit will automatically run any time you check in code to your branches. You can also run pre-commit at any time with:
@@ -165,7 +140,13 @@ You can view the current coverage level in the codecov badge on the
 code coverage by running.
 
 ```sh
-pytest --cov=sas7bdat_converter
+poetry run pytest
+```
+
+If you want to see which lines are missing code coverage run the tests with:
+
+```sh
+poetry run pytest --cov-report term-missing
 ```
 
 In additon to mainting the coverage percentage please ensure that all
@@ -174,7 +155,7 @@ tests are passing before submitting a pull request.
 tox can be used to run both linting, and run the tests in all versions of Python sas7bdat-converter supports. Note that you will need to have all the verions of Python installed for this to work.
 
 ```sh
-tox
+poetry run tox
 ```
 
 Running tox before submitting a pull request can save your time because these tests will be run by Continuious Integraion when a pull request is submitted and will need to pass there before being accepted.
