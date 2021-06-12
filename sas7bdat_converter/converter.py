@@ -21,8 +21,7 @@ def batch_to_csv(
     file_dicts: List[Dict[str, Union[str, Path]]],
     continue_on_error: bool = False,
 ) -> None:
-    """
-    Converts a batch of sas7bdat and/or xpt files to csv files.
+    """Converts a batch of sas7bdat and/or xpt files to csv files.
 
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
@@ -57,8 +56,7 @@ def batch_to_excel(
     file_dicts: List[Dict[str, Union[str, Path]]],
     continue_on_error: bool = False,
 ) -> None:
-    """
-    Converts a batch of sas7bdat and/or xpt files to xlsx files.
+    """Converts a batch of sas7bdat and/or xpt files to xlsx files.
 
     Args:
         file_dicts: A list of dictionaries containing the files to convert. The dictionary should
@@ -93,8 +91,7 @@ def batch_to_json(
     file_dicts: List[Dict[str, Union[str, Path]]],
     continue_on_error: bool = False,
 ) -> None:
-    """
-    Converts a batch of sas7bdat and/or xpt files to json files.
+    """Converts a batch of sas7bdat and/or xpt files to json files.
 
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
@@ -129,8 +126,7 @@ def batch_to_xml(
     file_dicts: List[Dict[str, Union[str, Path]]],
     continue_on_error: bool = False,
 ) -> None:
-    """
-    Converts a batch of sas7bdat and/or xpt files to xml files.
+    """Converts a batch of sas7bdat and/or xpt files to xml files.
 
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
@@ -215,8 +211,7 @@ def dir_to_csv(
     export_path: Optional[Union[str, Path]] = None,
     continue_on_error: bool = False,
 ) -> None:
-    """
-    Converts all sas7bdat and/or xpt files in a directory into csv files.
+    """Converts all sas7bdat and/or xpt files in a directory into csv files.
 
     args:
         dir_path: The path to the directory that contains the sas7bdat files
@@ -235,8 +230,7 @@ def dir_to_excel(
     export_path: Optional[Union[str, Path]] = None,
     continue_on_error: bool = False,
 ) -> None:
-    """
-    Converts all sas7bdat and/or xpt files in a directory into xlsx files.
+    """Converts all sas7bdat and/or xpt files in a directory into xlsx files.
 
     args:
         dir_path: The path to the directory that contains the sas7bdat files
@@ -255,8 +249,7 @@ def dir_to_json(
     export_path: Optional[Union[str, Path]] = None,
     continue_on_error: bool = False,
 ) -> None:
-    """
-    Converts all sas7bdat and/or xpt files in a directory into json files.
+    """Converts all sas7bdat and/or xpt files in a directory into json files.
 
     args:
         dir_path: The path to the directory that contains the sas7bdat files
@@ -275,8 +268,7 @@ def dir_to_xml(
     export_path: Optional[Union[str, Path]] = None,
     continue_on_error: bool = False,
 ) -> None:
-    """
-    Converts all sas7bdat and/or xpt files in a directory into xml files.
+    """Converts all sas7bdat and/or xpt files in a directory into xml files.
 
     args:
         dir_path: The path to the directory that contains the sas7bdat files
@@ -291,8 +283,7 @@ def dir_to_xml(
 
 
 def to_csv(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> None:
-    """
-    Converts a sas7bdat and/or xpt file into a csv file.
+    """Converts a sas7bdat and/or xpt file into a csv file.
 
     args:
         sas7bdat_file: The name, including the path, for the sas7bdat file.
@@ -310,8 +301,7 @@ def to_csv(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> No
 
 
 def to_dataframe(sas7bdat_file: Union[str, Path]) -> pd.DataFrame:
-    """
-    Converts a sas7bdat and/or xpt file into a pandas dataframe.
+    """Converts a sas7bdat and/or xpt file into a pandas dataframe.
 
     args:
         sas7bdat_file: The name, including the path, for the sas7bdat file.
@@ -334,8 +324,7 @@ def to_dataframe(sas7bdat_file: Union[str, Path]) -> pd.DataFrame:
 
 
 def to_excel(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> None:
-    """
-    Converts a sas7bdat and/or xpt file into a xlsx file.
+    """Converts a sas7bdat and/or xpt file into a xlsx file.
 
     args:
         sas7bdat_file: The name, including the path, for the sas7bdat file.
@@ -358,8 +347,7 @@ def to_excel(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> 
 
 
 def to_json(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> None:
-    """
-    Converts a sas7bdat and/or xpt file into a json file.
+    """Converts a sas7bdat and/or xpt file into a json file.
 
     args:
         sas7bdat_file: The name, including the path, for the sas7bdat file.
@@ -382,8 +370,7 @@ def to_xml(
     root_node: str = "root",
     first_node: str = "item",
 ) -> None:
-    """
-    Converts a sas7bdat and/or xpt file into a xml file.
+    """Converts a sas7bdat and/or xpt file into a xml file.
 
     args:
         sas7bdat_file: The name, including the path, for the sas7bdat file.
@@ -434,11 +421,10 @@ def _invalid_key_exception_message(
     required_keys_joined: str = ", ".join(required_keys)
     if optional_keys:
         optional_keys_joined: str = ", ".join(optional_keys)
-        message = f"Invalid key provided, expected keys are: {required_keys_joined} and optional keys are: {optional_keys_joined}"  # noqa: E501
-    else:
-        message = f"Invalid key provided, expected keys are: {required_keys_joined}"
+        return f"Invalid key provided, expected keys are: {required_keys_joined} and optional keys are: {optional_keys_joined}"
 
-    return message
+    else:
+        return f"Invalid key provided, expected keys are: {required_keys_joined}"
 
 
 def _is_valid_extension(valid_extensions: Tuple[str], file_extension: str) -> bool:
