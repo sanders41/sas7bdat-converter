@@ -4,6 +4,7 @@
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/sanders41/sas7bdat-converter/main.svg)](https://results.pre-commit.ci/latest/github/sanders41/sas7bdat-converter/main)
 [![Coverage](https://codecov.io/github/sanders41/sas7bdat-converter/coverage.svg?branch=main)](https://codecov.io/gh/sanders41/sas7bdat-converter)
 [![PyPI version](https://badge.fury.io/py/sas7bdat-converter.svg)](https://badge.fury.io/py/sas7bdat-converter)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/sas7bdat-converter?color=5cc141)](https://github.com/sanders41/sas7bdat-converter)
 
 Converts proprietary sas7bdat and/or xport files from SAS into formats such as csv, json, and Excel useable
 by other programs. Currently supported conversiaions are csv, Excel (xlsx format), json, Pandas
