@@ -24,7 +24,7 @@ pandas = "^1.2.0"
 openpyxl = {version = "^3.0.5", optional = true}
 
 [tool.poetry.dev-dependencies]
-black = "^21.6b0"
+black = "^21.7b0"
 flake8 = "^3.9.2"
 isort = "^5.9.2"
 mypy = "^0.910"
