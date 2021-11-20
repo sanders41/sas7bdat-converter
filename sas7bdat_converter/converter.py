@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import csv
 import logging
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Optional
 from xml.sax.saxutils import escape
 
 import numpy as np
@@ -11,14 +13,14 @@ logging.basicConfig(format="%(asctime)s: %(levelname)s: %(message)s")
 logging.root.setLevel(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-__file_dict_required_keys = [
+__FILE_DICT_REQUIRED_KEYS = [
     "sas7bdat_file",
     "export_file",
 ]
 
 
 def batch_to_csv(
-    file_dicts: List[Dict[str, Union[str, Path]]],
+    file_dicts: list[dict[str, str | Path]],
     continue_on_error: bool = False,
 ) -> None:
     """Converts a batch of sas7bdat and/or xpt files to csv files.
@@ -53,7 +55,7 @@ def batch_to_csv(
 
 
 def batch_to_excel(
-    file_dicts: List[Dict[str, Union[str, Path]]],
+    file_dicts: list[dict[str, str | Path]],
     continue_on_error: bool = False,
 ) -> None:
     """Converts a batch of sas7bdat and/or xpt files to xlsx files.
@@ -88,7 +90,7 @@ def batch_to_excel(
 
 
 def batch_to_json(
-    file_dicts: List[Dict[str, Union[str, Path]]],
+    file_dicts: list[dict[str, str | Path]],
     continue_on_error: bool = False,
 ) -> None:
     """Converts a batch of sas7bdat and/or xpt files to json files.
@@ -123,7 +125,7 @@ def batch_to_json(
 
 
 def batch_to_xml(
-    file_dicts: List[Dict[str, Union[str, Path]]],
+    file_dicts: list[dict[str, str | Path]],
     continue_on_error: bool = False,
 ) -> None:
     """Converts a batch of sas7bdat and/or xpt files to xml files.
@@ -157,22 +159,22 @@ def batch_to_xml(
     ]
     for file_dict in file_dicts:
         error = False
-        if len(set(file_dict).intersection(__file_dict_required_keys)) != len(
-            __file_dict_required_keys
-        ) or len(set(file_dict).intersection(__file_dict_required_keys)) > len(
-            __file_dict_required_keys
+        if len(set(file_dict).intersection(__FILE_DICT_REQUIRED_KEYS)) != len(
+            __FILE_DICT_REQUIRED_KEYS
+        ) or len(set(file_dict).intersection(__FILE_DICT_REQUIRED_KEYS)) > len(
+            __FILE_DICT_REQUIRED_KEYS
         ) + len(
             optional_keys
         ):
             error = True
         elif len(set(file_dict).intersection(optional_keys)) != len(file_dict) - len(
-            __file_dict_required_keys
+            __FILE_DICT_REQUIRED_KEYS
         ):
             error = True
 
         if error:
             message = _invalid_key_exception_message(
-                required_keys=__file_dict_required_keys, optional_keys=optional_keys
+                required_keys=__FILE_DICT_REQUIRED_KEYS, optional_keys=optional_keys
             )
             raise KeyError(message)
 
@@ -207,8 +209,8 @@ def batch_to_xml(
 
 
 def dir_to_csv(
-    dir_path: Union[str, Path],
-    export_path: Optional[Union[str, Path]] = None,
+    dir_path: str | Path,
+    export_path: Optional[str | Path] = None,
     continue_on_error: bool = False,
 ) -> None:
     """Converts all sas7bdat and/or xpt files in a directory into csv files.
@@ -226,8 +228,8 @@ def dir_to_csv(
 
 
 def dir_to_excel(
-    dir_path: Union[str, Path],
-    export_path: Optional[Union[str, Path]] = None,
+    dir_path: str | Path,
+    export_path: Optional[str | Path] = None,
     continue_on_error: bool = False,
 ) -> None:
     """Converts all sas7bdat and/or xpt files in a directory into xlsx files.
@@ -245,8 +247,8 @@ def dir_to_excel(
 
 
 def dir_to_json(
-    dir_path: Union[str, Path],
-    export_path: Optional[Union[str, Path]] = None,
+    dir_path: str | Path,
+    export_path: Optional[str | Path] = None,
     continue_on_error: bool = False,
 ) -> None:
     """Converts all sas7bdat and/or xpt files in a directory into json files.
@@ -264,8 +266,8 @@ def dir_to_json(
 
 
 def dir_to_xml(
-    dir_path: Union[str, Path],
-    export_path: Optional[Union[str, Path]] = None,
+    dir_path: str | Path,
+    export_path: Optional[str | Path] = None,
     continue_on_error: bool = False,
 ) -> None:
     """Converts all sas7bdat and/or xpt files in a directory into xml files.
@@ -282,7 +284,7 @@ def dir_to_xml(
     _walk_dir("xml", dir_path, continue_on_error, export_path)
 
 
-def to_csv(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> None:
+def to_csv(sas7bdat_file: str | Path, export_file: str | Path) -> None:
     """Converts a sas7bdat and/or xpt file into a csv file.
 
     args:
@@ -300,7 +302,7 @@ def to_csv(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> No
     df.to_csv(export_file, quoting=csv.QUOTE_NONNUMERIC, index=False)
 
 
-def to_dataframe(sas7bdat_file: Union[str, Path]) -> pd.DataFrame:
+def to_dataframe(sas7bdat_file: str | Path) -> pd.DataFrame:
     """Converts a sas7bdat and/or xpt file into a pandas dataframe.
 
     args:
@@ -323,7 +325,7 @@ def to_dataframe(sas7bdat_file: Union[str, Path]) -> pd.DataFrame:
     return df
 
 
-def to_excel(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> None:
+def to_excel(sas7bdat_file: str | Path, export_file: str | Path) -> None:
     """Converts a sas7bdat and/or xpt file into a xlsx file.
 
     args:
@@ -346,7 +348,7 @@ def to_excel(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> 
         )
 
 
-def to_json(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> None:
+def to_json(sas7bdat_file: str | Path, export_file: str | Path) -> None:
     """Converts a sas7bdat and/or xpt file into a json file.
 
     args:
@@ -365,8 +367,8 @@ def to_json(sas7bdat_file: Union[str, Path], export_file: Union[str, Path]) -> N
 
 
 def to_xml(
-    sas7bdat_file: Union[str, Path],
-    export_file: Union[str, Path],
+    sas7bdat_file: str | Path,
+    export_file: str | Path,
     root_node: str = "root",
     first_node: str = "item",
 ) -> None:
@@ -405,7 +407,7 @@ def to_xml(
         f.write(res)
 
 
-def _file_extension_exception_message(conversion_type: str, valid_extensions: Tuple[str]) -> str:
+def _file_extension_exception_message(conversion_type: str, valid_extensions: tuple[str]) -> str:
     if len(valid_extensions) == 1:
         is_are = ("extension", "is")
     else:
@@ -416,7 +418,7 @@ def _file_extension_exception_message(conversion_type: str, valid_extensions: Tu
 
 
 def _invalid_key_exception_message(
-    required_keys: List[str], optional_keys: Optional[List[str]] = None
+    required_keys: list[str], optional_keys: Optional[list[str]] = None
 ) -> str:
     required_keys_joined: str = ", ".join(required_keys)
     if optional_keys:
@@ -427,27 +429,27 @@ def _invalid_key_exception_message(
         return f"Invalid key provided, expected keys are: {required_keys_joined}"
 
 
-def _is_valid_extension(valid_extensions: Tuple[str], file_extension: str) -> bool:
+def _is_valid_extension(valid_extensions: tuple[str], file_extension: str) -> bool:
     return file_extension in valid_extensions
 
 
-def _format_path(path: Union[str, Path]) -> str:
+def _format_path(path: str | Path) -> str:
     return str(path) if isinstance(path, Path) else path
 
 
-def _rise_on_invalid_file_dict(file_dict: Dict[str, Union[str, Path]]) -> None:
-    if len(set(file_dict).intersection(__file_dict_required_keys)) != len(
-        __file_dict_required_keys
+def _rise_on_invalid_file_dict(file_dict: dict[str, str | Path]) -> None:
+    if len(set(file_dict).intersection(__FILE_DICT_REQUIRED_KEYS)) != len(
+        __FILE_DICT_REQUIRED_KEYS
     ):
-        message = _invalid_key_exception_message(required_keys=__file_dict_required_keys)
+        message = _invalid_key_exception_message(required_keys=__FILE_DICT_REQUIRED_KEYS)
         raise KeyError(message)
 
 
 def _walk_dir(
     file_type: str,
-    dir_path: Union[str, Path],
+    dir_path: str | Path,
     continue_on_error: bool,
-    export_path: Optional[Union[str, Path]] = None,
+    export_path: Optional[str | Path] = None,
 ) -> None:
     path = dir_path if isinstance(dir_path, Path) else Path(dir_path)
     for file_name in path.iterdir():
