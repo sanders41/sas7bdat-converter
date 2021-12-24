@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.1.0
     hooks:
     - id: check-yaml
     - id: end-of-file-fixer
@@ -16,7 +16,7 @@ repos:
     - id: isort
       additional_dependencies: [toml]
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.920
+    rev: v0.930
     hooks:
     - id: mypy
       files: sas7bdat_converter/
