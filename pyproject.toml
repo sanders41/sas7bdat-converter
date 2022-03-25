@@ -83,4 +83,4 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "--cov=sas7bdat_converter"
+addopts = "--cov=sas7bdat_converter --cov-report term-missing"
