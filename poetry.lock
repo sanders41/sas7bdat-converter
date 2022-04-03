@@ -534,7 +534,7 @@ excel = ["openpyxl"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.1"
-content-hash = "1b19167dfe25b2ac1c76ab58d611fe2e2b096ffd58b8259fc66bc43c1b130fd8"
+content-hash = "0e7cb23e640e7f06ec51b6c016c9d5c5ca8897d8660700b7533769548a77c593"
 
 [metadata.files]
 atomicwrites = [
