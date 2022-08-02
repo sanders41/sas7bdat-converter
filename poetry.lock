@@ -113,7 +113,7 @@ testing = ["covdefaults (>=1.2.0)", "coverage (>=4)", "pytest (>=4)", "pytest-co
 
 [[package]]
 name = "flake8"
-version = "5.0.1"
+version = "5.0.3"
 description = "the modular source code checker: pep8 pyflakes and co"
 category = "dev"
 optional = false
@@ -473,7 +473,7 @@ excel = ["openpyxl"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.0"
-content-hash = "3fddfca23fe4b0f23f1f161ee6be9acf29a72e77aabf5430f13ce0fee3a303f9"
+content-hash = "436088c0e21afadcddd6c13869907f055e5ecac23deece10a909a7db0bd780d0"
 
 [metadata.files]
 atomicwrites = [
@@ -576,8 +576,8 @@ filelock = [
     {file = "filelock-3.7.1.tar.gz", hash = "sha256:3a0fd85166ad9dbab54c9aec96737b744106dc5f15c0b09a6744a445299fcf04"},
 ]
 flake8 = [
-    {file = "flake8-5.0.1-py2.py3-none-any.whl", hash = "sha256:44e3ecd719bba1cb2ae65d1b54212cc9df4f5db15ac271f8856e5e6c2eebefed"},
-    {file = "flake8-5.0.1.tar.gz", hash = "sha256:9c51d3d1426379fd444d3b79eabbeb887849368bd053039066439523d8486961"},
+    {file = "flake8-5.0.3-py2.py3-none-any.whl", hash = "sha256:93aa565ae2f0316b95bb57a354f2b2d55ee8508e1fe1cb13b77b9c195b4a2537"},
+    {file = "flake8-5.0.3.tar.gz", hash = "sha256:b27fd7faa8d90aaae763664a489012292990388e5d3604f383b290caefbbc922"},
 ]
 identify = [
     {file = "identify-2.5.2-py2.py3-none-any.whl", hash = "sha256:feaa9db2dc0ce333b453ce171c0cf1247bbfde2c55fc6bb785022d411a1b78b5"},
