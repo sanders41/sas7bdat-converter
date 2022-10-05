@@ -302,6 +302,24 @@ def to_csv(sas7bdat_file: str | Path, export_file: str | Path) -> None:
     df.to_csv(export_file, quoting=csv.QUOTE_NONNUMERIC, index=False)
 
 
+def to_parquet(sas7bdat_file: str | Path, export_file: str | Path) -> None:
+    """Converts a sas7bdat and/or xpt file into a parquet file.
+
+    args:
+        sas7bdat_file: The name, including the path, for the sas7bdat file.
+        export_file: The name, including the path, for the export file.
+    """
+    valid_extensions = (".parquet",)
+    file_extension = Path(export_file).suffix
+
+    if not _is_valid_extension(valid_extensions, file_extension):
+        error_message = _file_extension_exception_message("to_parquet", valid_extensions)
+        raise AttributeError(error_message)
+
+    df = to_dataframe(sas7bdat_file)
+    df.to_parquet(export_file, index=False)
+
+
 def to_dataframe(sas7bdat_file: str | Path) -> pd.DataFrame:
     """Converts a sas7bdat and/or xpt file into a pandas dataframe.
 
