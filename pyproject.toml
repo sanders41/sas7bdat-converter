@@ -22,7 +22,8 @@ include = ["sas7bdat_converter/py.typed"]
 python = "^3.8.0"
 pandas = ">=1.2.0"
 openpyxl = {version = ">=3.0.5", optional = true}
-pyarrow = "^9.0.0"
+pyarrow = {version = ">=9.0.0", python = ">=3.7, <=3.10", optional = true}
+fastparquet = {version = ">=0.8.3", python = ">=3.11", optional = true}
 
 [tool.poetry.dev-dependencies]
 black = ">=22.8.0"
