@@ -47,7 +47,7 @@ Note: This project uses Poetry to manage dependencies. If you do not already hav
 First the requirements need to be installed.
 
 ```sh
-poetry install
+poetry install -E all
 ```
 
 ### Creating a branch
