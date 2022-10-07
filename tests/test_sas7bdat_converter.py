@@ -1942,6 +1942,14 @@ def test_to_parquet_invalid_extension():
     assert "sas7bdat conversion error - Valid extension" in str(execinfo.value)
 
 
+def test_to_excel_missing_pyarrow(tmp_path, sas_file_1):
+    with patch("pandas.DataFrame.to_parquet", side_effect=ModuleNotFoundError):
+        with pytest.raises(ModuleNotFoundError) as execinfo:
+            converter.to_parquet(sas_file_1, tmp_path / "test.parquet")
+
+    assert "The pyarrow extra is required in order to convert a parquet file" in str(execinfo.value)
+
+
 def test_to_dataframe_sas(sas_file_1):
     d = {
         "integer_row": [

@@ -352,7 +352,13 @@ def to_parquet(sas7bdat_file: str | Path, export_file: str | Path) -> None:
         raise AttributeError(error_message)
 
     df = to_dataframe(sas7bdat_file)
-    df.to_parquet(export_file, index=False)
+
+    try:
+        df.to_parquet(export_file, index=False)
+    except ModuleNotFoundError:
+        raise ModuleNotFoundError(
+            "The pyarrow extra is required in order to convert a parquet file"
+        )
 
 
 def to_dataframe(sas7bdat_file: str | Path) -> pd.DataFrame:
