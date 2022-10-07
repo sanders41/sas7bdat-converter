@@ -20,6 +20,10 @@ If you would like to be able to convert to Excel files you will need to install 
 
 `pip install sas7bdat-converter[excel]`
 
+If you would like to be able to convert to Parquet files you will need to install with the extra Excel dependency.
+
+`pip install sas7bdat-converter[parquet]`
+
 ## Usage
 
 In all cases either sas7bdat or xport files can be converted. Examples below all use the .sas7bdat
