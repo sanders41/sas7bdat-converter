@@ -4,6 +4,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pandas as pd
+import pyarrow.parquet as pq
 import pytest
 
 import sas7bdat_converter.converter as converter
@@ -181,6 +182,180 @@ file_dicts = [
 def test_batch_to_csv_invalid_key_xpt(file_dict):
     with pytest.raises(KeyError) as execinfo:
         converter.batch_to_csv(file_dict)
+
+    assert "Invalid key provided" in str(execinfo.value)
+
+
+def test_batch_to_parquet_path_sas(tmp_path, sas_file_1, sas_file_2, sas_file_3):
+    converted_file_1 = tmp_path.joinpath("file1.parquet")
+    converted_file_2 = tmp_path.joinpath("file2.parquet")
+    converted_file_3 = tmp_path.joinpath("file3.parquet")
+
+    file_dict = [
+        {"sas7bdat_file": sas_file_1, "export_file": converted_file_1},
+        {"sas7bdat_file": sas_file_2, "export_file": converted_file_2},
+        {"sas7bdat_file": sas_file_3, "export_file": converted_file_3},
+    ]
+
+    converter.batch_to_parquet(file_dict)
+
+    files_created = False
+
+    if converted_file_1.is_file() and converted_file_2.is_file() and converted_file_3.is_file():
+        files_created = True
+
+    assert files_created
+
+
+def test_batch_to_parquet_path_xpt(tmp_path, xpt_file_1, xpt_file_2):
+    converted_file_1 = tmp_path.joinpath("file1.parquet")
+    converted_file_2 = tmp_path.joinpath("file2.parquet")
+
+    file_dict = [
+        {"sas7bdat_file": xpt_file_1, "export_file": converted_file_1},
+        {"sas7bdat_file": xpt_file_2, "export_file": converted_file_2},
+    ]
+
+    converter.batch_to_parquet(file_dict)
+
+    files_created = False
+
+    if converted_file_1.is_file() and converted_file_2.is_file():
+        files_created = True
+
+    assert files_created
+
+
+def test_batch_to_parquet_str_sas(tmp_path, sas_file_1, sas_file_2, sas_file_3):
+    converted_file_1 = tmp_path.joinpath("file1.parquet")
+    converted_file_2 = tmp_path.joinpath("file2.parquet")
+    converted_file_3 = tmp_path.joinpath("file3.parquet")
+
+    file_dict = [
+        {"sas7bdat_file": str(sas_file_1), "export_file": str(converted_file_1)},
+        {"sas7bdat_file": str(sas_file_2), "export_file": str(converted_file_2)},
+        {"sas7bdat_file": str(sas_file_3), "export_file": str(converted_file_3)},
+    ]
+
+    converter.batch_to_parquet(file_dict)
+
+    files_created = False
+
+    if converted_file_1.is_file() and converted_file_2.is_file() and converted_file_3.is_file():
+        files_created = True
+
+    assert files_created
+
+
+def test_batch_to_parquet_str_xpt(tmp_path, xpt_file_1, xpt_file_2):
+    converted_file_1 = tmp_path.joinpath("file1.parquet")
+    converted_file_2 = tmp_path.joinpath("file2.parquet")
+
+    file_dict = [
+        {"sas7bdat_file": str(xpt_file_1), "export_file": str(converted_file_1)},
+        {"sas7bdat_file": str(xpt_file_2), "export_file": str(converted_file_2)},
+    ]
+
+    converter.batch_to_parquet(file_dict)
+
+    files_created = False
+
+    if converted_file_1.is_file() and converted_file_2.is_file():
+        files_created = True
+
+    assert files_created
+
+
+def test_batch_to_parquet_continue_sas(tmp_path, caplog, sas_file_1):
+    bad_sas_file = tmp_path.joinpath("bad_file.sas7bdat")
+    bad_converted_file = tmp_path.joinpath("bad_file.parquet")
+    converted_file = tmp_path.joinpath("file1.parquet")
+
+    file_dict = [
+        {"sas7bdat_file": bad_sas_file, "export_file": bad_converted_file},
+        {"sas7bdat_file": sas_file_1, "export_file": converted_file},
+    ]
+
+    converter.batch_to_parquet(file_dict, continue_on_error=True)
+
+    assert converted_file.is_file()
+    assert "Error converting" in caplog.text
+
+
+def test_batch_to_parquet_continue_xpt(tmp_path, caplog, xpt_file_1):
+    bad_xpt_file = tmp_path.joinpath("bad_file.xpt")
+    bad_converted_file = tmp_path.joinpath("bad_file.parquet")
+    converted_file = tmp_path.joinpath("file1.parquet")
+
+    file_dict = [
+        {"sas7bdat_file": bad_xpt_file, "export_file": bad_converted_file},
+        {"sas7bdat_file": xpt_file_1, "export_file": converted_file},
+    ]
+
+    converter.batch_to_parquet(file_dict, continue_on_error=True)
+
+    assert converted_file.is_file()
+    assert "Error converting" in caplog.text
+
+
+def test_batch_to_parquet_no_continue_sas(tmp_path, sas_file_1):
+    bad_sas_file = tmp_path.joinpath("bad_file.sas7bdat")
+    bad_converted_file = tmp_path.joinpath("bad_file.parquet")
+    converted_file = tmp_path.joinpath("file1.parquet")
+
+    file_dict = [
+        {"sas7bdat_file": bad_sas_file, "export_file": bad_converted_file},
+        {"sas7bdat_file": sas_file_1, "export_file": converted_file},
+    ]
+
+    with pytest.raises(Exception) as execinfo:
+        converter.batch_to_parquet(file_dict, continue_on_error=False)
+
+    assert execinfo.value
+
+
+def test_batch_to_parquet_no_continue_xpt(tmp_path, xpt_file_1):
+    bad_xpt_file = tmp_path.joinpath("bad_file.xpt")
+    bad_converted_file = tmp_path.joinpath("bad_file.parquet")
+    converted_file = tmp_path.joinpath("file1.parquet")
+
+    file_dict = [
+        {"sas7bdat_file": bad_xpt_file, "export_file": bad_converted_file},
+        {"sas7bdat_file": xpt_file_1, "export_file": converted_file},
+    ]
+
+    with pytest.raises(Exception) as execinfo:
+        converter.batch_to_parquet(file_dict, continue_on_error=False)
+
+    assert execinfo.value
+
+
+file_dicts = [
+    [{"bad_key": "test.sas7bdat", "export_file": "test.parquet"}],
+    [{"sas7bdat_file": "test.sas7bdat", "bad_key": "test.parquet"}],
+    [{"sas_bad_key": "test.sas7bdate", "export_bad_key": "test.parquet"}],
+]
+
+
+@pytest.mark.parametrize("file_dict", file_dicts)
+def test_batch_to_parquet_invalid_key_sas(file_dict):
+    with pytest.raises(KeyError) as execinfo:
+        converter.batch_to_parquet(file_dict)
+
+    assert "Invalid key provided" in str(execinfo.value)
+
+
+file_dicts = [
+    [{"bad_key": "test.xpt", "export_file": "test.parquet"}],
+    [{"sas7bdat_file": "test.xpt", "bad_key": "test.parquet"}],
+    [{"sas_bad_key": "test.xptt", "export_bad_key": "test.parquet"}],
+]
+
+
+@pytest.mark.parametrize("file_dict", file_dicts)
+def test_batch_to_parquet_invalid_key_xpt(file_dict):
+    with pytest.raises(KeyError) as execinfo:
+        converter.batch_to_parquet(file_dict)
 
     assert "Invalid key provided" in str(execinfo.value)
 
@@ -1680,6 +1855,99 @@ def test_to_csv_invalid_extension():
         converter.to_csv("test.sas7bdat", "test.bad")
 
     assert "sas7bdat conversion error - Valid extension" in str(execinfo.value)
+
+
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("sas_file_1", "file1.parquet"),
+        ("sas_file_2", "file2.parquet"),
+        ("sas_file_3", "file3.parquet"),
+    ],
+)
+def test_to_parquet_path_sas(tmp_path, fixture_name, expected_name, expected_dir, request):
+    sas_file = Path(request.getfixturevalue(fixture_name))
+    converted_file = tmp_path.joinpath(expected_name)
+    expected_file = expected_dir.joinpath(expected_name)
+    converter.to_parquet(sas_file, converted_file)
+
+    expected = pq.read_table(expected_file)
+    got = pq.read_table(converted_file)
+
+    assert got == expected
+
+
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("xpt_file_1", "file1.parquet"),
+        ("xpt_file_2", "file2.parquet"),
+    ],
+)
+def test_to_parquet_path_xpt(tmp_path, fixture_name, expected_name, request, xpt_expected_dir):
+    xpt_file = Path(request.getfixturevalue(fixture_name))
+    converted_file = tmp_path.joinpath(expected_name)
+    expected_file = xpt_expected_dir.joinpath(expected_name)
+    converter.to_parquet(xpt_file, converted_file)
+
+    expected = pq.read_table(expected_file)
+    got = pq.read_table(converted_file)
+
+    assert got == expected
+
+
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("sas_file_1", "file1.parquet"),
+        ("sas_file_2", "file2.parquet"),
+        ("sas_file_3", "file3.parquet"),
+    ],
+)
+def test_to_parquet_str_sas(tmpdir, fixture_name, expected_name, request, expected_dir):
+    sas_file = request.getfixturevalue(fixture_name)
+    converted_file = str(Path(tmpdir).joinpath(expected_name))
+    expected_file = expected_dir.joinpath(expected_name)
+    converter.to_parquet(sas_file, converted_file)
+
+    expected = pq.read_table(expected_file)
+    got = pq.read_table(converted_file)
+
+    assert got == expected
+
+
+@pytest.mark.parametrize(
+    "fixture_name, expected_name",
+    [
+        ("xpt_file_1", "file1.parquet"),
+        ("xpt_file_2", "file2.parquet"),
+    ],
+)
+def test_to_parquet_str_xpt(tmpdir, fixture_name, expected_name, request, xpt_expected_dir):
+    sas_file = request.getfixturevalue(fixture_name)
+    converted_file = str(Path(tmpdir).joinpath(expected_name))
+    expected_file = xpt_expected_dir.joinpath(expected_name)
+    converter.to_parquet(sas_file, converted_file)
+
+    expected = pq.read_table(expected_file)
+    got = pq.read_table(converted_file)
+
+    assert got == expected
+
+
+def test_to_parquet_invalid_extension():
+    with pytest.raises(AttributeError) as execinfo:
+        converter.to_parquet("test.sas7bdat", "test.bad")
+
+    assert "sas7bdat conversion error - Valid extension" in str(execinfo.value)
+
+
+def test_to_excel_missing_pyarrow(tmp_path, sas_file_1):
+    with patch("pandas.DataFrame.to_parquet", side_effect=ModuleNotFoundError):
+        with pytest.raises(ModuleNotFoundError) as execinfo:
+            converter.to_parquet(sas_file_1, tmp_path / "test.parquet")
+
+    assert "The pyarrow extra is required in order to convert a parquet file" in str(execinfo.value)
 
 
 def test_to_dataframe_sas(sas_file_1):

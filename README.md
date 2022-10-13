@@ -20,6 +20,10 @@ If you would like to be able to convert to Excel files you will need to install 
 
 `pip install sas7bdat-converter[excel]`
 
+If you would like to be able to convert to Parquet files you will need to install with the extra Excel dependency.
+
+`pip install sas7bdat-converter[parquet]`
+
 ## Usage
 
 In all cases either sas7bdat or xport files can be converted. Examples below all use the .sas7bdat
@@ -78,6 +82,35 @@ extension, xport files with a .xpt extension will also work.
     },
   ]
   sas7bdat_converter.batch_to_excel(file_dicts)
+  ```
+
+  **Note:** Example uses Mac/Linux type file paths. For Windows use paths like
+  `c:\path\to\sas7bdat\files\example_1.sas7bdat`.
+
+* **batch_to_parquet(file_dicts)** - Convert multiple sas7bdat files into Parquet files at once.
+  * file_dicts = A list containing a dictionary for each file to convert. The dictionary is required
+  to contain 'sas7bdat_file' containing the path and name for the sas7bdat file, and 'export_file'
+  containing the path and name for the perquet files. The Perquet file extension should be .perquet. File
+  paths can be sent as either strings or Path objects.
+  * continue_on_error = If set to true processing of files in a batch will continue if there is a
+  file conversion error instead of raising an exception. Default = False
+
+  **Example**
+
+  ```py
+  import sas7bdat_converter
+
+  file_dicts = [
+    {
+      'sas7bdat_file': '/path/to/sas7bdat/files/example_1.sas7bdat',
+      'export_file': '/path/to/new/files/example_1.parquet',
+    },
+    {
+      'sas7bdat_file': '/path/to/sas7bdat/files/example_2.sas7bdat',
+      'export_file': '/path/to/new/files/example_2.parquet',
+    },
+  ]
+  sas7bdat_converter.batch_to_parquet(file_dicts)
   ```
 
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like
@@ -277,6 +310,23 @@ Excel files at once. File paths can be sent as either strings or Path objects.
 
   sas7bdat_converter.to_excel('/path/to/sas7bdat/file/example.sas7bdat',
   'path/to/new/file/example.xlsx')
+  ```
+
+  **Note:** Example uses Mac/Linux type file paths. For Windows use paths like
+  `c:\path\to\sas7bdat\files\example.sas7bdat`.
+
+* **to_parquet(sas7bdat_file, export_file)** - convert a sas7bdat file into a Parquet file. File path
+  can be sent as either a string or Path objects.
+  * sas7bdat_file = the path and name for sas7bdat file to convert.
+  * export_file = the path and name for the Parquet file. The Parquet file extension should be .parquet.
+
+  **Example**
+
+  ```py
+  import sas7bdat_converter
+
+  sas7bdat_converter.to_parquet('/path/to/sas7bdat/file/example.sas7bdat',
+  'path/to/new/file/example.parquet')
   ```
 
   **Note:** Example uses Mac/Linux type file paths. For Windows use paths like
