@@ -71,10 +71,10 @@ git checkout main
 git pull upstream main --ff-only
 ```
 
-### Code Standards and tests (isort, flake8, black, mypy, pytest, tox, and pre-commit)
+### Code Standards and tests (isort, ruff, black, mypy, pytest, tox, and pre-commit)
 
 sas7bdat-converter uses [isort](https://pycqa.github.io/isort/),
-[Flake8](https://flake8.pycqa.org/en/latest/), [Black](https://github.com/psf/black), and [mypy](https://mypy.readthedocs.io/en/stable/) to ensure consistant code formmating.
+[ruff](https://github.com/charliermarsh/ruff), [Black](https://github.com/psf/black), and [mypy](https://mypy.readthedocs.io/en/stable/) to ensure consistant code formmating.
 
 You can run linting on your code at any time with:
 
@@ -85,8 +85,8 @@ poetry run isort sas7bdat_converter tests
 # Run black
 poetry run black sas7bdat_converter tests
 
-# Run flake8
-poetry run flake8 sas7bdat_converter tests
+# Run ruff
+poetry run ruff sas7bdat_converter tests
 
 # Run mypy
 poetry run mypy sas7bdat_converter
