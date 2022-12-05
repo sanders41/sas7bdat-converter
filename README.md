@@ -8,7 +8,7 @@
 
 Converts proprietary sas7bdat and/or xport files from SAS into formats such as csv, json, and Excel useable
 by other programs. Currently supported conversiaions are csv, Excel (xlsx format), json, Pandas
-DataFrame, and XML.
+DataFrame, Parquet and XML.
 
 Conversions can be done on either a single file, an entire directory, or a batch of specified files.
 
@@ -20,9 +20,13 @@ If you would like to be able to convert to Excel files you will need to install 
 
 `pip install sas7bdat-converter[excel]`
 
-If you would like to be able to convert to Parquet files you will need to install with the extra Excel dependency.
+If you would like to be able to convert to Parquet files you will need to install with the extra parquet dependency.
 
 `pip install sas7bdat-converter[parquet]`
+
+If you would like to use Conda, it includes both the extras required to convert to Excel & Parquet files.
+
+`conda install -c conda-forge sas7bdat-converter`
 
 ## Usage
 
