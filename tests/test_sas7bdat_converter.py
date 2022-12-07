@@ -63,7 +63,7 @@ def test_batch_to_csv_str_sas(tmp_path, sas_file_1, sas_file_2, sas_file_3):
         {"sas7bdat_file": str(sas_file_3), "export_file": str(converted_file_3)},
     ]
 
-    converter.batch_to_csv(file_dict)
+    converter.batch_to_csv(file_dict)  # type: ignore
 
     files_created = False
 
@@ -82,7 +82,7 @@ def test_batch_to_csv_str_xpt(tmp_path, xpt_file_1, xpt_file_2):
         {"sas7bdat_file": str(xpt_file_2), "export_file": str(converted_file_2)},
     ]
 
-    converter.batch_to_csv(file_dict)
+    converter.batch_to_csv(file_dict)  # type: ignore
 
     files_created = False
 
@@ -237,7 +237,7 @@ def test_batch_to_parquet_str_sas(tmp_path, sas_file_1, sas_file_2, sas_file_3):
         {"sas7bdat_file": str(sas_file_3), "export_file": str(converted_file_3)},
     ]
 
-    converter.batch_to_parquet(file_dict)
+    converter.batch_to_parquet(file_dict)  # type: ignore
 
     files_created = False
 
@@ -256,7 +256,7 @@ def test_batch_to_parquet_str_xpt(tmp_path, xpt_file_1, xpt_file_2):
         {"sas7bdat_file": str(xpt_file_2), "export_file": str(converted_file_2)},
     ]
 
-    converter.batch_to_parquet(file_dict)
+    converter.batch_to_parquet(file_dict)  # type: ignore
 
     files_created = False
 
@@ -409,7 +409,7 @@ def test_batch_to_excel_str_sas(tmp_path, sas_file_1, sas_file_2, sas_file_3):
         {"sas7bdat_file": str(sas_file_3), "export_file": str(converted_file_3)},
     ]
 
-    converter.batch_to_excel(file_dict)
+    converter.batch_to_excel(file_dict)  # type: ignore
     files_created = False
 
     if converted_file_1.is_file() and converted_file_2.is_file() and converted_file_3.is_file():
@@ -427,7 +427,7 @@ def test_batch_to_excel_str_xpt(tmp_path, xpt_file_1, xpt_file_2):
         {"sas7bdat_file": str(xpt_file_2), "export_file": str(converted_file_2)},
     ]
 
-    converter.batch_to_excel(file_dict)
+    converter.batch_to_excel(file_dict)  # type: ignore
     files_created = False
 
     if converted_file_1.is_file() and converted_file_2.is_file():
@@ -579,7 +579,7 @@ def test_batch_to_json_path_str_sas(tmp_path, sas_file_1, sas_file_2, sas_file_3
         {"sas7bdat_file": str(sas_file_3), "export_file": str(converted_file_3)},
     ]
 
-    converter.batch_to_json(file_dict)
+    converter.batch_to_json(file_dict)  # type: ignore
     files_created = False
 
     if converted_file_1.is_file() and converted_file_2.is_file() and converted_file_3.is_file():
@@ -597,7 +597,7 @@ def test_batch_to_json_path_str_xpt(tmp_path, xpt_file_1, xpt_file_2):
         {"sas7bdat_file": str(xpt_file_2), "export_file": str(converted_file_2)},
     ]
 
-    converter.batch_to_json(file_dict)
+    converter.batch_to_json(file_dict)  # type: ignore
     files_created = False
 
     if converted_file_1.is_file() and converted_file_2.is_file():
