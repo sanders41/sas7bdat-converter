@@ -1546,6 +1546,140 @@ def test_dir_to_json_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
     assert execinfo.value
 
 
+def test_dir_to_parquet_same_dir_path_sas(tmp_path, sas7bdat_dir):
+    sas_files = [str(x) for x in sas7bdat_dir.iterdir()]
+    for sas_file in sas_files:
+        shutil.copy(sas_file, str(tmp_path))
+
+    converter.dir_to_parquet(tmp_path)
+    sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"])
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".parquet"])
+
+    assert sas_counter == convert_counter
+
+
+def test_dir_to_parquet_same_dir_path_xpt(tmp_path, xpt_dir):
+    xpt_files = [str(x) for x in xpt_dir.iterdir()]
+    for xpt_file in xpt_files:
+        shutil.copy(xpt_file, str(tmp_path))
+
+    converter.dir_to_parquet(tmp_path)
+    sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xpt"])
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".parquet"])
+
+    assert sas_counter == convert_counter
+
+
+def test_dir_to_parquet_same_dir_str_sas(tmpdir, sas7bdat_dir):
+    sas_files = [str(x) for x in sas7bdat_dir.iterdir()]
+    for sas_file in sas_files:
+        shutil.copy(sas_file, tmpdir)
+
+    converter.dir_to_parquet(tmpdir)
+    sas_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".sas7bdat"])
+    convert_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".parquet"])
+
+    assert sas_counter == convert_counter
+
+
+def test_dir_to_parquet_same_dir_str_xpt(tmpdir, xpt_dir):
+    xpt_files = [str(x) for x in xpt_dir.iterdir()]
+    for xpt_file in xpt_files:
+        shutil.copy(xpt_file, tmpdir)
+
+    converter.dir_to_parquet(tmpdir)
+    sas_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".xpt"])
+    convert_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".parquet"])
+
+    assert sas_counter == convert_counter
+
+
+def test_dir_to_parquet_continue_sas(tmp_path, caplog, sas7bdat_dir, bad_sas_file):
+    sas_files = [str(x) for x in sas7bdat_dir.iterdir()]
+    for sas_file in sas_files:
+        shutil.copy(sas_file, str(tmp_path))
+
+    shutil.copy(bad_sas_file, str(tmp_path))
+
+    converter.dir_to_parquet(tmp_path, continue_on_error=True)
+    sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"]) - 1
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".parquet"])
+
+    assert sas_counter == convert_counter
+    assert "Error converting" in caplog.text
+
+
+def test_dir_to_parquet_continue_xpt(tmp_path, caplog, xpt_dir, bad_xpt_file):
+    xpt_files = [str(x) for x in xpt_dir.iterdir()]
+    for sas_file in xpt_files:
+        shutil.copy(sas_file, str(tmp_path))
+
+    shutil.copy(bad_xpt_file, str(tmp_path))
+
+    converter.dir_to_parquet(tmp_path, continue_on_error=True)
+    sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xpt"]) - 1
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".parquet"])
+
+    assert sas_counter == convert_counter
+    assert "Error converting" in caplog.text
+
+
+def test_dir_to_parquet_no_continue_sas(tmp_path, sas7bdat_dir, bad_sas_file):
+    sas_files = [str(x) for x in sas7bdat_dir.iterdir()]
+    for sas_file in sas_files:
+        shutil.copy(sas_file, str(tmp_path))
+
+    shutil.copy(bad_sas_file, str(tmp_path))
+    with pytest.raises(Exception) as execinfo:
+        converter.dir_to_parquet(tmp_path, continue_on_error=False)
+
+    assert execinfo.value
+
+
+def test_dir_to_parquet_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
+    sas_files = [str(x) for x in xpt_dir.iterdir()]
+    for sas_file in sas_files:
+        shutil.copy(sas_file, str(tmp_path))
+
+    shutil.copy(bad_xpt_file, str(tmp_path))
+    with pytest.raises(Exception) as execinfo:
+        converter.dir_to_parquet(tmp_path, continue_on_error=False)
+
+    assert execinfo.value
+
+
+def test_dir_to_parquet_different_dir_path_sas(tmp_path, sas7bdat_dir):
+    converter.dir_to_parquet(dir_path=sas7bdat_dir, export_path=tmp_path)
+    sas_counter = len([name for name in sas7bdat_dir.iterdir() if name.suffix == ".sas7bdat"])
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".parquet"])
+
+    assert sas_counter == convert_counter
+
+
+def test_dir_to_parquet_different_dir_path_xpt(tmp_path, xpt_dir):
+    converter.dir_to_parquet(dir_path=xpt_dir, export_path=tmp_path)
+    xpt_counter = len([name for name in xpt_dir.iterdir() if name.suffix == ".xpt"])
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".parquet"])
+
+    assert xpt_counter == convert_counter
+
+
+def test_dir_to_parquet_different_dir_str_sas(tmpdir, sas7bdat_dir):
+    converter.dir_to_parquet(dir_path=str(sas7bdat_dir), export_path=tmpdir)
+    sas_counter = len([name for name in Path(sas7bdat_dir).iterdir() if name.suffix == ".sas7bdat"])
+    convert_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".parquet"])
+
+    assert sas_counter == convert_counter
+
+
+def test_dir_to_parquet_different_dir_str_xpt(tmpdir, xpt_dir):
+    converter.dir_to_parquet(dir_path=str(xpt_dir), export_path=tmpdir)
+    xpt_counter = len([name for name in Path(xpt_dir).iterdir() if name.suffix == ".xpt"])
+    convert_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".parquet"])
+
+    assert xpt_counter == convert_counter
+
+
 def test_dir_to_xml_same_dir_path_sas(tmp_path, sas7bdat_dir):
     sas_files = [x for x in sas7bdat_dir.iterdir()]
     for sas_file in sas_files:
@@ -2333,7 +2467,7 @@ def test_format_path(path, expected):
     assert isinstance(converted, str)
 
 
-@pytest.mark.parametrize("file_type", ["csv", "xlsx", "json", "xml"])
+@pytest.mark.parametrize("file_type", ["csv", "xlsx", "json", "xml", "parquet"])
 def test_walk_dir_sas(tmpdir, sas7bdat_dir, file_type):
     sas_files = [str(x) for x in sas7bdat_dir.iterdir()]
     for sas_file in sas_files:
@@ -2348,7 +2482,7 @@ def test_walk_dir_sas(tmpdir, sas7bdat_dir, file_type):
     assert sas_counter == convert_counter
 
 
-@pytest.mark.parametrize("file_type", ["csv", "xlsx", "json", "xml"])
+@pytest.mark.parametrize("file_type", ["csv", "xlsx", "json", "xml", "parquet"])
 def test_walk_dir_xpt(tmpdir, xpt_dir, file_type):
     xpt_files = [str(x) for x in xpt_dir.iterdir()]
     for xpt_file in xpt_files:
