@@ -6,6 +6,7 @@ from sas7bdat_converter.converter import (  # noqa: F401
     dir_to_csv,
     dir_to_excel,
     dir_to_json,
+    dir_to_parquet,
     dir_to_xml,
     to_csv,
     to_dataframe,
