@@ -79,7 +79,7 @@ module = ["tests.*"]
 disallow_untyped_defs = false
 
 [[tool.mypy.overrides]]
-module = ["numpy.*", "pandas.*"]
+module = ["numpy.*", "pandas.*", "pyarrow.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

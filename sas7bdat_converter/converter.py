@@ -3,7 +3,6 @@ from __future__ import annotations
 import csv
 import logging
 from pathlib import Path
-from typing import Optional
 from xml.sax.saxutils import escape
 
 import numpy as np
@@ -245,7 +244,7 @@ def batch_to_xml(
 
 def dir_to_csv(
     dir_path: str | Path,
-    export_path: Optional[str | Path] = None,
+    export_path: str | Path | None = None,
     continue_on_error: bool = False,
 ) -> None:
     """Converts all sas7bdat and/or xpt files in a directory into csv files.
@@ -264,7 +263,7 @@ def dir_to_csv(
 
 def dir_to_excel(
     dir_path: str | Path,
-    export_path: Optional[str | Path] = None,
+    export_path: str | Path | None = None,
     continue_on_error: bool = False,
 ) -> None:
     """Converts all sas7bdat and/or xpt files in a directory into xlsx files.
@@ -283,7 +282,7 @@ def dir_to_excel(
 
 def dir_to_json(
     dir_path: str | Path,
-    export_path: Optional[str | Path] = None,
+    export_path: str | Path | None = None,
     continue_on_error: bool = False,
 ) -> None:
     """Converts all sas7bdat and/or xpt files in a directory into json files.
@@ -300,9 +299,26 @@ def dir_to_json(
     _walk_dir("json", dir_path, continue_on_error, export_path)
 
 
+def dir_to_parquet(
+    dir_path: str | Path, export_path: str | Path | None = None, continue_on_error: bool = False
+) -> None:
+    """Converts all sas7bdat and/or xpt files in a directory into a parquet files.
+
+    args:
+        dir_path: The path to the directory that contains the sas7bdat files
+                for conversion.
+        export_path (optional): If used this can specify a new directory to create
+                the converted files into. If not supplied then the files will be
+                created into the same directory as dir_path. Default = None
+        continue_on_error: If set to true processing of files in a batch will continue if there is
+                a file conversion error instead of raising an exception. Default = False
+    """
+    _walk_dir("parquet", dir_path, continue_on_error, export_path)
+
+
 def dir_to_xml(
     dir_path: str | Path,
-    export_path: Optional[str | Path] = None,
+    export_path: str | Path | None = None,
     continue_on_error: bool = False,
 ) -> None:
     """Converts all sas7bdat and/or xpt files in a directory into xml files.
@@ -477,7 +493,7 @@ def _file_extension_exception_message(conversion_type: str, valid_extensions: tu
 
 
 def _invalid_key_exception_message(
-    required_keys: list[str], optional_keys: Optional[list[str]] = None
+    required_keys: list[str], optional_keys: list[str] | None = None
 ) -> str:
     required_keys_joined: str = ", ".join(required_keys)
     if optional_keys:
@@ -508,7 +524,7 @@ def _walk_dir(
     file_type: str,
     dir_path: str | Path,
     continue_on_error: bool,
-    export_path: Optional[str | Path] = None,
+    export_path: str | Path | None = None,
 ) -> None:
     path = dir_path if isinstance(dir_path, Path) else Path(dir_path)
     for file_name in path.iterdir():
@@ -530,6 +546,8 @@ def _walk_dir(
                     to_excel(str(sas7bdat_file), str(export_file))
                 elif file_type == "xml":
                     to_xml(str(sas7bdat_file), str(export_file))
+                elif file_type == "parquet":
+                    to_parquet(str(sas7bdat_file), str(export_file))
             except:  # noqa: 722
                 if continue_on_error:
                     logger.info(f"Error converting {sas7bdat_file}")
