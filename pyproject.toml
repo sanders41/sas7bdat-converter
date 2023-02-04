@@ -10,6 +10,7 @@ homepage = "https://github.com/sanders41/sas7bdat-converter"
 documentation = "https://github.com/sanders41/sas7bdat-converter"
 keywords = ["sas", "sas7bdat", "converter", "xpt", "XPort"]
 classifiers=[
+  "Development Status :: 5 - Production/Stable",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
