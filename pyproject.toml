@@ -33,7 +33,6 @@ all = ["openpyxl", "pyarrow"]
 
 [tool.poetry.group.dev.dependencies]
 black = ">=22.8.0"
-isort = ">=5.10.1"
 mypy = ">=0.981"
 pre-commit = ">=2.20.0"
 pytest = ">=7.1.3"
@@ -67,11 +66,6 @@ exclude = '''
 )/
 '''
 
-[tool.isort]
-profile = "black"
-line_length = 100
-src_paths = ["sas7bdat_converter", "tests"]
-
 [tool.mypy]
 disallow_untyped_defs = true
 strict = true
@@ -89,5 +83,7 @@ minversion = "6.0"
 addopts = "--cov=sas7bdat_converter --cov-report term-missing"
 
 [tool.ruff]
-select=["E", "F", "T201", "T203"]
-ignore=["E501"]
+select = ["E", "F", "T201", "T203", "I001"]
+ignore = ["E501"]
+line-length = 100
+fix = true
