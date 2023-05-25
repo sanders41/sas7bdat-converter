@@ -1,113 +1,112 @@
 from __future__ import annotations
 
 import csv
-import logging
 from pathlib import Path
 from xml.sax.saxutils import escape
 
 import numpy as np
 import pandas as pd
 
-logging.basicConfig(format="%(asctime)s: %(levelname)s: %(message)s")
-logging.root.setLevel(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-__FILE_DICT_REQUIRED_KEYS = [
+_FILE_DICT_REQUIRED_KEYS = [
     "sas7bdat_file",
     "export_file",
 ]
 
 
 def batch_to_csv(
-    file_dicts: list[dict[str, str | Path]],
-    continue_on_error: bool = False,
+    file_dicts: list[dict[str, str | Path]], continue_on_error: bool = False, verbose: bool = True
 ) -> None:
     """Converts a batch of sas7bdat and/or xpt files to csv files.
 
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
-                    contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat
-                    file) and 'export_file' containing the path and name of the export csv).
-                    Example: file_dict = [{
-                                              'sas7bdat_file': 'sas_file1.sas7bdat',
-                                              'export_file': 'converted_file1.csv',
-                                          },
-                                          {
-                                              'sas7bdat_file': 'sas_file2.sas7bdat',
-                                              'export_file': 'converted_file2.csv',
-                                          }]
+            contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat
+            file) and 'export_file' containing the path and name of the export csv).
+            Example: file_dict = [{
+                                      'sas7bdat_file': 'sas_file1.sas7bdat',
+                                      'export_file': 'converted_file1.csv',
+                                  },
+                                  {
+                                      'sas7bdat_file': 'sas_file2.sas7bdat',
+                                      'export_file': 'converted_file2.csv',
+                                  }]
         continue_on_error: If set to true processing of files in a batch will continue if there is
-                    a file conversion error instead of raising an exception. Default = False
+            a file conversion error instead of raising an exception. Default = False
+        verbose: Increases the output. Default = True
     """
     for file_dict in file_dicts:
         _rise_on_invalid_file_dict(file_dict)
 
-        xpt = _format_path(file_dict["sas7bdat_file"])
+        sas7bdat = _format_path(file_dict["sas7bdat_file"])
         export = _format_path(file_dict["export_file"])
         try:
-            to_csv(sas7bdat_file=xpt, export_file=export)
+            to_csv(sas7bdat_file=sas7bdat, export_file=export)
         except:  # noqa: E722
-            if continue_on_error:
-                logger.info(f"Error converting {xpt}")
+            if continue_on_error and verbose:
+                print(f"Error converting {sas7bdat}")  # noqa: T201
+            elif continue_on_error:
+                pass
             else:
                 raise
 
 
 def batch_to_parquet(
-    file_dicts: list[dict[str, str | Path]],
-    continue_on_error: bool = False,
+    file_dicts: list[dict[str, str | Path]], continue_on_error: bool = False, verbose: bool = True
 ) -> None:
     """Converts a batch of sas7bdat and/or xpt files to parquet files.
 
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
-                    contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat
-                    file) and 'export_file' containing the path and name of the export parquet).
-                    Example: file_dict = [{
-                                              'sas7bdat_file': 'sas_file1.sas7bdat',
-                                              'export_file': 'converted_file1.parquet',
-                                          },
-                                          {
-                                              'sas7bdat_file': 'sas_file2.sas7bdat',
-                                              'export_file': 'converted_file2.parquet',
-                                          }]
+            contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat
+            file) and 'export_file' containing the path and name of the export parquet).
+            Example: file_dict = [{
+                                      'sas7bdat_file': 'sas_file1.sas7bdat',
+                                      'export_file': 'converted_file1.parquet',
+                                  },
+                                  {
+                                      'sas7bdat_file': 'sas_file2.sas7bdat',
+                                      'export_file': 'converted_file2.parquet',
+                                  }]
         continue_on_error: If set to true processing of files in a batch will continue if there is
-                    a file conversion error instead of raising an exception. Default = False
+            a file conversion error instead of raising an exception. Default = False
+        verbose: Increases the output. Default = True
     """
     for file_dict in file_dicts:
         _rise_on_invalid_file_dict(file_dict)
 
-        xpt = _format_path(file_dict["sas7bdat_file"])
+        sas7bdat = _format_path(file_dict["sas7bdat_file"])
         export = _format_path(file_dict["export_file"])
         try:
-            to_parquet(sas7bdat_file=xpt, export_file=export)
+            to_parquet(sas7bdat_file=sas7bdat, export_file=export)
         except:  # noqa: E722
-            if continue_on_error:
-                logger.info(f"Error converting {xpt}")
+            if continue_on_error and verbose:
+                print(f"Error converting {sas7bdat}")  # noqa: T201
+            elif continue_on_error:
+                pass
             else:
                 raise
 
 
 def batch_to_excel(
-    file_dicts: list[dict[str, str | Path]],
-    continue_on_error: bool = False,
+    file_dicts: list[dict[str, str | Path]], continue_on_error: bool = False, verbose: bool = True
 ) -> None:
     """Converts a batch of sas7bdat and/or xpt files to xlsx files.
 
     Args:
         file_dicts: A list of dictionaries containing the files to convert. The dictionary should
-                    contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat
-                    file) and 'export_file' containing the path and name of the export xlsx).
-                    Example: file_dict = [{
-                                              'sas7bdat_file': 'sas_file1.sas7bdat',
-                                              'export_file': 'converted_file1.xlsx',
-                                          },
-                                          {
-                                              'sas7bdat_file': 'sas_file2.sas7bdat',
-                                              'export_file': 'converted_file2.xlxs',
-                                          }]
+            contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat
+            file) and 'export_file' containing the path and name of the export xlsx).
+            Example: file_dict = [{
+                                      'sas7bdat_file': 'sas_file1.sas7bdat',
+                                      'export_file': 'converted_file1.xlsx',
+                                  },
+                                  {
+                                      'sas7bdat_file': 'sas_file2.sas7bdat',
+                                      'export_file': 'converted_file2.xlxs',
+                                  }]
         continue_on_error: If set to true processing of files in a batch will continue if there is
-                    a file conversion error instead of raising an exception. Default = False
+            a file conversion error instead of raising an exception. Default = False
+        verbose: Increases the output. Default = True
     """
     for file_dict in file_dicts:
         _rise_on_invalid_file_dict(file_dict)
@@ -117,32 +116,34 @@ def batch_to_excel(
         try:
             to_excel(sas7bdat_file=sas7bdat, export_file=export)
         except:  # noqa: 722
-            if continue_on_error:
-                logger.info(f"Error converting {sas7bdat}")
+            if continue_on_error and verbose:
+                print(f"Error converting {sas7bdat}")  # noqa: T201
+            elif continue_on_error:
+                pass
             else:
                 raise
 
 
 def batch_to_json(
-    file_dicts: list[dict[str, str | Path]],
-    continue_on_error: bool = False,
+    file_dicts: list[dict[str, str | Path]], continue_on_error: bool = False, verbose: bool = True
 ) -> None:
     """Converts a batch of sas7bdat and/or xpt files to json files.
 
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
-                    contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat
-                    file) and 'export_file' containing the path and name of the export json).
-                    Example: file_dict = [{
-                                              'sas7bdat_file': 'sas_file1.sas7bdat',
-                                              'export_file': 'converted_file1.json',
-                                          },
-                                          {
-                                              'sas7bdat_file': 'sas_file2.sas7bdat',
-                                              'export_file': 'converted_file2.json',
-                                          }]
+            contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat
+            file) and 'export_file' containing the path and name of the export json).
+            Example: file_dict = [{
+                                      'sas7bdat_file': 'sas_file1.sas7bdat',
+                                      'export_file': 'converted_file1.json',
+                                  },
+                                  {
+                                      'sas7bdat_file': 'sas_file2.sas7bdat',
+                                      'export_file': 'converted_file2.json',
+                                  }]
         continue_on_error: If set to true processing of files in a batch will continue if there is
-                    a file conversion error instead of raising an exception. Default = False
+            a file conversion error instead of raising an exception. Default = False
+        verbose: Increases the output. Default = True
     """
     for file_dict in file_dicts:
         _rise_on_invalid_file_dict(file_dict)
@@ -152,40 +153,42 @@ def batch_to_json(
         try:
             to_json(sas7bdat_file=sas7bdat, export_file=export)
         except:  # noqa: 722
-            if continue_on_error:
-                logger.info(f"Error converting {sas7bdat}")
+            if continue_on_error and verbose:
+                print(f"Error converting {sas7bdat}")  # noqa: T201
+            elif continue_on_error:
+                pass
             else:
                 raise
 
 
 def batch_to_xml(
-    file_dicts: list[dict[str, str | Path]],
-    continue_on_error: bool = False,
+    file_dicts: list[dict[str, str | Path]], continue_on_error: bool = False, verbose: bool = True
 ) -> None:
     """Converts a batch of sas7bdat and/or xpt files to xml files.
 
     Args:
         file_dicts: A list dictionaries containing the files to convert. The dictionary should
-                    contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat
-                    file) and 'export_file' containing the path and name of the export xml).
-                    Optinallly the dictionary can also contain 'root_node' (containing the name for
-                    the root node in the xml file, and 'first_node' (containing the name for the
-                    first node in the xml file).
-                    Examples: file_dict = [{'sas7bdat_file': 'sas_file1.sas7bdat',
-                                            'export_file': 'converted_file1.xlsx'},
-                                           {'sas7bdat_file': 'sas_file2.sas7bdat',
-                                            'export_file': 'converted_file2.xlxs'}]
+            contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat
+            file) and 'export_file' containing the path and name of the export xml).
+            Optinallly the dictionary can also contain 'root_node' (containing the name for
+            the root node in the xml file, and 'first_node' (containing the name for the
+            first node in the xml file).
+            Examples: file_dict = [{'sas7bdat_file': 'sas_file1.sas7bdat',
+                                    'export_file': 'converted_file1.xlsx'},
+                                   {'sas7bdat_file': 'sas_file2.sas7bdat',
+                                    'export_file': 'converted_file2.xlxs'}]
 
-                              file_dict = [{'sas7bdat_file': 'sas_file1.sas7bdat',
-                                            'export_file': 'converted_file1.xml',
-                                            'root_node': 'my_root',
-                                            'first_node': 'my_first'},
-                                           {'sas7bdat_file': 'sas_file2.sas7bdat',
-                                            'export_file': 'converted_file2.xml',
-                                            'root_node': 'another_root',
-                                            'first_node': 'another_first'}]
+                      file_dict = [{'sas7bdat_file': 'sas_file1.sas7bdat',
+                                    'export_file': 'converted_file1.xml',
+                                    'root_node': 'my_root',
+                                    'first_node': 'my_first'},
+                                   {'sas7bdat_file': 'sas_file2.sas7bdat',
+                                    'export_file': 'converted_file2.xml',
+                                    'root_node': 'another_root',
+                                    'first_node': 'another_first'}]
         continue_on_error: If set to true processing of files in a batch will continue if there is
-                    a file conversion error instead of raising an exception. Default = False
+            a file conversion error instead of raising an exception. Default = False
+        verbose: Increases the output. Default = True
     """
     optional_keys = [
         "root_node",
@@ -193,22 +196,22 @@ def batch_to_xml(
     ]
     for file_dict in file_dicts:
         error = False
-        if len(set(file_dict).intersection(__FILE_DICT_REQUIRED_KEYS)) != len(
-            __FILE_DICT_REQUIRED_KEYS
-        ) or len(set(file_dict).intersection(__FILE_DICT_REQUIRED_KEYS)) > len(
-            __FILE_DICT_REQUIRED_KEYS
+        if len(set(file_dict).intersection(_FILE_DICT_REQUIRED_KEYS)) != len(
+            _FILE_DICT_REQUIRED_KEYS
+        ) or len(set(file_dict).intersection(_FILE_DICT_REQUIRED_KEYS)) > len(
+            _FILE_DICT_REQUIRED_KEYS
         ) + len(
             optional_keys
         ):
             error = True
         elif len(set(file_dict).intersection(optional_keys)) != len(file_dict) - len(
-            __FILE_DICT_REQUIRED_KEYS
+            _FILE_DICT_REQUIRED_KEYS
         ):
             error = True
 
         if error:
             message = _invalid_key_exception_message(
-                required_keys=__FILE_DICT_REQUIRED_KEYS, optional_keys=optional_keys
+                required_keys=_FILE_DICT_REQUIRED_KEYS, optional_keys=optional_keys
             )
             raise KeyError(message)
 
@@ -236,8 +239,10 @@ def batch_to_xml(
             else:
                 to_xml(sas7bdat_file=sas7bdat, export_file=export)
         except:  # noqa: 722
-            if continue_on_error:
-                logger.info(f"Error converting {sas7bdat}")
+            if continue_on_error and verbose:
+                print(f"Error converting {sas7bdat}")  # noqa: T201
+            elif continue_on_error:
+                pass
             else:
                 raise
 
@@ -246,93 +251,105 @@ def dir_to_csv(
     dir_path: str | Path,
     export_path: str | Path | None = None,
     continue_on_error: bool = False,
+    verbose: bool = True,
 ) -> None:
     """Converts all sas7bdat and/or xpt files in a directory into csv files.
 
     args:
         dir_path: The path to the directory that contains the sas7bdat files
-                for conversion.
+            for conversion.
         export_path (optional): If used this can specify a new directory to create
-                the converted files into. If not supplied then the files will be
-                created into the same directory as dir_path. Default = None
+            the converted files into. If not supplied then the files will be
+            created into the same directory as dir_path. Default = None
         continue_on_error: If set to true processing of files in a batch will continue if there is
-                a file conversion error instead of raising an exception. Default = False
+            a file conversion error instead of raising an exception. Default = False
+        verbose: Increases the output. Default = True
     """
-    _walk_dir("csv", dir_path, continue_on_error, export_path)
+    _walk_dir("csv", dir_path, continue_on_error, export_path, verbose)
 
 
 def dir_to_excel(
     dir_path: str | Path,
     export_path: str | Path | None = None,
     continue_on_error: bool = False,
+    verbose: bool = True,
 ) -> None:
     """Converts all sas7bdat and/or xpt files in a directory into xlsx files.
 
     args:
         dir_path: The path to the directory that contains the sas7bdat files
-                for conversion.
+            for conversion.
         export_path (optional): If used this can specify a new directory to create
-                the converted files into. If not supplied then the files will be
-                created into the same directory as dir_path. Default = None
+            the converted files into. If not supplied then the files will be
+            created into the same directory as dir_path. Default = None
         continue_on_error: If set to true processing of files in a batch will continue if there is
-                a file conversion error instead of raising an exception. Default = False
+            a file conversion error instead of raising an exception. Default = False
+        verbose: Increases the output. Default = True
     """
-    _walk_dir("xlsx", dir_path, continue_on_error, export_path)
+    _walk_dir("xlsx", dir_path, continue_on_error, export_path, verbose)
 
 
 def dir_to_json(
     dir_path: str | Path,
     export_path: str | Path | None = None,
     continue_on_error: bool = False,
+    verbose: bool = True,
 ) -> None:
     """Converts all sas7bdat and/or xpt files in a directory into json files.
 
     args:
         dir_path: The path to the directory that contains the sas7bdat files
-                for conversion.
+            for conversion.
         export_path (optional): If used this can specify a new directory to create
-                the converted files into. If not supplied then the files will be
-                created into the same directory as dir_path. Default = None
+            the converted files into. If not supplied then the files will be
+            created into the same directory as dir_path. Default = None
         continue_on_error: If set to true processing of files in a batch will continue if there is
-                a file conversion error instead of raising an exception. Default = False
+            a file conversion error instead of raising an exception. Default = False
+        verbose: Increases the output. Default = True
     """
-    _walk_dir("json", dir_path, continue_on_error, export_path)
+    _walk_dir("json", dir_path, continue_on_error, export_path, verbose)
 
 
 def dir_to_parquet(
-    dir_path: str | Path, export_path: str | Path | None = None, continue_on_error: bool = False
+    dir_path: str | Path,
+    export_path: str | Path | None = None,
+    continue_on_error: bool = False,
+    verbose: bool = True,
 ) -> None:
     """Converts all sas7bdat and/or xpt files in a directory into a parquet files.
 
     args:
         dir_path: The path to the directory that contains the sas7bdat files
-                for conversion.
+            for conversion.
         export_path (optional): If used this can specify a new directory to create
-                the converted files into. If not supplied then the files will be
-                created into the same directory as dir_path. Default = None
+            the converted files into. If not supplied then the files will be
+            created into the same directory as dir_path. Default = None
         continue_on_error: If set to true processing of files in a batch will continue if there is
-                a file conversion error instead of raising an exception. Default = False
+            a file conversion error instead of raising an exception. Default = False
+        verbose: Increases the output. Default = True
     """
-    _walk_dir("parquet", dir_path, continue_on_error, export_path)
+    _walk_dir("parquet", dir_path, continue_on_error, export_path, verbose)
 
 
 def dir_to_xml(
     dir_path: str | Path,
     export_path: str | Path | None = None,
     continue_on_error: bool = False,
+    verbose: bool = True,
 ) -> None:
     """Converts all sas7bdat and/or xpt files in a directory into xml files.
 
     args:
         dir_path: The path to the directory that contains the sas7bdat files
-                for conversion.
+            for conversion.
         export_path (optional): If used this can specify a new directory to create
-                the converted files into. If not supplied then the files will be
-                created into the same directory as dir_path. Default = None
+            the converted files into. If not supplied then the files will be
+            created into the same directory as dir_path. Default = None
         continue_on_error: If set to true processing of files in a batch will continue if there is
-                a file conversion error instead of raising an exception. Default = False
+            a file conversion error instead of raising an exception. Default = False
+        verbose: Increases the output. Default = True
     """
-    _walk_dir("xml", dir_path, continue_on_error, export_path)
+    _walk_dir("xml", dir_path, continue_on_error, export_path, verbose)
 
 
 def to_csv(sas7bdat_file: str | Path, export_file: str | Path) -> None:
@@ -513,10 +530,8 @@ def _format_path(path: str | Path) -> str:
 
 
 def _rise_on_invalid_file_dict(file_dict: dict[str, str | Path]) -> None:
-    if len(set(file_dict).intersection(__FILE_DICT_REQUIRED_KEYS)) != len(
-        __FILE_DICT_REQUIRED_KEYS
-    ):
-        message = _invalid_key_exception_message(required_keys=__FILE_DICT_REQUIRED_KEYS)
+    if len(set(file_dict).intersection(_FILE_DICT_REQUIRED_KEYS)) != len(_FILE_DICT_REQUIRED_KEYS):
+        message = _invalid_key_exception_message(required_keys=_FILE_DICT_REQUIRED_KEYS)
         raise KeyError(message)
 
 
@@ -525,6 +540,7 @@ def _walk_dir(
     dir_path: str | Path,
     continue_on_error: bool,
     export_path: str | Path | None = None,
+    verbose: bool = True,
 ) -> None:
     path = dir_path if isinstance(dir_path, Path) else Path(dir_path)
     for file_name in path.iterdir():
@@ -549,7 +565,9 @@ def _walk_dir(
                 elif file_type == "parquet":
                     to_parquet(str(sas7bdat_file), str(export_file))
             except:  # noqa: 722
-                if continue_on_error:
-                    logger.info(f"Error converting {sas7bdat_file}")
+                if continue_on_error and verbose:
+                    print(f"Error converting {sas7bdat_file}")  # noqa: T201
+                elif continue_on_error:
+                    pass
                 else:
                     raise

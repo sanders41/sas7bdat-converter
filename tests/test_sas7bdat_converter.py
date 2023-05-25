@@ -92,7 +92,24 @@ def test_batch_to_csv_str_xpt(tmp_path, xpt_file_1, xpt_file_2):
     assert files_created
 
 
-def test_batch_to_csv_continue_sas(tmp_path, caplog, sas_file_1):
+def test_batch_to_csv_continue_sas(tmp_path, capfd, sas_file_1):
+    bad_sas_file = tmp_path.joinpath("bad_file.sas7bdat")
+    bad_converted_file = tmp_path.joinpath("bad_file.csv")
+    converted_file = tmp_path.joinpath("file1.csv")
+
+    file_dict = [
+        {"sas7bdat_file": bad_sas_file, "export_file": bad_converted_file},
+        {"sas7bdat_file": sas_file_1, "export_file": converted_file},
+    ]
+
+    converter.batch_to_csv(file_dict, continue_on_error=True, verbose=False)
+    out, _ = capfd.readouterr()
+
+    assert converted_file.is_file()
+    assert "Error converting" not in out
+
+
+def test_batch_to_csv_continue_sas_verbose(tmp_path, capfd, sas_file_1):
     bad_sas_file = tmp_path.joinpath("bad_file.sas7bdat")
     bad_converted_file = tmp_path.joinpath("bad_file.csv")
     converted_file = tmp_path.joinpath("file1.csv")
@@ -103,12 +120,30 @@ def test_batch_to_csv_continue_sas(tmp_path, caplog, sas_file_1):
     ]
 
     converter.batch_to_csv(file_dict, continue_on_error=True)
+    out, _ = capfd.readouterr()
 
     assert converted_file.is_file()
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
-def test_batch_to_csv_continue_xpt(tmp_path, caplog, xpt_file_1):
+def test_batch_to_csv_continue_xpt(tmp_path, capfd, xpt_file_1):
+    bad_xpt_file = tmp_path.joinpath("bad_file.xpt")
+    bad_converted_file = tmp_path.joinpath("bad_file.csv")
+    converted_file = tmp_path.joinpath("file1.csv")
+
+    file_dict = [
+        {"sas7bdat_file": bad_xpt_file, "export_file": bad_converted_file},
+        {"sas7bdat_file": xpt_file_1, "export_file": converted_file},
+    ]
+
+    converter.batch_to_csv(file_dict, continue_on_error=True, verbose=False)
+    out, _ = capfd.readouterr()
+
+    assert converted_file.is_file()
+    assert "Error converting" not in out
+
+
+def test_batch_to_csv_continue_xpt_verbose(tmp_path, capfd, xpt_file_1):
     bad_xpt_file = tmp_path.joinpath("bad_file.xpt")
     bad_converted_file = tmp_path.joinpath("bad_file.csv")
     converted_file = tmp_path.joinpath("file1.csv")
@@ -119,9 +154,10 @@ def test_batch_to_csv_continue_xpt(tmp_path, caplog, xpt_file_1):
     ]
 
     converter.batch_to_csv(file_dict, continue_on_error=True)
+    out, _ = capfd.readouterr()
 
     assert converted_file.is_file()
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
 def test_batch_to_csv_no_continue_sas(tmp_path, sas_file_1):
@@ -134,10 +170,8 @@ def test_batch_to_csv_no_continue_sas(tmp_path, sas_file_1):
         {"sas7bdat_file": sas_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.batch_to_csv(file_dict, continue_on_error=False)
-
-    assert execinfo.value
 
 
 def test_batch_to_csv_no_continue_xpt(tmp_path, xpt_file_1):
@@ -150,10 +184,8 @@ def test_batch_to_csv_no_continue_xpt(tmp_path, xpt_file_1):
         {"sas7bdat_file": xpt_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(Exception) as execinfo:
-        converter.batch_to_csv(file_dict, continue_on_error=False)
-
-    assert execinfo.value
+    with pytest.raises(Exception):
+        converter.batch_to_csv(file_dict, continue_on_error=False, verbose=False)
 
 
 file_dicts = [
@@ -266,7 +298,24 @@ def test_batch_to_parquet_str_xpt(tmp_path, xpt_file_1, xpt_file_2):
     assert files_created
 
 
-def test_batch_to_parquet_continue_sas(tmp_path, caplog, sas_file_1):
+def test_batch_to_parquet_continue_sas(tmp_path, capfd, sas_file_1):
+    bad_sas_file = tmp_path.joinpath("bad_file.sas7bdat")
+    bad_converted_file = tmp_path.joinpath("bad_file.parquet")
+    converted_file = tmp_path.joinpath("file1.parquet")
+
+    file_dict = [
+        {"sas7bdat_file": bad_sas_file, "export_file": bad_converted_file},
+        {"sas7bdat_file": sas_file_1, "export_file": converted_file},
+    ]
+
+    converter.batch_to_parquet(file_dict, continue_on_error=True, verbose=False)
+    out, _ = capfd.readouterr()
+
+    assert converted_file.is_file()
+    assert "Error converting" not in out
+
+
+def test_batch_to_parquet_continue_sas_verbose(tmp_path, capfd, sas_file_1):
     bad_sas_file = tmp_path.joinpath("bad_file.sas7bdat")
     bad_converted_file = tmp_path.joinpath("bad_file.parquet")
     converted_file = tmp_path.joinpath("file1.parquet")
@@ -277,12 +326,30 @@ def test_batch_to_parquet_continue_sas(tmp_path, caplog, sas_file_1):
     ]
 
     converter.batch_to_parquet(file_dict, continue_on_error=True)
+    out, _ = capfd.readouterr()
 
     assert converted_file.is_file()
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
-def test_batch_to_parquet_continue_xpt(tmp_path, caplog, xpt_file_1):
+def test_batch_to_parquet_continue_xpt(tmp_path, capfd, xpt_file_1):
+    bad_xpt_file = tmp_path.joinpath("bad_file.xpt")
+    bad_converted_file = tmp_path.joinpath("bad_file.parquet")
+    converted_file = tmp_path.joinpath("file1.parquet")
+
+    file_dict = [
+        {"sas7bdat_file": bad_xpt_file, "export_file": bad_converted_file},
+        {"sas7bdat_file": xpt_file_1, "export_file": converted_file},
+    ]
+
+    converter.batch_to_parquet(file_dict, continue_on_error=True, verbose=False)
+    out, _ = capfd.readouterr()
+
+    assert converted_file.is_file()
+    assert "Error converting" not in out
+
+
+def test_batch_to_parquet_continue_xpt_verbose(tmp_path, capfd, xpt_file_1):
     bad_xpt_file = tmp_path.joinpath("bad_file.xpt")
     bad_converted_file = tmp_path.joinpath("bad_file.parquet")
     converted_file = tmp_path.joinpath("file1.parquet")
@@ -293,9 +360,10 @@ def test_batch_to_parquet_continue_xpt(tmp_path, caplog, xpt_file_1):
     ]
 
     converter.batch_to_parquet(file_dict, continue_on_error=True)
+    out, _ = capfd.readouterr()
 
     assert converted_file.is_file()
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
 def test_batch_to_parquet_no_continue_sas(tmp_path, sas_file_1):
@@ -308,10 +376,8 @@ def test_batch_to_parquet_no_continue_sas(tmp_path, sas_file_1):
         {"sas7bdat_file": sas_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.batch_to_parquet(file_dict, continue_on_error=False)
-
-    assert execinfo.value
 
 
 def test_batch_to_parquet_no_continue_xpt(tmp_path, xpt_file_1):
@@ -324,10 +390,8 @@ def test_batch_to_parquet_no_continue_xpt(tmp_path, xpt_file_1):
         {"sas7bdat_file": xpt_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.batch_to_parquet(file_dict, continue_on_error=False)
-
-    assert execinfo.value
 
 
 file_dicts = [
@@ -436,7 +500,24 @@ def test_batch_to_excel_str_xpt(tmp_path, xpt_file_1, xpt_file_2):
     assert files_created
 
 
-def test_batch_to_excel_continue_sas(tmp_path, caplog, sas_file_1):
+def test_batch_to_excel_continue_sas(tmp_path, capfd, sas_file_1):
+    bad_sas_file = tmp_path.joinpath("bad_file.sas7bdat")
+    bad_converted_file = tmp_path.joinpath("bad_file.xlsx")
+    converted_file = tmp_path.joinpath("file1.xlsx")
+
+    file_dict = [
+        {"sas7bdat_file": bad_sas_file, "export_file": bad_converted_file},
+        {"sas7bdat_file": sas_file_1, "export_file": converted_file},
+    ]
+
+    converter.batch_to_excel(file_dict, continue_on_error=True, verbose=False)
+    out, _ = capfd.readouterr()
+
+    assert converted_file.is_file()
+    assert "Error converting" not in out
+
+
+def test_batch_to_excel_continue_sas_verbose(tmp_path, capfd, sas_file_1):
     bad_sas_file = tmp_path.joinpath("bad_file.sas7bdat")
     bad_converted_file = tmp_path.joinpath("bad_file.xlsx")
     converted_file = tmp_path.joinpath("file1.xlsx")
@@ -447,12 +528,30 @@ def test_batch_to_excel_continue_sas(tmp_path, caplog, sas_file_1):
     ]
 
     converter.batch_to_excel(file_dict, continue_on_error=True)
+    out, _ = capfd.readouterr()
 
     assert converted_file.is_file()
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
-def test_batch_to_excel_continue_xpt(tmp_path, caplog, xpt_file_1):
+def test_batch_to_excel_continue_xpt(tmp_path, capfd, xpt_file_1):
+    bad_sas_file = tmp_path.joinpath("bad_file.xpt")
+    bad_converted_file = tmp_path.joinpath("bad_file.xlsx")
+    converted_file = tmp_path.joinpath("file1.xlsx")
+
+    file_dict = [
+        {"sas7bdat_file": bad_sas_file, "export_file": bad_converted_file},
+        {"sas7bdat_file": xpt_file_1, "export_file": converted_file},
+    ]
+
+    converter.batch_to_excel(file_dict, continue_on_error=True, verbose=False)
+    out, _ = capfd.readouterr()
+
+    assert converted_file.is_file()
+    assert "Error converting" not in out
+
+
+def test_batch_to_excel_continue_xpt_verbose(tmp_path, capfd, xpt_file_1):
     bad_sas_file = tmp_path.joinpath("bad_file.xpt")
     bad_converted_file = tmp_path.joinpath("bad_file.xlsx")
     converted_file = tmp_path.joinpath("file1.xlsx")
@@ -463,9 +562,10 @@ def test_batch_to_excel_continue_xpt(tmp_path, caplog, xpt_file_1):
     ]
 
     converter.batch_to_excel(file_dict, continue_on_error=True)
+    out, _ = capfd.readouterr()
 
     assert converted_file.is_file()
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
 def test_batch_to_excel_no_continue_sas(tmp_path, sas_file_1):
@@ -478,10 +578,8 @@ def test_batch_to_excel_no_continue_sas(tmp_path, sas_file_1):
         {"sas7bdat_file": sas_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(FileNotFoundError) as execinfo:
+    with pytest.raises(FileNotFoundError):
         converter.batch_to_excel(file_dict, continue_on_error=False)
-
-    assert execinfo.value
 
 
 def test_batch_to_excel_no_continue_xpt(tmp_path, xpt_file_1):
@@ -494,10 +592,8 @@ def test_batch_to_excel_no_continue_xpt(tmp_path, xpt_file_1):
         {"sas7bdat_file": xpt_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(FileNotFoundError) as execinfo:
+    with pytest.raises(FileNotFoundError):
         converter.batch_to_excel(file_dict, continue_on_error=False)
-
-    assert execinfo.value
 
 
 file_dicts = [
@@ -606,7 +702,24 @@ def test_batch_to_json_path_str_xpt(tmp_path, xpt_file_1, xpt_file_2):
     assert files_created
 
 
-def test_batch_to_json_continue_sas(tmp_path, caplog, sas_file_1):
+def test_batch_to_json_continue_sas(tmp_path, capfd, sas_file_1):
+    bad_sas_file = tmp_path.joinpath("bad_file.sas7bdat")
+    bad_converted_file = tmp_path.joinpath("bad_file.json")
+    converted_file = tmp_path.joinpath("file1.json")
+
+    file_dict = [
+        {"sas7bdat_file": bad_sas_file, "export_file": bad_converted_file},
+        {"sas7bdat_file": sas_file_1, "export_file": converted_file},
+    ]
+
+    converter.batch_to_json(file_dict, continue_on_error=True, verbose=False)
+    out, _ = capfd.readouterr()
+
+    assert converted_file.is_file()
+    assert "Error converting" not in out
+
+
+def test_batch_to_json_continue_sas_verbose(tmp_path, capfd, sas_file_1):
     bad_sas_file = tmp_path.joinpath("bad_file.sas7bdat")
     bad_converted_file = tmp_path.joinpath("bad_file.json")
     converted_file = tmp_path.joinpath("file1.json")
@@ -617,12 +730,30 @@ def test_batch_to_json_continue_sas(tmp_path, caplog, sas_file_1):
     ]
 
     converter.batch_to_json(file_dict, continue_on_error=True)
+    out, _ = capfd.readouterr()
 
     assert converted_file.is_file()
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
-def test_batch_to_json_continue_xpt(tmp_path, caplog, xpt_file_1):
+def test_batch_to_json_continue_xpt(tmp_path, capfd, xpt_file_1):
+    bad_xpt_file = tmp_path.joinpath("bad_file.xpt")
+    bad_converted_file = tmp_path.joinpath("bad_file.json")
+    converted_file = tmp_path.joinpath("file1.json")
+
+    file_dict = [
+        {"sas7bdat_file": bad_xpt_file, "export_file": bad_converted_file},
+        {"sas7bdat_file": xpt_file_1, "export_file": converted_file},
+    ]
+
+    converter.batch_to_json(file_dict, continue_on_error=True, verbose=False)
+    out, _ = capfd.readouterr()
+
+    assert converted_file.is_file()
+    assert "Error converting" not in out
+
+
+def test_batch_to_json_continue_xpt_verbose(tmp_path, capfd, xpt_file_1):
     bad_xpt_file = tmp_path.joinpath("bad_file.xpt")
     bad_converted_file = tmp_path.joinpath("bad_file.json")
     converted_file = tmp_path.joinpath("file1.json")
@@ -633,9 +764,10 @@ def test_batch_to_json_continue_xpt(tmp_path, caplog, xpt_file_1):
     ]
 
     converter.batch_to_json(file_dict, continue_on_error=True)
+    out, _ = capfd.readouterr()
 
     assert converted_file.is_file()
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
 def test_batch_to_json_no_continue_sas(tmp_path, sas_file_1):
@@ -648,10 +780,8 @@ def test_batch_to_json_no_continue_sas(tmp_path, sas_file_1):
         {"sas7bdat_file": sas_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.batch_to_json(file_dict, continue_on_error=False)
-
-    assert execinfo.value
 
 
 def test_batch_to_json_no_continue_xpt(tmp_path, xpt_file_1):
@@ -664,10 +794,8 @@ def test_batch_to_json_no_continue_xpt(tmp_path, xpt_file_1):
         {"sas7bdat_file": xpt_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.batch_to_json(file_dict, continue_on_error=False)
-
-    assert execinfo.value
 
 
 file_dicts = [
@@ -1018,7 +1146,24 @@ def test_batch_to_xml_str_xpt(tmp_path, xpt_file_1, xpt_file_2, optional):
     assert files_created
 
 
-def test_batch_to_xml_continue_sas(tmp_path, caplog, sas_file_1):
+def test_batch_to_xml_continue_sas(tmp_path, capfd, sas_file_1):
+    bad_sas_file = tmp_path.joinpath("bad_file.sas7bdat")
+    bad_converted_file = tmp_path.joinpath("bad_file.xml")
+    converted_file = tmp_path.joinpath("file1.xml")
+
+    file_dict = [
+        {"sas7bdat_file": bad_sas_file, "export_file": bad_converted_file},
+        {"sas7bdat_file": sas_file_1, "export_file": converted_file},
+    ]
+
+    converter.batch_to_xml(file_dict, continue_on_error=True, verbose=False)
+    out, _ = capfd.readouterr()
+
+    assert converted_file.is_file()
+    assert "Error converting" not in out
+
+
+def test_batch_to_xml_continue_sas_verbose(tmp_path, capfd, sas_file_1):
     bad_sas_file = tmp_path.joinpath("bad_file.sas7bdat")
     bad_converted_file = tmp_path.joinpath("bad_file.xml")
     converted_file = tmp_path.joinpath("file1.xml")
@@ -1029,12 +1174,30 @@ def test_batch_to_xml_continue_sas(tmp_path, caplog, sas_file_1):
     ]
 
     converter.batch_to_xml(file_dict, continue_on_error=True)
+    out, _ = capfd.readouterr()
 
     assert converted_file.is_file()
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
-def test_batch_to_xml_continue_xpt(tmp_path, caplog, xpt_file_1):
+def test_batch_to_xml_continue_xpt(tmp_path, capfd, xpt_file_1):
+    bad_sas_file = tmp_path.joinpath("bad_file.xpt")
+    bad_converted_file = tmp_path.joinpath("bad_file.xml")
+    converted_file = tmp_path.joinpath("file1.xml")
+
+    file_dict = [
+        {"sas7bdat_file": bad_sas_file, "export_file": bad_converted_file},
+        {"sas7bdat_file": xpt_file_1, "export_file": converted_file},
+    ]
+
+    converter.batch_to_xml(file_dict, continue_on_error=True, verbose=False)
+    out, _ = capfd.readouterr()
+
+    assert converted_file.is_file()
+    assert "Error converting" not in out
+
+
+def test_batch_to_xml_continue_xpt_verbose(tmp_path, capfd, xpt_file_1):
     bad_sas_file = tmp_path.joinpath("bad_file.xpt")
     bad_converted_file = tmp_path.joinpath("bad_file.xml")
     converted_file = tmp_path.joinpath("file1.xml")
@@ -1045,9 +1208,10 @@ def test_batch_to_xml_continue_xpt(tmp_path, caplog, xpt_file_1):
     ]
 
     converter.batch_to_xml(file_dict, continue_on_error=True)
+    out, _ = capfd.readouterr()
 
     assert converted_file.is_file()
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
 def test_batch_to_xml_no_continue_sas(tmp_path, sas_file_1):
@@ -1060,10 +1224,8 @@ def test_batch_to_xml_no_continue_sas(tmp_path, sas_file_1):
         {"sas7bdat_file": sas_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.batch_to_xml(file_dict, continue_on_error=False)
-
-    assert execinfo.value
 
 
 def test_batch_to_xml_no_continue_xpt(tmp_path, xpt_file_1):
@@ -1076,10 +1238,8 @@ def test_batch_to_xml_no_continue_xpt(tmp_path, xpt_file_1):
         {"sas7bdat_file": xpt_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.batch_to_xml(file_dict, continue_on_error=False)
-
-    assert execinfo.value
 
 
 file_dicts = [
@@ -1192,7 +1352,23 @@ def test_dir_to_csv_same_dir_str_xpt(tmpdir, xpt_dir):
     assert sas_counter == convert_counter
 
 
-def test_dir_to_csv_continue_sas(tmp_path, caplog, sas7bdat_dir, bad_sas_file):
+def test_dir_to_csv_continue_sas(tmp_path, capfd, sas7bdat_dir, bad_sas_file):
+    sas_files = [str(x) for x in sas7bdat_dir.iterdir()]
+    for sas_file in sas_files:
+        shutil.copy(sas_file, str(tmp_path))
+
+    shutil.copy(bad_sas_file, str(tmp_path))
+
+    converter.dir_to_csv(tmp_path, continue_on_error=True, verbose=False)
+    sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"]) - 1
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".csv"])
+    out, _ = capfd.readouterr()
+
+    assert sas_counter == convert_counter
+    assert "Error converting" not in out
+
+
+def test_dir_to_csv_continue_sas_verbose(tmp_path, capfd, sas7bdat_dir, bad_sas_file):
     sas_files = [str(x) for x in sas7bdat_dir.iterdir()]
     for sas_file in sas_files:
         shutil.copy(sas_file, str(tmp_path))
@@ -1202,12 +1378,29 @@ def test_dir_to_csv_continue_sas(tmp_path, caplog, sas7bdat_dir, bad_sas_file):
     converter.dir_to_csv(tmp_path, continue_on_error=True)
     sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"]) - 1
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".csv"])
+    out, _ = capfd.readouterr()
 
     assert sas_counter == convert_counter
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
-def test_dir_to_csv_continue_xpt(tmp_path, caplog, xpt_dir, bad_xpt_file):
+def test_dir_to_csv_continue_xpt(tmp_path, capfd, xpt_dir, bad_xpt_file):
+    xpt_files = [str(x) for x in xpt_dir.iterdir()]
+    for sas_file in xpt_files:
+        shutil.copy(sas_file, str(tmp_path))
+
+    shutil.copy(bad_xpt_file, str(tmp_path))
+
+    converter.dir_to_csv(tmp_path, continue_on_error=True, verbose=False)
+    sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xpt"]) - 1
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".csv"])
+    out, _ = capfd.readouterr()
+
+    assert sas_counter == convert_counter
+    assert "Error converting" not in out
+
+
+def test_dir_to_csv_continue_xpt_verbose(tmp_path, capfd, xpt_dir, bad_xpt_file):
     xpt_files = [str(x) for x in xpt_dir.iterdir()]
     for sas_file in xpt_files:
         shutil.copy(sas_file, str(tmp_path))
@@ -1217,9 +1410,10 @@ def test_dir_to_csv_continue_xpt(tmp_path, caplog, xpt_dir, bad_xpt_file):
     converter.dir_to_csv(tmp_path, continue_on_error=True)
     sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xpt"]) - 1
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".csv"])
+    out, _ = capfd.readouterr()
 
     assert sas_counter == convert_counter
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
 def test_dir_to_csv_no_continue_sas(tmp_path, sas7bdat_dir, bad_sas_file):
@@ -1228,10 +1422,8 @@ def test_dir_to_csv_no_continue_sas(tmp_path, sas7bdat_dir, bad_sas_file):
         shutil.copy(sas_file, str(tmp_path))
 
     shutil.copy(bad_sas_file, str(tmp_path))
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.dir_to_csv(tmp_path, continue_on_error=False)
-
-    assert execinfo.value
 
 
 def test_dir_to_csv_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
@@ -1240,10 +1432,8 @@ def test_dir_to_csv_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
         shutil.copy(sas_file, str(tmp_path))
 
     shutil.copy(bad_xpt_file, str(tmp_path))
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.dir_to_csv(tmp_path, continue_on_error=False)
-
-    assert execinfo.value
 
 
 def test_dir_to_csv_different_dir_path_sas(tmp_path, sas7bdat_dir):
@@ -1358,7 +1548,23 @@ def test_dir_to_excel_different_dir_str_xpt(tmpdir, xpt_dir):
     assert xpt_counter == convert_counter
 
 
-def test_dir_to_excel_continue_sas(tmp_path, caplog, sas7bdat_dir, bad_sas_file):
+def test_dir_to_excel_continue_sas(tmp_path, capfd, sas7bdat_dir, bad_sas_file):
+    sas_files = [str(x) for x in sas7bdat_dir.iterdir()]
+    for sas_file in sas_files:
+        shutil.copy(sas_file, str(tmp_path))
+
+    shutil.copy(bad_sas_file, str(tmp_path))
+
+    converter.dir_to_excel(tmp_path, continue_on_error=True, verbose=False)
+    sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"]) - 1
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xlsx"])
+    out, _ = capfd.readouterr()
+
+    assert sas_counter == convert_counter
+    assert "Error converting" not in out
+
+
+def test_dir_to_excel_continue_sas_verbose(tmp_path, capfd, sas7bdat_dir, bad_sas_file):
     sas_files = [str(x) for x in sas7bdat_dir.iterdir()]
     for sas_file in sas_files:
         shutil.copy(sas_file, str(tmp_path))
@@ -1368,12 +1574,29 @@ def test_dir_to_excel_continue_sas(tmp_path, caplog, sas7bdat_dir, bad_sas_file)
     converter.dir_to_excel(tmp_path, continue_on_error=True)
     sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"]) - 1
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xlsx"])
+    out, _ = capfd.readouterr()
 
     assert sas_counter == convert_counter
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
-def test_dir_to_excel_continue_xpt(tmp_path, caplog, xpt_dir, bad_xpt_file):
+def test_dir_to_excel_continue_xpt(tmp_path, capfd, xpt_dir, bad_xpt_file):
+    xpt_files = [str(x) for x in xpt_dir.iterdir()]
+    for xpt_file in xpt_files:
+        shutil.copy(xpt_file, str(tmp_path))
+
+    shutil.copy(bad_xpt_file, str(tmp_path))
+
+    converter.dir_to_excel(tmp_path, continue_on_error=True, verbose=False)
+    xpt_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xpt"]) - 1
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xlsx"])
+    out, _ = capfd.readouterr()
+
+    assert xpt_counter == convert_counter
+    assert "Error converting" not in out
+
+
+def test_dir_to_excel_continue_xpt_verbose(tmp_path, capfd, xpt_dir, bad_xpt_file):
     xpt_files = [str(x) for x in xpt_dir.iterdir()]
     for xpt_file in xpt_files:
         shutil.copy(xpt_file, str(tmp_path))
@@ -1383,9 +1606,10 @@ def test_dir_to_excel_continue_xpt(tmp_path, caplog, xpt_dir, bad_xpt_file):
     converter.dir_to_excel(tmp_path, continue_on_error=True)
     xpt_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xpt"]) - 1
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xlsx"])
+    out, _ = capfd.readouterr()
 
     assert xpt_counter == convert_counter
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
 def test_dir_to_excel_no_continue_sas(tmp_path, sas7bdat_dir, bad_sas_file):
@@ -1394,10 +1618,8 @@ def test_dir_to_excel_no_continue_sas(tmp_path, sas7bdat_dir, bad_sas_file):
         shutil.copy(sas_file, str(tmp_path))
 
     shutil.copy(bad_sas_file, str(tmp_path))
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.dir_to_excel(tmp_path, continue_on_error=False)
-
-    assert execinfo.value
 
 
 def test_dir_to_excel_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
@@ -1406,10 +1628,8 @@ def test_dir_to_excel_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
         shutil.copy(xpt_file, str(tmp_path))
 
     shutil.copy(bad_xpt_file, str(tmp_path))
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.dir_to_excel(tmp_path, continue_on_error=False)
-
-    assert execinfo.value
 
 
 def test_dir_to_json_same_dir_path_sas(tmp_path, sas7bdat_dir):
@@ -1492,7 +1712,23 @@ def test_dir_to_json_different_dir_str_xpt(tmpdir, xpt_dir):
     assert xpt_counter == convert_counter
 
 
-def test_dir_to_json_continue_sas(tmp_path, caplog, sas7bdat_dir, bad_sas_file):
+def test_dir_to_json_continue_sas(tmp_path, capfd, sas7bdat_dir, bad_sas_file):
+    sas_files = [str(x) for x in sas7bdat_dir.iterdir()]
+    for sas_file in sas_files:
+        shutil.copy(sas_file, str(tmp_path))
+
+    shutil.copy(bad_sas_file, str(tmp_path))
+
+    converter.dir_to_json(tmp_path, continue_on_error=True, verbose=False)
+    sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"]) - 1
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".json"])
+    out, _ = capfd.readouterr()
+
+    assert sas_counter == convert_counter
+    assert "Error converting" not in out
+
+
+def test_dir_to_json_continue_sas_verbose(tmp_path, capfd, sas7bdat_dir, bad_sas_file):
     sas_files = [str(x) for x in sas7bdat_dir.iterdir()]
     for sas_file in sas_files:
         shutil.copy(sas_file, str(tmp_path))
@@ -1502,12 +1738,29 @@ def test_dir_to_json_continue_sas(tmp_path, caplog, sas7bdat_dir, bad_sas_file):
     converter.dir_to_json(tmp_path, continue_on_error=True)
     sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"]) - 1
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".json"])
+    out, _ = capfd.readouterr()
 
     assert sas_counter == convert_counter
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
-def test_dir_to_json_continue_xpt(tmp_path, caplog, xpt_dir, bad_xpt_file):
+def test_dir_to_json_continue_xpt(tmp_path, capfd, xpt_dir, bad_xpt_file):
+    xpt_files = [str(x) for x in xpt_dir.iterdir()]
+    for xpt_file in xpt_files:
+        shutil.copy(xpt_file, str(tmp_path))
+
+    shutil.copy(bad_xpt_file, str(tmp_path))
+
+    converter.dir_to_json(tmp_path, continue_on_error=True, verbose=False)
+    xpt_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xpt"]) - 1
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".json"])
+    out, _ = capfd.readouterr()
+
+    assert xpt_counter == convert_counter
+    assert "Error converting" not in out
+
+
+def test_dir_to_json_continue_xpt_verbose(tmp_path, capfd, xpt_dir, bad_xpt_file):
     xpt_files = [str(x) for x in xpt_dir.iterdir()]
     for xpt_file in xpt_files:
         shutil.copy(xpt_file, str(tmp_path))
@@ -1517,9 +1770,10 @@ def test_dir_to_json_continue_xpt(tmp_path, caplog, xpt_dir, bad_xpt_file):
     converter.dir_to_json(tmp_path, continue_on_error=True)
     xpt_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xpt"]) - 1
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".json"])
+    out, _ = capfd.readouterr()
 
     assert xpt_counter == convert_counter
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
 def test_dir_to_json_no_continue_sas(tmp_path, sas7bdat_dir, bad_sas_file):
@@ -1528,10 +1782,8 @@ def test_dir_to_json_no_continue_sas(tmp_path, sas7bdat_dir, bad_sas_file):
         shutil.copy(sas_file, str(tmp_path))
 
     shutil.copy(bad_sas_file, str(tmp_path))
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.dir_to_json(tmp_path, continue_on_error=False)
-
-    assert execinfo.value
 
 
 def test_dir_to_json_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
@@ -1540,10 +1792,8 @@ def test_dir_to_json_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
         shutil.copy(xpt_file, str(tmp_path))
 
     shutil.copy(bad_xpt_file, str(tmp_path))
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.dir_to_json(tmp_path, continue_on_error=False)
-
-    assert execinfo.value
 
 
 def test_dir_to_parquet_same_dir_path_sas(tmp_path, sas7bdat_dir):
@@ -1594,7 +1844,23 @@ def test_dir_to_parquet_same_dir_str_xpt(tmpdir, xpt_dir):
     assert sas_counter == convert_counter
 
 
-def test_dir_to_parquet_continue_sas(tmp_path, caplog, sas7bdat_dir, bad_sas_file):
+def test_dir_to_parquet_continue_sas(tmp_path, capfd, sas7bdat_dir, bad_sas_file):
+    sas_files = [str(x) for x in sas7bdat_dir.iterdir()]
+    for sas_file in sas_files:
+        shutil.copy(sas_file, str(tmp_path))
+
+    shutil.copy(bad_sas_file, str(tmp_path))
+
+    converter.dir_to_parquet(tmp_path, continue_on_error=True, verbose=False)
+    sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"]) - 1
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".parquet"])
+    out, _ = capfd.readouterr()
+
+    assert sas_counter == convert_counter
+    assert "Error converting" not in out
+
+
+def test_dir_to_parquet_continue_sas_verbose(tmp_path, capfd, sas7bdat_dir, bad_sas_file):
     sas_files = [str(x) for x in sas7bdat_dir.iterdir()]
     for sas_file in sas_files:
         shutil.copy(sas_file, str(tmp_path))
@@ -1604,12 +1870,29 @@ def test_dir_to_parquet_continue_sas(tmp_path, caplog, sas7bdat_dir, bad_sas_fil
     converter.dir_to_parquet(tmp_path, continue_on_error=True)
     sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"]) - 1
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".parquet"])
+    out, _ = capfd.readouterr()
 
     assert sas_counter == convert_counter
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
-def test_dir_to_parquet_continue_xpt(tmp_path, caplog, xpt_dir, bad_xpt_file):
+def test_dir_to_parquet_continue_xpt(tmp_path, capfd, xpt_dir, bad_xpt_file):
+    xpt_files = [str(x) for x in xpt_dir.iterdir()]
+    for sas_file in xpt_files:
+        shutil.copy(sas_file, str(tmp_path))
+
+    shutil.copy(bad_xpt_file, str(tmp_path))
+
+    converter.dir_to_parquet(tmp_path, continue_on_error=True, verbose=False)
+    sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xpt"]) - 1
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".parquet"])
+    out, _ = capfd.readouterr()
+
+    assert sas_counter == convert_counter
+    assert "Error converting" not in out
+
+
+def test_dir_to_parquet_continue_xpt_verbose(tmp_path, capfd, xpt_dir, bad_xpt_file):
     xpt_files = [str(x) for x in xpt_dir.iterdir()]
     for sas_file in xpt_files:
         shutil.copy(sas_file, str(tmp_path))
@@ -1619,9 +1902,10 @@ def test_dir_to_parquet_continue_xpt(tmp_path, caplog, xpt_dir, bad_xpt_file):
     converter.dir_to_parquet(tmp_path, continue_on_error=True)
     sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xpt"]) - 1
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".parquet"])
+    out, _ = capfd.readouterr()
 
     assert sas_counter == convert_counter
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
 def test_dir_to_parquet_no_continue_sas(tmp_path, sas7bdat_dir, bad_sas_file):
@@ -1630,10 +1914,8 @@ def test_dir_to_parquet_no_continue_sas(tmp_path, sas7bdat_dir, bad_sas_file):
         shutil.copy(sas_file, str(tmp_path))
 
     shutil.copy(bad_sas_file, str(tmp_path))
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.dir_to_parquet(tmp_path, continue_on_error=False)
-
-    assert execinfo.value
 
 
 def test_dir_to_parquet_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
@@ -1642,10 +1924,8 @@ def test_dir_to_parquet_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
         shutil.copy(sas_file, str(tmp_path))
 
     shutil.copy(bad_xpt_file, str(tmp_path))
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.dir_to_parquet(tmp_path, continue_on_error=False)
-
-    assert execinfo.value
 
 
 def test_dir_to_parquet_different_dir_path_sas(tmp_path, sas7bdat_dir):
@@ -1760,7 +2040,23 @@ def test_dir_to_xml_different_dir_str_xpt(tmpdir, xpt_dir):
     assert xpt_counter == convert_counter
 
 
-def test_dir_to_xml_continue_sas(tmp_path, caplog, sas7bdat_dir, bad_sas_file):
+def test_dir_to_xml_continue_sas(tmp_path, capfd, sas7bdat_dir, bad_sas_file):
+    sas_files = [str(x) for x in sas7bdat_dir.iterdir()]
+    for sas_file in sas_files:
+        shutil.copy(sas_file, str(tmp_path))
+
+    shutil.copy(bad_sas_file, str(tmp_path))
+
+    converter.dir_to_xml(tmp_path, continue_on_error=True, verbose=False)
+    sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"]) - 1
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xml"])
+    out, _ = capfd.readouterr()
+
+    assert sas_counter == convert_counter
+    assert "Error converting" not in out
+
+
+def test_dir_to_xml_continue_sas_verbose(tmp_path, capfd, sas7bdat_dir, bad_sas_file):
     sas_files = [str(x) for x in sas7bdat_dir.iterdir()]
     for sas_file in sas_files:
         shutil.copy(sas_file, str(tmp_path))
@@ -1770,12 +2066,29 @@ def test_dir_to_xml_continue_sas(tmp_path, caplog, sas7bdat_dir, bad_sas_file):
     converter.dir_to_xml(tmp_path, continue_on_error=True)
     sas_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".sas7bdat"]) - 1
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xml"])
+    out, _ = capfd.readouterr()
 
     assert sas_counter == convert_counter
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
-def test_dir_to_xml_continue_xpt(tmp_path, caplog, xpt_dir, bad_xpt_file):
+def test_dir_to_xml_continue_xpt(tmp_path, capfd, xpt_dir, bad_xpt_file):
+    xpt_files = [str(x) for x in xpt_dir.iterdir()]
+    for xpt_file in xpt_files:
+        shutil.copy(xpt_file, str(tmp_path))
+
+    shutil.copy(bad_xpt_file, str(tmp_path))
+
+    converter.dir_to_xml(tmp_path, continue_on_error=True, verbose=False)
+    xpt_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xpt"]) - 1
+    convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xml"])
+    out, _ = capfd.readouterr()
+
+    assert xpt_counter == convert_counter
+    assert "Error converting" not in out
+
+
+def test_dir_to_xml_continue_xpt_verbose(tmp_path, capfd, xpt_dir, bad_xpt_file):
     xpt_files = [str(x) for x in xpt_dir.iterdir()]
     for xpt_file in xpt_files:
         shutil.copy(xpt_file, str(tmp_path))
@@ -1785,9 +2098,10 @@ def test_dir_to_xml_continue_xpt(tmp_path, caplog, xpt_dir, bad_xpt_file):
     converter.dir_to_xml(tmp_path, continue_on_error=True)
     xpt_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xpt"]) - 1
     convert_counter = len([name for name in tmp_path.iterdir() if name.suffix == ".xml"])
+    out, _ = capfd.readouterr()
 
     assert xpt_counter == convert_counter
-    assert "Error converting" in caplog.text
+    assert "Error converting" in out
 
 
 def test_dir_to_xml_no_continue_sas(tmp_path, sas7bdat_dir, bad_sas_file):
@@ -1796,10 +2110,8 @@ def test_dir_to_xml_no_continue_sas(tmp_path, sas7bdat_dir, bad_sas_file):
         shutil.copy(sas_file, str(tmp_path))
 
     shutil.copy(bad_sas_file, str(tmp_path))
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.dir_to_xml(tmp_path, continue_on_error=False)
-
-    assert execinfo.value
 
 
 def test_dir_to_xml_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
@@ -1808,10 +2120,8 @@ def test_dir_to_xml_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
         shutil.copy(xpt_file, str(tmp_path))
 
     shutil.copy(bad_xpt_file, str(tmp_path))
-    with pytest.raises(Exception) as execinfo:
+    with pytest.raises(Exception):
         converter.dir_to_xml(tmp_path, continue_on_error=False)
-
-    assert execinfo.value
 
 
 exception_data = [
