@@ -2783,7 +2783,7 @@ def test_walk_dir_sas(tmpdir, sas7bdat_dir, file_type):
     for sas_file in sas_files:
         shutil.copy(sas_file, tmpdir)
 
-    converter._walk_dir(file_type, tmpdir, False)
+    converter._walk_dir(file_type, tmpdir)
     sas_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".sas7bdat"])
     convert_counter = len(
         [name for name in Path(tmpdir).iterdir() if name.suffix == f".{file_type}"]
@@ -2798,7 +2798,7 @@ def test_walk_dir_xpt(tmpdir, xpt_dir, file_type):
     for xpt_file in xpt_files:
         shutil.copy(xpt_file, tmpdir)
 
-    converter._walk_dir(file_type, tmpdir, False)
+    converter._walk_dir(file_type, tmpdir)
     xpt_counter = len([name for name in Path(tmpdir).iterdir() if name.suffix == ".xpt"])
     convert_counter = len(
         [name for name in Path(tmpdir).iterdir() if name.suffix == f".{file_type}"]

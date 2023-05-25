@@ -14,7 +14,10 @@ _FILE_DICT_REQUIRED_KEYS = [
 
 
 def batch_to_csv(
-    file_dicts: list[dict[str, str | Path]], continue_on_error: bool = False, verbose: bool = True
+    file_dicts: list[dict[str, str | Path]],
+    *,
+    continue_on_error: bool = False,
+    verbose: bool = True,
 ) -> None:
     """Converts a batch of sas7bdat and/or xpt files to csv files.
 
@@ -51,7 +54,10 @@ def batch_to_csv(
 
 
 def batch_to_parquet(
-    file_dicts: list[dict[str, str | Path]], continue_on_error: bool = False, verbose: bool = True
+    file_dicts: list[dict[str, str | Path]],
+    *,
+    continue_on_error: bool = False,
+    verbose: bool = True,
 ) -> None:
     """Converts a batch of sas7bdat and/or xpt files to parquet files.
 
@@ -88,7 +94,10 @@ def batch_to_parquet(
 
 
 def batch_to_excel(
-    file_dicts: list[dict[str, str | Path]], continue_on_error: bool = False, verbose: bool = True
+    file_dicts: list[dict[str, str | Path]],
+    *,
+    continue_on_error: bool = False,
+    verbose: bool = True,
 ) -> None:
     """Converts a batch of sas7bdat and/or xpt files to xlsx files.
 
@@ -125,7 +134,10 @@ def batch_to_excel(
 
 
 def batch_to_json(
-    file_dicts: list[dict[str, str | Path]], continue_on_error: bool = False, verbose: bool = True
+    file_dicts: list[dict[str, str | Path]],
+    *,
+    continue_on_error: bool = False,
+    verbose: bool = True,
 ) -> None:
     """Converts a batch of sas7bdat and/or xpt files to json files.
 
@@ -162,7 +174,10 @@ def batch_to_json(
 
 
 def batch_to_xml(
-    file_dicts: list[dict[str, str | Path]], continue_on_error: bool = False, verbose: bool = True
+    file_dicts: list[dict[str, str | Path]],
+    *,
+    continue_on_error: bool = False,
+    verbose: bool = True,
 ) -> None:
     """Converts a batch of sas7bdat and/or xpt files to xml files.
 
@@ -250,6 +265,7 @@ def batch_to_xml(
 def dir_to_csv(
     dir_path: str | Path,
     export_path: str | Path | None = None,
+    *,
     continue_on_error: bool = False,
     verbose: bool = True,
 ) -> None:
@@ -265,12 +281,13 @@ def dir_to_csv(
             a file conversion error instead of raising an exception. Default = False
         verbose: Increases the output. Default = True
     """
-    _walk_dir("csv", dir_path, continue_on_error, export_path, verbose)
+    _walk_dir("csv", dir_path, export_path, continue_on_error, verbose)
 
 
 def dir_to_excel(
     dir_path: str | Path,
     export_path: str | Path | None = None,
+    *,
     continue_on_error: bool = False,
     verbose: bool = True,
 ) -> None:
@@ -286,12 +303,13 @@ def dir_to_excel(
             a file conversion error instead of raising an exception. Default = False
         verbose: Increases the output. Default = True
     """
-    _walk_dir("xlsx", dir_path, continue_on_error, export_path, verbose)
+    _walk_dir("xlsx", dir_path, export_path, continue_on_error, verbose)
 
 
 def dir_to_json(
     dir_path: str | Path,
     export_path: str | Path | None = None,
+    *,
     continue_on_error: bool = False,
     verbose: bool = True,
 ) -> None:
@@ -307,12 +325,13 @@ def dir_to_json(
             a file conversion error instead of raising an exception. Default = False
         verbose: Increases the output. Default = True
     """
-    _walk_dir("json", dir_path, continue_on_error, export_path, verbose)
+    _walk_dir("json", dir_path, export_path, continue_on_error, verbose)
 
 
 def dir_to_parquet(
     dir_path: str | Path,
     export_path: str | Path | None = None,
+    *,
     continue_on_error: bool = False,
     verbose: bool = True,
 ) -> None:
@@ -328,12 +347,13 @@ def dir_to_parquet(
             a file conversion error instead of raising an exception. Default = False
         verbose: Increases the output. Default = True
     """
-    _walk_dir("parquet", dir_path, continue_on_error, export_path, verbose)
+    _walk_dir("parquet", dir_path, export_path, continue_on_error, verbose)
 
 
 def dir_to_xml(
     dir_path: str | Path,
     export_path: str | Path | None = None,
+    *,
     continue_on_error: bool = False,
     verbose: bool = True,
 ) -> None:
@@ -349,7 +369,7 @@ def dir_to_xml(
             a file conversion error instead of raising an exception. Default = False
         verbose: Increases the output. Default = True
     """
-    _walk_dir("xml", dir_path, continue_on_error, export_path, verbose)
+    _walk_dir("xml", dir_path, export_path, continue_on_error, verbose)
 
 
 def to_csv(sas7bdat_file: str | Path, export_file: str | Path) -> None:
@@ -538,8 +558,8 @@ def _rise_on_invalid_file_dict(file_dict: dict[str, str | Path]) -> None:
 def _walk_dir(
     file_type: str,
     dir_path: str | Path,
-    continue_on_error: bool,
     export_path: str | Path | None = None,
+    continue_on_error: bool = False,
     verbose: bool = True,
 ) -> None:
     path = dir_path if isinstance(dir_path, Path) else Path(dir_path)
