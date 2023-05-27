@@ -2218,10 +2218,10 @@ def test_to_csv_path_sas(tmp_path, fixture_name, expected_name, expected_dir, re
     expected_file = expected_dir.joinpath(expected_name)
     converter.to_csv(sas_file, converted_file)
 
-    with open(expected_file, "r") as f:
+    with open(expected_file) as f:
         expected = f.read().rstrip()
 
-    with open(converted_file, "r") as f:
+    with open(converted_file) as f:
         got = f.read().rstrip()
 
     assert got == expected
@@ -2240,10 +2240,10 @@ def test_to_csv_path_xpt(tmp_path, fixture_name, expected_name, request, xpt_exp
     expected_file = xpt_expected_dir.joinpath(expected_name)
     converter.to_csv(xpt_file, converted_file)
 
-    with open(expected_file, "r") as f:
+    with open(expected_file) as f:
         expected = f.read().rstrip()
 
-    with open(converted_file, "r") as f:
+    with open(converted_file) as f:
         got = f.read().rstrip()
 
     assert got == expected
@@ -2263,10 +2263,10 @@ def test_to_csv_str_sas(tmpdir, fixture_name, expected_name, request, expected_d
     expected_file = expected_dir.joinpath(expected_name)
     converter.to_csv(sas_file, converted_file)
 
-    with open(expected_file, "r") as f:
+    with open(expected_file) as f:
         expected = f.read().rstrip()
 
-    with open(converted_file, "r") as f:
+    with open(converted_file) as f:
         got = f.read().rstrip()
 
     assert got == expected
@@ -2285,10 +2285,10 @@ def test_to_csv_str_xpt(tmpdir, fixture_name, expected_name, request, xpt_expect
     expected_file = xpt_expected_dir.joinpath(expected_name)
     converter.to_csv(sas_file, converted_file)
 
-    with open(expected_file, "r") as f:
+    with open(expected_file) as f:
         expected = f.read().rstrip()
 
-    with open(converted_file, "r") as f:
+    with open(converted_file) as f:
         got = f.read().rstrip()
 
     assert got == expected
@@ -2561,10 +2561,10 @@ def test_to_json_path_sas(tmp_path, fixture_name, expected_name, request, expect
     expected_file = expected_dir.joinpath(expected_name)
     converter.to_json(sas_file, converted_file)
 
-    with open(expected_file, "r") as f:
+    with open(expected_file) as f:
         expected = json.load(f)
 
-    with open(converted_file, "r") as f:
+    with open(converted_file) as f:
         got = json.load(f)
 
     assert got == expected
@@ -2583,10 +2583,10 @@ def test_to_json_path_xpt(tmp_path, fixture_name, expected_name, request, xpt_ex
     expected_file = xpt_expected_dir.joinpath(expected_name)
     converter.to_json(xpt_file, converted_file)
 
-    with open(expected_file, "r") as f:
+    with open(expected_file) as f:
         expected = json.load(f)
 
-    with open(converted_file, "r") as f:
+    with open(converted_file) as f:
         got = json.load(f)
 
     assert got == expected
@@ -2606,10 +2606,10 @@ def test_to_json_str_sas(tmpdir, fixture_name, expected_name, request, expected_
     expected_file = expected_dir.joinpath(expected_name)
     converter.to_json(sas_file, converted_file)
 
-    with open(expected_file, "r") as f:
+    with open(expected_file) as f:
         expected = json.load(f)
 
-    with open(converted_file, "r") as f:
+    with open(converted_file) as f:
         got = json.load(f)
 
     assert got == expected
@@ -2628,10 +2628,10 @@ def test_to_json_str_xpt(tmpdir, fixture_name, expected_name, request, xpt_expec
     expected_file = xpt_expected_dir.joinpath(expected_name)
     converter.to_json(xpt_file, converted_file)
 
-    with open(expected_file, "r") as f:
+    with open(expected_file) as f:
         expected = json.load(f)
 
-    with open(converted_file, "r") as f:
+    with open(converted_file) as f:
         got = json.load(f)
 
     assert got == expected
@@ -2658,10 +2658,10 @@ def test_to_xml_path_sas(tmp_path, fixture_name, expected_name, expected_dir, re
     expected_file = expected_dir.joinpath(expected_name)
     converter.to_xml(sas_file, converted_file)
 
-    with open(expected_file, "r") as f:
+    with open(expected_file) as f:
         expected = f.read().rstrip()
 
-    with open(converted_file, "r") as f:
+    with open(converted_file) as f:
         got = f.read().rstrip()
 
     assert got == expected
@@ -2680,10 +2680,10 @@ def test_to_xml_path_xpt(tmp_path, fixture_name, expected_name, request, xpt_exp
     expected_file = xpt_expected_dir.joinpath(expected_name)
     converter.to_xml(xpt_file, converted_file)
 
-    with open(expected_file, "r") as f:
+    with open(expected_file) as f:
         expected = f.read().rstrip()
 
-    with open(converted_file, "r") as f:
+    with open(converted_file) as f:
         got = f.read().rstrip()
 
     assert got == expected
@@ -2703,10 +2703,10 @@ def test_to_xml_str_sas(tmpdir, fixture_name, expected_name, request, expected_d
     expected_file = expected_dir.joinpath(expected_name)
     converter.to_xml(sas_file, converted_file)
 
-    with open(expected_file, "r") as f:
+    with open(expected_file) as f:
         expected = f.read().rstrip()
 
-    with open(converted_file, "r") as f:
+    with open(converted_file) as f:
         got = f.read().rstrip()
 
     assert got == expected
@@ -2725,10 +2725,10 @@ def test_to_xml_str_xpt(tmpdir, fixture_name, expected_name, request, xpt_expect
     expected_file = xpt_expected_dir.joinpath(expected_name)
     converter.to_xml(xpt_file, converted_file)
 
-    with open(expected_file, "r") as f:
+    with open(expected_file) as f:
         expected = f.read().rstrip()
 
-    with open(converted_file, "r") as f:
+    with open(converted_file) as f:
         got = f.read().rstrip()
 
     assert got == expected
