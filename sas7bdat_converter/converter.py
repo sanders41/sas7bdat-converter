@@ -124,7 +124,7 @@ def batch_to_excel(
         export = _format_path(file_dict["export_file"])
         try:
             to_excel(sas7bdat_file=sas7bdat, export_file=export)
-        except:  # noqa: 722
+        except:  # noqa: E722
             if continue_on_error and verbose:
                 print(f"Error converting {sas7bdat}")  # noqa: T201
             elif continue_on_error:
@@ -164,7 +164,7 @@ def batch_to_json(
         export = _format_path(file_dict["export_file"])
         try:
             to_json(sas7bdat_file=sas7bdat, export_file=export)
-        except:  # noqa: 722
+        except:  # noqa: E722
             if continue_on_error and verbose:
                 print(f"Error converting {sas7bdat}")  # noqa: T201
             elif continue_on_error:
@@ -253,7 +253,7 @@ def batch_to_xml(
                 to_xml(sas7bdat_file=sas7bdat, export_file=export, first_node=str(first_node))
             else:
                 to_xml(sas7bdat_file=sas7bdat, export_file=export)
-        except:  # noqa: 722
+        except:  # noqa: E722
             if continue_on_error and verbose:
                 print(f"Error converting {sas7bdat}")  # noqa: T201
             elif continue_on_error:
@@ -584,7 +584,7 @@ def _walk_dir(
                     to_xml(str(sas7bdat_file), str(export_file))
                 elif file_type == "parquet":
                     to_parquet(str(sas7bdat_file), str(export_file))
-            except:  # noqa: 722
+            except:  # noqa: E722
                 if continue_on_error and verbose:
                     print(f"Error converting {sas7bdat_file}")  # noqa: T201
                 elif continue_on_error:
