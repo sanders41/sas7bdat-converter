@@ -372,4 +372,4 @@ Excel files at once. File paths can be sent as either strings or Path objects.
 
 ## Contributing
 
-If you are interesting in contributing to this project please see our [contributing guide](CONTRIBUTING.md)
+If you are interested in contributing to this project please see our [contributing guide](CONTRIBUTING.md)
