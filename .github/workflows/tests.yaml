@@ -13,7 +13,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Poetry
         run: |
-          pip install pipx
           pipx install poetry
       - name: Configure poetry
         run: |
@@ -41,7 +40,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Poetry
         run: |
-          pip install pipx
           pipx install poetry
       - name: Configure poetry
         run: |
