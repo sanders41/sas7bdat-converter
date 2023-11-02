@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sas7bdat_converter"
-version = "2.0.0"
+version = "2.0.1"
 description = "Convert sas7bdat and xport files into other formats"
 authors = ["Paul Sanders <psanders1@gmail.com>"]
 license = "MIT"
