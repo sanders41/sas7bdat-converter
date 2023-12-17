@@ -12,18 +12,18 @@ for something that interests you.
 
 Please include:
 
-1. A short, self-contained Python snippet reproducing the problem. You can format the code by using
-[GitHub markdown](https://docs.github.com/en/free-pro-team@latest/github/writing-on-github). For
-example:
+1.  A short, self-contained Python snippet reproducing the problem. You can format the code by using
+    [GitHub markdown](https://docs.github.com/en/free-pro-team@latest/github/writing-on-github). For
+    example:
 
-    ```py
-    from sas7bdat_converter import to_dataframe
+        ```py
+        from sas7bdat_converter import to_dataframe
 
-    df = to_dataframe('/path/to/file')
-    ...
-    ```
+        df = to_dataframe('/path/to/file')
+        ...
+        ```
 
-2. Explain what is currently happening and what you expect instead.
+2.  Explain what is currently happening and what you expect instead.
 
 ## Working on the code
 
@@ -75,20 +75,19 @@ git checkout main
 git pull upstream main --ff-only
 ```
 
-### Code Standards and tests (ruff, black, mypy, pytest, and pre-commit)
+### Code Standards and tests (ruff, mypy, pytest, and pre-commit)
 
-sas7bdat-converter uses [ruff](https://github.com/charliermarsh/ruff),
-[Black](https://github.com/psf/black), and [mypy](https://mypy.readthedocs.io/en/stable/)
-to ensure consistent code formatting.
+sas7bdat-converter uses [ruff](https://github.com/charliermarsh/ruff) and
+[mypy](https://mypy.readthedocs.io/en/stable/) to ensure consistent code formatting.
 
 You can run linting on your code at any time with:
 
 ```sh
-# Run black
-poetry run black sas7bdat_converter tests
+# Run ruff linter
+poetry run ruff check sas7bdat_converter tests
 
-# Run ruff
-poetry run ruff sas7bdat_converter tests
+# Run ruff formatter
+poetry run ruff format sas7bdat_converter tests
 
 # Run mypy
 poetry run mypy sas7bdat_converter
@@ -231,7 +230,6 @@ This request then goes to the repository maintainers, and they will review the c
 Changes to your code may be needed based on the review of your pull request. If this is the case
 you can make them in your branch, add a new commit to that branch, push it to GitHub, and the pull
 request will be automatically updated. Pushing them to GitHub again is done by:
-
 
 ```sh
 git push origin my-new-feature
