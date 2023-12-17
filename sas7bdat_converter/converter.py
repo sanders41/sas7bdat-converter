@@ -215,9 +215,7 @@ def batch_to_xml(
             _FILE_DICT_REQUIRED_KEYS
         ) or len(set(file_dict).intersection(_FILE_DICT_REQUIRED_KEYS)) > len(
             _FILE_DICT_REQUIRED_KEYS
-        ) + len(
-            optional_keys
-        ):
+        ) + len(optional_keys):
             error = True
         elif len(set(file_dict).intersection(optional_keys)) != len(file_dict) - len(
             _FILE_DICT_REQUIRED_KEYS
