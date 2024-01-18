@@ -27,7 +27,7 @@ jobs:
         poetry config virtualenvs.create true
         poetry config virtualenvs.in-project true
     - name: Cache poetry venv
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: poetry-cache
       with:
         path: .venv
@@ -67,7 +67,7 @@ jobs:
         poetry config virtualenvs.create true
         poetry config virtualenvs.in-project true
     - name: Cache poetry venv
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: poetry-cache
       with:
         path: .venv
