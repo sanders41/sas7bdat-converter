@@ -2,45 +2,45 @@ name: Tests
 on:
   push:
     branches:
-    - main
+      - main
   pull_request:
     branches:
-    - main
+      - main
 jobs:
   linting:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.8
-    - name: Get full Python version
-      id: full-python-version
-      run: echo version=$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))") >> $GITHUB_OUTPUT
-    - name: Install Poetry
-      run: |
-        pip install pipx
-        pipx install poetry
-    - name: Configure poetry
-      run: |
-        poetry config virtualenvs.create true
-        poetry config virtualenvs.in-project true
-    - name: Cache poetry venv
-      uses: actions/cache@v4
-      id: poetry-cache
-      with:
-        path: .venv
-        key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
-    - name: Ensure cache is healthy
-      if: steps.poetry-cache.outputs.cache-hit == 'true'
-      shell: bash
-      run: timeout 10s poetry run pip --version || rm -rf .venv
-    - name: Install Dependencies
-      run: poetry install -E all
-    - name: mypy check
-      run: |
-        poetry run mypy sas7bdat_converter
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.8
+      - name: Get full Python version
+        id: full-python-version
+        run: echo version=$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))") >> $GITHUB_OUTPUT
+      - name: Install Poetry
+        run: |
+          pip install pipx
+          pipx install poetry
+      - name: Configure poetry
+        run: |
+          poetry config virtualenvs.create true
+          poetry config virtualenvs.in-project true
+      - name: Cache poetry venv
+        uses: actions/cache@v4
+        id: poetry-cache
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
+      - name: Ensure cache is healthy
+        if: steps.poetry-cache.outputs.cache-hit == 'true'
+        shell: bash
+        run: timeout 10s poetry run pip --version || rm -rf .venv
+      - name: Install Dependencies
+        run: poetry install -E all
+      - name: mypy check
+        run: |
+          poetry run mypy sas7bdat_converter
 
   Testing:
     strategy:
@@ -50,39 +50,39 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Get full Python version
-      id: full-python-version
-      run: echo version=$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))") >> $GITHUB_OUTPUT
-    - name: Install Poetry
-      run: |
-        pip install pipx
-        pipx install poetry
-    - name: Configure poetry
-      run: |
-        poetry config virtualenvs.create true
-        poetry config virtualenvs.in-project true
-    - name: Cache poetry venv
-      uses: actions/cache@v4
-      id: poetry-cache
-      with:
-        path: .venv
-        key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
-    - name: Ensure cache is healthy
-      if: steps.poetry-cache.outputs.cache-hit == 'true'
-      shell: bash
-      run: timeout 10s poetry run pip --version || rm -rf .venv
-    - name: Install Dependencies
-      run: poetry install -E all
-    - name: Test with pytest
-      run: |
-        poetry run pytest --cov=sas7bdat_converter --cov-report=xml
-    - name: Upload coverage
-      uses: codecov/codecov-action@v3
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        fail_ci_if_error: true
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Get full Python version
+        id: full-python-version
+        run: echo version=$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))") >> $GITHUB_OUTPUT
+      - name: Install Poetry
+        run: |
+          pip install pipx
+          pipx install poetry
+      - name: Configure poetry
+        run: |
+          poetry config virtualenvs.create true
+          poetry config virtualenvs.in-project true
+      - name: Cache poetry venv
+        uses: actions/cache@v4
+        id: poetry-cache
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
+      - name: Ensure cache is healthy
+        if: steps.poetry-cache.outputs.cache-hit == 'true'
+        shell: bash
+        run: timeout 10s poetry run pip --version || rm -rf .venv
+      - name: Install Dependencies
+        run: poetry install -E all
+      - name: Test with pytest
+        run: |
+          poetry run pytest --cov=sas7bdat_converter --cov-report=xml
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
