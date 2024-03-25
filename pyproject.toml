@@ -24,7 +24,7 @@ include = ["sas7bdat_converter/py.typed"]
 python = "^3.8.0"
 pandas = ">=1.2.0"
 openpyxl = {version = ">=3.0.5", optional = true}
-pyarrow = {version = ">=9.0.0, <13.0.0", optional = true}
+pyarrow = {version = ">=9.0.0,<16.0.0", optional = true}
 
 [tool.poetry.extras]
 excel = ["openpyxl"]
