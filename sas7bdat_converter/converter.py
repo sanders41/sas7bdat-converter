@@ -53,46 +53,6 @@ def batch_to_csv(
                 raise
 
 
-def batch_to_parquet(
-    file_dicts: list[dict[str, str | Path]],
-    *,
-    continue_on_error: bool = False,
-    verbose: bool = True,
-) -> None:
-    """Converts a batch of sas7bdat and/or xpt files to parquet files.
-
-    Args:
-        file_dicts: A list dictionaries containing the files to convert. The dictionary should
-            contain the keys 'sas7bdat_file' (containing the path and name to the sas7bdat
-            file) and 'export_file' containing the path and name of the export parquet).
-            Example: file_dict = [{
-                                      'sas7bdat_file': 'sas_file1.sas7bdat',
-                                      'export_file': 'converted_file1.parquet',
-                                  },
-                                  {
-                                      'sas7bdat_file': 'sas_file2.sas7bdat',
-                                      'export_file': 'converted_file2.parquet',
-                                  }]
-        continue_on_error: If set to true processing of files in a batch will continue if there is
-            a file conversion error instead of raising an exception. Default = False
-        verbose: Increases the output. Default = True
-    """
-    for file_dict in file_dicts:
-        _rise_on_invalid_file_dict(file_dict)
-
-        sas7bdat = _format_path(file_dict["sas7bdat_file"])
-        export = _format_path(file_dict["export_file"])
-        try:
-            to_parquet(sas7bdat_file=sas7bdat, export_file=export)
-        except:  # noqa: E722
-            if continue_on_error and verbose:
-                print(f"Error converting {sas7bdat}")  # noqa: T201
-            elif continue_on_error:
-                pass
-            else:
-                raise
-
-
 def batch_to_excel(
     file_dicts: list[dict[str, str | Path]],
     *,
@@ -326,28 +286,6 @@ def dir_to_json(
     _walk_dir("json", dir_path, export_path, continue_on_error, verbose)
 
 
-def dir_to_parquet(
-    dir_path: str | Path,
-    export_path: str | Path | None = None,
-    *,
-    continue_on_error: bool = False,
-    verbose: bool = True,
-) -> None:
-    """Converts all sas7bdat and/or xpt files in a directory into a parquet files.
-
-    args:
-        dir_path: The path to the directory that contains the sas7bdat files
-            for conversion.
-        export_path (optional): If used this can specify a new directory to create
-            the converted files into. If not supplied then the files will be
-            created into the same directory as dir_path. Default = None
-        continue_on_error: If set to true processing of files in a batch will continue if there is
-            a file conversion error instead of raising an exception. Default = False
-        verbose: Increases the output. Default = True
-    """
-    _walk_dir("parquet", dir_path, export_path, continue_on_error, verbose)
-
-
 def dir_to_xml(
     dir_path: str | Path,
     export_path: str | Path | None = None,
@@ -386,30 +324,6 @@ def to_csv(sas7bdat_file: str | Path, export_file: str | Path) -> None:
 
     df = to_dataframe(sas7bdat_file)
     df.to_csv(export_file, quoting=csv.QUOTE_NONNUMERIC, index=False)
-
-
-def to_parquet(sas7bdat_file: str | Path, export_file: str | Path) -> None:
-    """Converts a sas7bdat and/or xpt file into a parquet file.
-
-    args:
-        sas7bdat_file: The name, including the path, for the sas7bdat file.
-        export_file: The name, including the path, for the export file.
-    """
-    valid_extensions = (".parquet",)
-    file_extension = Path(export_file).suffix
-
-    if not _is_valid_extension(valid_extensions, file_extension):
-        error_message = _file_extension_exception_message("to_parquet", valid_extensions)
-        raise AttributeError(error_message)
-
-    df = to_dataframe(sas7bdat_file)
-
-    try:
-        df.to_parquet(export_file, index=False)
-    except ModuleNotFoundError:
-        raise ModuleNotFoundError(
-            "The pyarrow extra is required in order to convert a parquet file"
-        )
 
 
 def to_dataframe(sas7bdat_file: str | Path) -> pd.DataFrame:
@@ -580,8 +494,6 @@ def _walk_dir(
                     to_excel(str(sas7bdat_file), str(export_file))
                 elif file_type == "xml":
                     to_xml(str(sas7bdat_file), str(export_file))
-                elif file_type == "parquet":
-                    to_parquet(str(sas7bdat_file), str(export_file))
             except:  # noqa: E722
                 if continue_on_error and verbose:
                     print(f"Error converting {sas7bdat_file}")  # noqa: T201

@@ -14,6 +14,9 @@ classifiers=[
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
   "Typing :: Typed",
@@ -24,12 +27,10 @@ include = ["sas7bdat_converter/py.typed"]
 python = "^3.8.0"
 pandas = ">=1.2.0"
 openpyxl = {version = ">=3.0.5", optional = true}
-pyarrow = {version = ">=9.0.0, <13.0.0", optional = true}
 
 [tool.poetry.extras]
 excel = ["openpyxl"]
-parquet = ["pyarrow"]
-all = ["openpyxl", "pyarrow"]
+all = ["openpyxl"]
 
 [tool.poetry.group.dev.dependencies]
 mypy = ">=0.981"
