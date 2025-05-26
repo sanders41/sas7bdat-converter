@@ -11,8 +11,6 @@ documentation = "https://github.com/sanders41/sas7bdat-converter"
 keywords = ["sas", "sas7bdat", "converter", "xpt", "XPort"]
 classifiers=[
   "Development Status :: 5 - Production/Stable",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
@@ -24,8 +22,8 @@ classifiers=[
 include = ["sas7bdat_converter/py.typed"]
 
 [tool.poetry.dependencies]
-python = "^3.8.0"
-pandas = ">=1.2.0"
+python = "^3.10.0"
+pandas = ">=2.0.0"
 openpyxl = {version = ">=3.0.5", optional = true}
 
 [tool.poetry.extras]
@@ -81,5 +79,5 @@ ignore=[
   "ISC002",
 ]
 line-length = 100
-target-version = "py38"
+target-version = "py310"
 fix = true

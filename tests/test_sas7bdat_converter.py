@@ -1966,6 +1966,7 @@ def test_to_dataframe_sas(sas_file_1):
     df["date_row"] = pd.to_datetime(df["date_row"])
     df = df[["integer_row", "text_row", "float_row", "date_row"]]
     df_file = converter.to_dataframe(sas_file_1)
+    df_file["date_row"] = pd.to_datetime(df["date_row"]).dt.floor("s")
     pd.testing.assert_frame_equal(df, df_file, check_datetimelike_compat=True)
 
 

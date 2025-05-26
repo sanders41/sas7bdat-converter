@@ -4,7 +4,6 @@ import csv
 from pathlib import Path
 from xml.sax.saxutils import escape
 
-import numpy as np
 import pandas as pd
 
 _FILE_DICT_REQUIRED_KEYS = [
@@ -338,7 +337,7 @@ def to_dataframe(sas7bdat_file: str | Path) -> pd.DataFrame:
     df = pd.read_sas(sas7bdat_file)
 
     # convert binary strings to utf-8
-    str_df = df.select_dtypes([str(np.dtype(object))])
+    str_df = df.select_dtypes(include=["object"])
     if len(str_df.columns) > 0:
         str_df = str_df.stack().str.decode("utf-8").unstack()
 
