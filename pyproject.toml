@@ -1,13 +1,14 @@
-[tool.poetry]
-name = "sas7bdat_converter"
-version = "2.0.1"
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sas7bdat-converter"
 description = "Convert sas7bdat and xport files into other formats"
-authors = ["Paul Sanders <psanders1@gmail.com>"]
-license = "MIT"
+authors = [ { name = "Paul Sanders", email = "paul@paulsanders.dev" } ]
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
 readme = "README.md"
-repository = "https://github.com/sanders41/sas7bdat-converter"
-homepage = "https://github.com/sanders41/sas7bdat-converter"
-documentation = "https://github.com/sanders41/sas7bdat-converter"
 keywords = ["sas", "sas7bdat", "converter", "xpt", "XPort"]
 classifiers=[
   "Development Status :: 5 - Production/Stable",
@@ -19,28 +20,32 @@ classifiers=[
   "Operating System :: OS Independent",
   "Typing :: Typed",
 ]
-include = ["sas7bdat_converter/py.typed"]
+dynamic = ["version"]
+dependencies = [
+  "pandas>=2.0.0",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10.0"
-pandas = ">=2.0.0"
-openpyxl = {version = ">=3.0.5", optional = true}
+[project.optional-dependencies]
+openpyxl = ["openpyxl>=3.0.5"]
+all = ["openpyxl>=3.0.5"]
 
-[tool.poetry.extras]
-excel = ["openpyxl"]
-all = ["openpyxl"]
+[dependency-groups]
+dev = [
+  "mypy[faster-cache]==1.15.0",
+  "pre-commit==4.2.0",
+  "pytest==8.3.5",
+  "pytest-cov==6.1.1",
+  "ruff==0.11.11",
+  "pandas-stubs==2.2.3.250308",
+]
 
-[tool.poetry.group.dev.dependencies]
-mypy = ">=0.981"
-pre-commit = ">=2.20.0"
-pytest = ">=7.1.3"
-pytest-cov = ">=4.0.0"
-ruff = ">=0.0.253"
-pandas-stubs = ">=2.0.1.230501"
+[tool.hatch.version]
+path = "sas7bdat_converter/__init__.py"
 
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[project.urls]
+repository = "https://github.com/sanders41/sas7bdat-converter"
+homepage = "https://github.com/sanders41/sas7bdat-converter"
+documentation = "https://github.com/sanders41/sas7bdat-converter"
 
 [tool.mypy]
 disallow_untyped_defs = true
@@ -59,7 +64,23 @@ minversion = "6.0"
 addopts = "--cov=sas7bdat_converter --cov-report term-missing"
 
 [tool.ruff]
-select = ["E", "F", "UP", "I001", "T201", "T203"]
+line-length = 100
+target-version = "py310"
+fix = true
+
+[tool.ruff.lint]
+select=[
+  "E",  # pycodestyle
+  "B",  # flake8-bugbear
+  "W",  # Warning
+  "F",  # pyflakes
+  "UP",  # pyupgrade
+  "I001",  # unsorted-imports
+  "T201",  # Don't allow print
+  "T203",  # Don't allow pprint
+  "RUF022",  # Unsorted __all__
+  "RUF023",  # Unforted __slots__
+]
 ignore=[
   # Recommened ignores by ruff when using formatter
   "E501",
@@ -78,6 +99,3 @@ ignore=[
   "ISC001",
   "ISC002",
 ]
-line-length = 100
-target-version = "py310"
-fix = true

@@ -365,10 +365,10 @@ def to_excel(sas7bdat_file: str | Path, export_file: str | Path) -> None:
     df = to_dataframe(sas7bdat_file)
     try:
         df.to_excel(export_file, index=False)
-    except ModuleNotFoundError:
+    except ModuleNotFoundError as e:
         raise ModuleNotFoundError(
             "The optional dependency openpyxl is required in order to convert to an Excel file"
-        )
+        ) from e
 
 
 def to_json(sas7bdat_file: str | Path, export_file: str | Path) -> None:
