@@ -169,7 +169,7 @@ def test_batch_to_csv_no_continue_sas(tmp_path, sas_file_1):
         {"sas7bdat_file": sas_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         converter.batch_to_csv(file_dict, continue_on_error=False)
 
 
@@ -183,7 +183,7 @@ def test_batch_to_csv_no_continue_xpt(tmp_path, xpt_file_1):
         {"sas7bdat_file": xpt_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         converter.batch_to_csv(file_dict, continue_on_error=False, verbose=False)
 
 
@@ -573,7 +573,7 @@ def test_batch_to_json_no_continue_sas(tmp_path, sas_file_1):
         {"sas7bdat_file": sas_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         converter.batch_to_json(file_dict, continue_on_error=False)
 
 
@@ -587,7 +587,7 @@ def test_batch_to_json_no_continue_xpt(tmp_path, xpt_file_1):
         {"sas7bdat_file": xpt_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         converter.batch_to_json(file_dict, continue_on_error=False)
 
 
@@ -1017,7 +1017,7 @@ def test_batch_to_xml_no_continue_sas(tmp_path, sas_file_1):
         {"sas7bdat_file": sas_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         converter.batch_to_xml(file_dict, continue_on_error=False)
 
 
@@ -1031,7 +1031,7 @@ def test_batch_to_xml_no_continue_xpt(tmp_path, xpt_file_1):
         {"sas7bdat_file": xpt_file_1, "export_file": converted_file},
     ]
 
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         converter.batch_to_xml(file_dict, continue_on_error=False)
 
 
@@ -1215,7 +1215,7 @@ def test_dir_to_csv_no_continue_sas(tmp_path, sas7bdat_dir, bad_sas_file):
         shutil.copy(sas_file, str(tmp_path))
 
     shutil.copy(bad_sas_file, str(tmp_path))
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         converter.dir_to_csv(tmp_path, continue_on_error=False)
 
 
@@ -1225,7 +1225,7 @@ def test_dir_to_csv_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
         shutil.copy(sas_file, str(tmp_path))
 
     shutil.copy(bad_xpt_file, str(tmp_path))
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         converter.dir_to_csv(tmp_path, continue_on_error=False)
 
 
@@ -1411,7 +1411,7 @@ def test_dir_to_excel_no_continue_sas(tmp_path, sas7bdat_dir, bad_sas_file):
         shutil.copy(sas_file, str(tmp_path))
 
     shutil.copy(bad_sas_file, str(tmp_path))
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         converter.dir_to_excel(tmp_path, continue_on_error=False)
 
 
@@ -1421,7 +1421,7 @@ def test_dir_to_excel_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
         shutil.copy(xpt_file, str(tmp_path))
 
     shutil.copy(bad_xpt_file, str(tmp_path))
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         converter.dir_to_excel(tmp_path, continue_on_error=False)
 
 
@@ -1575,7 +1575,7 @@ def test_dir_to_json_no_continue_sas(tmp_path, sas7bdat_dir, bad_sas_file):
         shutil.copy(sas_file, str(tmp_path))
 
     shutil.copy(bad_sas_file, str(tmp_path))
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         converter.dir_to_json(tmp_path, continue_on_error=False)
 
 
@@ -1585,7 +1585,7 @@ def test_dir_to_json_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
         shutil.copy(xpt_file, str(tmp_path))
 
     shutil.copy(bad_xpt_file, str(tmp_path))
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         converter.dir_to_json(tmp_path, continue_on_error=False)
 
 
@@ -1739,7 +1739,7 @@ def test_dir_to_xml_no_continue_sas(tmp_path, sas7bdat_dir, bad_sas_file):
         shutil.copy(sas_file, str(tmp_path))
 
     shutil.copy(bad_sas_file, str(tmp_path))
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         converter.dir_to_xml(tmp_path, continue_on_error=False)
 
 
@@ -1749,7 +1749,7 @@ def test_dir_to_xml_no_continue_xpt(tmp_path, xpt_dir, bad_xpt_file):
         shutil.copy(xpt_file, str(tmp_path))
 
     shutil.copy(bad_xpt_file, str(tmp_path))
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         converter.dir_to_xml(tmp_path, continue_on_error=False)
 
 

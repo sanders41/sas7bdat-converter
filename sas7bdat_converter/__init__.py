@@ -14,6 +14,8 @@ from sas7bdat_converter.converter import (  # noqa: F401
     to_xml,
 )
 
+__version__ = "3.0.0"
+
 __all__ = [
     "batch_to_csv",
     "batch_to_excel",
@@ -31,4 +33,3 @@ __all__ = [
 ]
 
 name = "sas7bdat_converter"
-__version__ = "1.3.0"
