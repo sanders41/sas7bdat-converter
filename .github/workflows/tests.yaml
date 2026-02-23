@@ -22,7 +22,7 @@ jobs:
       - name: Install Dependencies
         run: uv sync --frozen --all-extras
       - name: mypy check
-        run: uv run mypy sas7bdat_converter
+        run: uv run mypy sas7bdat_converter tests
 
   Testing:
     strategy:
