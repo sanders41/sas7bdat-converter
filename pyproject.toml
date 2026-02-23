@@ -32,11 +32,11 @@ all = ["openpyxl>=3.0.5"]
 [dependency-groups]
 dev = [
   "mypy[faster-cache]==1.15.0",
-  "pre-commit==4.2.0",
+  "pandas-stubs==2.2.3.250308",
+  "prek>=0.3.3",
   "pytest==8.3.5",
   "pytest-cov==6.1.1",
   "ruff==0.11.11",
-  "pandas-stubs==2.2.3.250308",
 ]
 
 [tool.hatch.version]
