@@ -12,7 +12,7 @@ for something that interests you.
 
 Please include:
 
-1.  A short, self-contained Python snippet reproducing the problem. You can format the code by using
+1. A short, self-contained Python snippet reproducing the problem. You can format the code by using
     [GitHub markdown](https://docs.github.com/en/free-pro-team@latest/github/writing-on-github). For
     example:
 
@@ -23,7 +23,7 @@ Please include:
         ...
         ```
 
-2.  Explain what is currently happening and what you expect instead.
+2. Explain what is currently happening and what you expect instead.
 
 ## Working on the code
 
@@ -75,7 +75,7 @@ git checkout main
 git pull upstream main --ff-only
 ```
 
-### Code Standards and tests (ruff, mypy, pytest, and pre-commit)
+### Code Standards and tests (ruff, mypy, pytest, and prek)
 
 sas7bdat-converter uses [ruff](https://github.com/charliermarsh/ruff) and
 [mypy](https://mypy.readthedocs.io/en/stable/) to ensure consistent code formatting.
@@ -93,18 +93,18 @@ poetry run ruff format sas7bdat_converter tests
 poetry run mypy sas7bdat_converter
 ```
 
-It is also suggested that you setup [pre-commit](https://pre-commit.com/) in order to run linting
-when you commit changes to you branch. To setup pre-commit for this project run:
+It is also suggested that you setup [prek](https://github.com/j178/prek) in order to run linting
+when you commit changes to you branch. To setup prek for this project run:
 
 ```sh
-pre-commit install -E openpyxl
+prek install
 ```
 
-After this pre-commit will automatically run any time you check in code to your branches. You can
-also run pre-commit at any time with:
+After this prek will automatically run any time you check in code to your branches. You can
+also run prek at any time with:
 
 ```sh
-pre-commit run --all-files
+prek run --all-files
 ```
 
 ### Type Hints
@@ -180,7 +180,7 @@ Now you can commit your changes in your local repository:
 git commit -am 'Some short helpful message to describe your changes'
 ```
 
-If you setup pre-commit and any of the tests fail the commit will be cancelled and you will need to
+If you setup prek and any of the tests fail the commit will be cancelled and you will need to
 fix any errors. Once the errors are fixed you can run the same git commit command again.
 
 ## Push your changes
