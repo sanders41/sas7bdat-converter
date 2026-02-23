@@ -386,7 +386,7 @@ def to_json(sas7bdat_file: str | Path, export_file: str | Path) -> None:
         raise AttributeError(error_message)
 
     df = to_dataframe(sas7bdat_file)
-    df.to_json(export_file)
+    df.to_json(export_file, date_format="iso")
 
 
 def to_xml(
