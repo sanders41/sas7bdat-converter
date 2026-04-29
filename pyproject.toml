@@ -34,7 +34,7 @@ dev = [
   "mypy[faster-cache]==1.15.0",
   "pandas-stubs==2.2.3.250308",
   "prek>=0.3.3",
-  "pytest==8.3.5",
+  "pytest==9.0.3",
   "pytest-cov==6.1.1",
   "ruff==0.11.11",
 ]
