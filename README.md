@@ -1,7 +1,6 @@
 # sas7bdat-converter: Convert sas7bdat files into other formats
 
 [![Tests Status](https://github.com/sanders41/sas7bdat-converter/actions/workflows/tests.yaml/badge.svg?branch=main&event=push)](https://github.com/sanders41/sas7bdat-converter/actions?query=workflow%3ATests+branch%3Amain+event%3Apush)
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/sanders41/sas7bdat-converter/main.svg)](https://results.pre-commit.ci/latest/github/sanders41/sas7bdat-converter/main)
 [![Coverage](https://codecov.io/github/sanders41/sas7bdat-converter/coverage.svg?branch=main)](https://codecov.io/gh/sanders41/sas7bdat-converter)
 [![PyPI version](https://badge.fury.io/py/sas7bdat-converter.svg)](https://badge.fury.io/py/sas7bdat-converter)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/sas7bdat-converter?color=5cc141)](https://github.com/sanders41/sas7bdat-converter)
