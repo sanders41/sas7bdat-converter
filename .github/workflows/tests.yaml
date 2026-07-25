@@ -23,7 +23,13 @@ jobs:
         run: uv sync --frozen --all-extras
       - name: mypy check
         run: uv run mypy sas7bdat_converter tests
-
+  prek:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: j178/prek-action@v2
+        env:
+          SKIP: no-commit-to-branch
   Testing:
     strategy:
       fail-fast: false
