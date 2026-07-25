@@ -13,8 +13,8 @@ for something that interests you.
 Please include:
 
 1. A short, self-contained Python snippet reproducing the problem. You can format the code by using
-    [GitHub markdown](https://docs.github.com/en/free-pro-team@latest/github/writing-on-github). For
-    example:
+   [GitHub markdown](https://docs.github.com/en/free-pro-team@latest/github/writing-on-github). For
+   example:
 
         ```py
         from sas7bdat_converter import to_dataframe
@@ -45,13 +45,13 @@ This creates the directory sas7bdat-converter and connects your repository to th
 
 ### Working with the code
 
-Note: This project uses Poetry to manage dependencies. If you do not already have Poetry installed
-you will need to install it with the instructions [here](https://python-poetry.org/docs/#installation)
+Note: This project uses uv to manage dependencies. If you do not already have uv installed you will
+need to install it with the [installation instructions](https://docs.astral.sh/uv/getting-started/installation/)
 
 First the requirements need to be installed.
 
 ```sh
-poetry install -E all
+uv sync --frozen --all-extras
 ```
 
 ### Creating a branch
@@ -75,22 +75,22 @@ git checkout main
 git pull upstream main --ff-only
 ```
 
-### Code Standards and tests (ruff, mypy, pytest, and prek)
+### Code Standards and tests (ruff, pyrefly, pytest, and prek)
 
 sas7bdat-converter uses [ruff](https://github.com/charliermarsh/ruff) and
-[mypy](https://mypy.readthedocs.io/en/stable/) to ensure consistent code formatting.
+[pyrefly](https://pyrefly.org/) to ensure consistent code formatting.
 
 You can run linting on your code at any time with:
 
 ```sh
 # Run ruff linter
-poetry run ruff check sas7bdat_converter tests
+uv run ruff check sas7bdat_converter tests
 
 # Run ruff formatter
-poetry run ruff format sas7bdat_converter tests
+uv run ruff format sas7bdat_converter tests
 
-# Run mypy
-poetry run mypy sas7bdat_converter
+# Run pyrefly
+uv run pyrefly check
 ```
 
 It is also suggested that you setup [prek](https://github.com/j178/prek) in order to run linting
@@ -147,13 +147,13 @@ codecov badge on the
 code coverage by running.
 
 ```sh
-poetry run pytest
+uv run pytest
 ```
 
 If you want to see which lines are missing code coverage run the tests with:
 
 ```sh
-poetry run pytest --cov-report term-missing
+uv run pytest --cov-report term-missing
 ```
 
 In additon to mainting the coverage percentage please ensure that all
