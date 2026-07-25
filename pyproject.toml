@@ -31,9 +31,9 @@ all = ["openpyxl>=3.0.5"]
 
 [dependency-groups]
 dev = [
-  "mypy[faster-cache]==1.15.0",
   "pandas-stubs==2.2.3.250308",
   "prek==0.4.11",
+  "pyrefly==1.1.1",
   "pytest==9.0.3",
   "pytest-cov==6.1.1",
   "ruff==0.11.11",
@@ -47,17 +47,9 @@ repository = "https://github.com/sanders41/sas7bdat-converter"
 homepage = "https://github.com/sanders41/sas7bdat-converter"
 documentation = "https://github.com/sanders41/sas7bdat-converter"
 
-[tool.mypy]
-disallow_untyped_defs = true
-strict = true
-
-[[tool.mypy.overrides]]
-module = ["tests.*"]
-disallow_untyped_defs = false
-
-[[tool.mypy.overrides]]
-module = ["pyarrow.*"]
-ignore_missing_imports = true
+[[tool.pyrefly.sub-config]]
+matches = "tests/**"
+check-unannotated-defs = false
 
 [tool.pytest.ini_options]
 minversion = "6.0"
