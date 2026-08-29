@@ -19,7 +19,7 @@ Please include:
         ```py
         from sas7bdat_converter import to_dataframe
 
-        df = to_dataframe('/path/to/file')
+        df = to_dataframe("/path/to/file")
         ...
         ```
 
@@ -115,8 +115,7 @@ functions/methods should specify the return type.
 Accepted examples:
 
 ```py
-def my_function(argument: str) -> None:
-    ...
+def my_function(argument: str) -> None: ...
 
 
 def another_function(num: int) -> int:
@@ -126,8 +125,7 @@ def another_function(num: int) -> int:
 Rejected examples:
 
 ```py
-def my_function(argument):
-    ...
+def my_function(argument): ...
 
 
 def another_function(num):
