@@ -14,7 +14,7 @@ from sas7bdat_converter.converter import (  # noqa: F401
     to_xml,
 )
 
-__version__ = "4.0.0"
+__version__ = "4.0.1"
 
 __all__ = [
     "batch_to_csv",
