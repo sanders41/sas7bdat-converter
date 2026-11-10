@@ -453,7 +453,7 @@ def _invalid_key_exception_message(
 
 
 def _is_valid_extension(valid_extensions: tuple[str], file_extension: str) -> bool:
-    return file_extension in valid_extensions
+    return file_extension.lower() in valid_extensions
 
 
 def _format_path(path: str | Path) -> str:
