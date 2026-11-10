@@ -187,6 +187,12 @@ def test_batch_to_csv_no_continue_xpt(tmp_path, xpt_file_1):
         converter.batch_to_csv(file_dict, continue_on_error=False, verbose=False)
 
 
+def test_to_csv_uppercase_extension(tmp_path, sas_file_1):
+    converted_file = tmp_path.joinpath("file1.CSV")
+    converter.to_csv(sas_file_1, converted_file)
+    assert converted_file.is_file()
+
+
 file_dicts = [
     [{"bad_key": "test.sas7bdat", "export_file": "test.csv"}],
     [{"sas7bdat_file": "test.sas7bdat", "bad_key": "test.csv"}],
