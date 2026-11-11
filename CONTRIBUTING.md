@@ -16,12 +16,12 @@ Please include:
    [GitHub markdown](https://docs.github.com/en/free-pro-team@latest/github/writing-on-github). For
    example:
 
-        ```py
-        from sas7bdat_converter import to_dataframe
+   ```py
+   from sas7bdat_converter import to_dataframe
 
-        df = to_dataframe("/path/to/file")
-        ...
-        ```
+   df = to_dataframe("/path/to/file")
+   ...
+   ```
 
 2. Explain what is currently happening and what you expect instead.
 
@@ -209,6 +209,13 @@ against the branch it was based on by:
 2. Click on Branches
 3. Click on the Compare button for your feature branch
 4. Select the base and compare branches, if necessary. This will be main and my-new-feature, respectively.
+
+### Automated Code and AI
+
+Pull Pequests authored and/or co-authored by AI (for example LLMs) will not be accepted. You can use
+these tools, however as the person submitting the Pull Request you are responsible for manually
+reviewing and testing 100% of the changes before creating a Pull Request, and the AI should not be
+listed as a creator. Failure to do this will result in the Pull Request being closed.
 
 ### Make the pull request
 
